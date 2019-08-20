@@ -1,18 +1,18 @@
 <template>
-    <div class="login" id="login">
+    <div class="login">
         <!-- <div>
             <img src="./static/images/" alt="">
         </div> -->
         <div class="login_content">
-            <div>
+            <div class="form_item">
                 <label for="username">用户名</label>
                 <input type="text" id="username">
             </div>
-            <div>
+            <div class="form_item">
                 <label for="password">密&nbsp;码</label>
                 <input type="text" id="password">
             </div>
-            <div>
+            <div class="form_item">
                 <label for="password">角&nbsp;色</label>
                 <input type="text" id="password">
             </div>
@@ -36,34 +36,42 @@ export default {
 }
 </script>
 <style lang="sass">
-#login{
+.login{
     width:100%;
     height:100%;
     background:url(../../../static/images/login_bg.png) no-repeat;
     background-size: 100% 100%;
     overflow:hidden;
-    .demo-dynamic{
+    .login_content{
         width:40%;
         background:url(../../../static/images/login_content_bg.png) no-repeat;
         background-size: 100% 100%;  
-        margin:50px auto 0;
-        .el-form-item {
-            margin-bottom: 28px;
-            .el-form-item__label{
+        // margin
+        .form_item{
+            // margin-bottom:28px;
+            label{
                 font-size:18px;
                 color:#42f2e7;
             }
-            .el-input__inner{
-                background: #093132;
-            }
-            .el-button.el-button--primary{
-                border:0;
-                height:60px;
-                width:100%;
-                background:url(../../../static/images/login_sure_btn.png) no-repeat;
-                background-size: 100% 100%;
-            }   
         }
+        // margin:50px auto 0;
+        // .el-form-item {
+        //     margin-bottom: 28px;
+        //     .el-form-item__label{
+        //         font-size:18px;
+        //         color:#42f2e7;
+        //     }
+        //     .el-input__inner{
+        //         background: #093132;
+        //     }
+        //     .el-button.el-button--primary{
+        //         border:0;
+        //         height:60px;
+        //         width:100%;
+        //         background:url(../../../static/images/login_sure_btn.png) no-repeat;
+        //         background-size: 100% 100%;
+        //     }   
+        // }
     }
     .login_footer{
         width:100%;
