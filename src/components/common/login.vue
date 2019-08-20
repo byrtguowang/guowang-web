@@ -64,9 +64,23 @@ export default {
         margin:0 auto;
         min-width:550px;
     }
+    @media (max-width: 1366px) {
+        .login_logo{
+            margin:80px auto 13px;
+        }
+    }
+    @media (min-width:1600px){
+        .login_logo{
+            margin:120px auto 33px;
+        }
+    }
+    @media (min-width:1920px){
+        .login_logo{
+            margin:277px auto 43px;
+        }
+    }
     .login_logo{
-        margin-top:80px;
-        margin-bottom:13px;
+        // margin:80px 0 13px;
         padding:0 20px;
         img{
             width:100%;
