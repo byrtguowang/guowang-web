@@ -15,6 +15,15 @@ export default [{
         meta:{title:'首页'}
     }, 
 
+    // map
+    {
+        path: "map",
+        name: "map",
+        component: resolve =>
+            require(["../../components/page/map.vue"], resolve),
+        meta:{title:'map'}
+    }, 
+
     // IT规划
     {
         path: "ITPlanning",

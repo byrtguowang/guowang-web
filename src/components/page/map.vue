@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        
+    <div class="content">
+        首页
     </div>
 </template>
 
@@ -28,5 +28,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-    
+    .content{
+    }
 </style>

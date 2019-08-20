@@ -29,11 +29,10 @@ export default {
 </script>
 <style lang="sass" scoped>
 .contentview{
-    width:100%;
     min-width:1200px;
     font-size:14px;
     background:#fff;
-    padding:0;
+    padding:18px 12px;
     margin: 0;
     min-height: calc(100vh);
 }
