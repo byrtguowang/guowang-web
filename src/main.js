@@ -6,6 +6,7 @@ import ElementUI from 'element-ui';
 import store from "./vuex/store"
 import "element-ui/lib/theme-chalk/index.css";
 import "babel-polyfill";
+import charts from 'echarts'
 
 
 // 重制样式
@@ -65,6 +66,7 @@ import './../static/css/public.css'
 Vue.use(ElementUI);
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$echarts = charts
 
 new Vue({
     router,
