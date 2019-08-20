@@ -106,6 +106,7 @@ export default {
             textarea:-webkit-autofill,
             select:-webkit-autofill {
                 -webkit-box-shadow: 0 0 0 1000px #093132 inset;
+                -webkit-text-fill-color: #05dfd1;
             }
         }
         .form_remanber{
