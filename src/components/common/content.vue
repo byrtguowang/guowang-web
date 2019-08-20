@@ -1,8 +1,5 @@
 <template>
     <div class="contentWrap boxSizing"  v-scrollHeight = "0">
-        <div class="ccid_content_off">
-              内容区 可写面包屑
-         </div>
         <router-view class="contentview"></router-view>
     </div>
 </template>
