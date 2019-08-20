@@ -29,5 +29,6 @@ export default {
 
 <style scoped lang='sass'>
     .content{
+        background:#15181f;
     }
 </style>

@@ -34,7 +34,7 @@ export default {
     background:#fff;
     padding:18px 12px;
     margin: 0;
-    min-height: calc(100vh);
+    min-height: calc(100vh - 126px);
 }
 
 .contentWrap{
