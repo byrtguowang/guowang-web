@@ -1,6 +1,12 @@
 <template>
     <div class="header">
-         header
+        <div class="logo">
+            <img src="static/images/logo.png">
+        </div>
+        <div class="right">
+            <div class="title">早上好，周先生（国网浙江分公司管理员）</div>
+            <img src="static/images/top_more.png">
+        </div>
     </div>
 </template>
 <script>
@@ -31,8 +37,26 @@ export default {
     .header{
         overflow: hidden;
         width:100%;
-        height:68px;
-        background-color: rgb(68, 172, 200);
+        height:90px;
+        line-height:90px;
+        background-color: #012a2f;
         min-width:1200px;
+
+        .logo {
+            float:left;
+        }
+
+        .right{
+            float:right;
+            margin-right:24px;
+
+            .title{
+                font-size:18px;
+                color:#22C4AC;
+                float:left;
+                margin-right:28px;
+            }
+        }
     }
+    
 </style>

@@ -29,33 +29,23 @@ export default {
 </script>
 <style lang="sass" scoped>
 .contentview{
-    min-width:1000px;
+    width:100%;
+    min-width:1200px;
     font-size:14px;
     background:#fff;
-    padding:0 20px 20px;
+    padding:0;
     margin: 0;
-    border-right:1px solid #bacfe2;
-    min-height: calc(100vh - 230px);
+    min-height: calc(100vh);
 }
 
 .contentWrap{
-  width:-moz-calc(100% - 246px);
-  width:-webkit-calc(100% - 246px);
-  width: calc(100% - 246px);
+  width:-moz-calc(100%);
+  width:-webkit-calc(100%);
+  width: calc(100%);
   height:100%;
   background:#fff;
   float:left;
   overflow: hidden;
-}
-.ccid_content_off{
-  width: 100%;
-  height:50px;
-  min-width:1010px;
-  line-height: 50px;
-  background-size: 100%;
-  border-right:1px solid #bacfe2;
-  // border-top:1px solid #bacfe2;
-  background-color:#FFFFFF;
 }
  
 </style>
