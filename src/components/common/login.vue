@@ -6,15 +6,15 @@
         <div class="login_content">
             <div class="form_item">
                 <label for="username">用户名</label>
-                <input type="text" id="username">
+                <input type="text" id="username" v-model="username" placeholder="请填写用户名">
             </div>
             <div class="form_item">
                 <label for="password">密&nbsp;&nbsp;&nbsp;码</label>
-                <input type="text" id="password">
+                <input type="text" id="password" v-model="password" placeholder="请填写密码">
             </div>
             <div class="form_item">
                 <label>角&nbsp;&nbsp;&nbsp;色</label>
-                <el-select v-model="role" placeholder="请选择">
+                <el-select v-model="role" placeholder="请选择角色">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -42,6 +42,8 @@ export default {
                 {value: '1',label: '物资处'},
                 {value: '2',label: '物资处2'}
             ],
+            username:'',
+            password:'',
             role:'1',
         }
     }
@@ -69,7 +71,7 @@ export default {
             margin:80px auto 13px;
         }
     }
-    @media (min-width:1600px){
+    @media (min-width:1440px){
         .login_logo{
             margin:120px auto 33px;
         }
@@ -80,7 +82,6 @@ export default {
         }
     }
     .login_logo{
-        // margin:80px 0 13px;
         padding:0 20px;
         img{
             width:100%;
