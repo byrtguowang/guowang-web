@@ -31,7 +31,7 @@ export default {
 .contentview{
     min-width:1200px;
     font-size:14px;
-    background:#fff;
+    background:#151a20;
     padding:18px 12px;
     margin: 0;
     min-height: calc(100vh - 126px);
@@ -42,7 +42,7 @@ export default {
   width:-webkit-calc(100%);
   width: calc(100%);
   height:100%;
-  background:#fff;
+  background:#151a20;
   float:left;
   overflow: hidden;
 }

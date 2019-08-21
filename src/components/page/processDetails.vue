@@ -501,7 +501,7 @@ export default {
                             box-sizing:border-box;
                         }
                         .chart-box-content{
-                            height:75%;
+                            height:78%;
                             background:rgba(27,35,44,0.61);
                             margin-top:3px;
                             display:flex;
@@ -586,6 +586,9 @@ export default {
         border-radius:10px;
         background:rgba(27,35,44,0.61);
         border:1px solid #2ea995;
+        width:281px;
+        height:38px;
+        margin-right:5px;
     }
     
 </style>
