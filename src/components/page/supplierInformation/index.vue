@@ -221,7 +221,7 @@ export default {
                         avoidLabelOverlap: false,
                         hoverAnimation:false,
                         label: false,
-                        labelLine:false
+                        labelLine:false,
                     }
                 ]
             }
@@ -245,15 +245,16 @@ export default {
             const data=[
                 {
                     name:'实际下线（台）',
-                    value:500,
-                },{
-                    name:'当前下线（台）',
                     value:65,
+                },{
+                    name:'当前计划（台）',
+                    value:500-65,
                 }
             ];
             let options={
                 ...this.optionsPie
             },
+            series=[],
             legend=[],
             myCharts=this.$echarts.init(this.$refs.echarts1);
             myCharts.resize();
@@ -271,8 +272,9 @@ export default {
                         color: '#ffffff'
                     }
                 })
+                series.push(item);
             }
-            options.series[0].data=data;
+            options.series[0].data=series;
             options.legend.data=legend;
             myCharts.setOption(options);
         },    
