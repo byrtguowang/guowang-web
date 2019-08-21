@@ -30,6 +30,20 @@ export default [{
             require(["../../components/page/supplierInformation"], resolve),
         meta:{title:'供应商信息'}
     }, 
+    {
+        path: "electricEnergyMeter",
+        name: "electricEnergyMeter",
+        component: resolve =>
+            require(["../../components/page/electricEnergyMeter"], resolve),
+        meta:{title:'电能表'}
+    }, 
+    {
+        path: "processDetails",
+        name: "processDetails",
+        component: resolve =>
+            require(["../../components/page/processDetails"], resolve),
+        meta:{title:'工艺详情'}
+    }, 
 
     // IT规划
     {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        首页
+        数据网关
     </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     },
        
     created() {
-      
+
     },
 
     watch:{
