@@ -1,10 +1,11 @@
 <template>
-<div class="supplier_information">
+<div class="supplier_information" id="supplier_information">
     <div class="information_top mb10">
         <div class="left">
             <div class="title">
                 <p>供应商信息</p>
             </div>
+            <div class="information_content"></div>
         </div>
         <div class="right">
             <div class="title">
@@ -32,7 +33,46 @@
     <div class="information_bottom">
         <div class="left">
             <div class="title">
-                <p>销售订单信息</p>
+                <p>销售订单信息 <span>更多></span></p>
+            </div>
+            <div class="information_content table">
+                <el-table
+                    :data="tableData3"
+                    style="width: 100%"
+                    height="310">
+                    <el-table-column
+                    prop="contractNumber"
+                    align="center"
+                    label="国网采购合同号">
+                    </el-table-column>
+                    <el-table-column
+                    prop="orderNumber"
+                    align="center"
+                    label="销售订单号">
+                    </el-table-column>
+                    <el-table-column
+                    prop="orderQuantity"
+                    align="center"
+                    width="100"
+                    label="订单数量">
+                    </el-table-column>
+                    <el-table-column
+                    prop="entryName"
+                    align="center"
+                    label="工程项目名称">
+                    </el-table-column>
+                    <el-table-column
+                    prop="date"
+                    align="center"
+                    width="100"
+                    label="交货日期">
+                    </el-table-column>
+                    <el-table-column
+                    prop="speedOfProgress"
+                    align="center"
+                    label="进度">
+                    </el-table-column>
+                </el-table>
             </div>
         </div>
         <div class="right">
@@ -65,7 +105,64 @@
 export default {
     data() {
         return {
-        };
+            tableData3: [{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },{
+            contractNumber:'XSDD-20170616-V4BY7V343N',
+            orderNumber:'XSDD-20170616-V4BY7V343N',
+            orderQuantity:9999999,
+            entryName:'圆钢供应商项目项目名称',
+            date: '2018-05-10',
+            speedOfProgress:'66%',
+            },]
+        }
     },
     mounted() {
 
@@ -83,10 +180,55 @@ export default {
     },
 };
 </script>
-
+<style lang='sass'>
+    #supplier_information{
+        .el-table{
+            color:#23e4c7;
+            thead{
+                color:#20ad98;
+                th{
+                    border-color:#34b6a2;
+                }
+            }
+            &:before{
+                background:#34b6a2;
+            }
+            &,tr,th,td{
+                background: transparent;
+            }
+            &,.el-table__body td{
+                border:0;
+            }
+            .el-table__body{
+                position:relative;
+                background:rgba(27,35,44,.4);
+            }
+            .el-table__body:after{
+                content:'';
+                width:1px;
+                height:100%;
+                background:#34b6a2;
+                position:absolute;
+                right:0;
+                top:0;
+            }
+            .el-table__body:before{
+                content:'';
+                width:1px;
+                height:100%;
+                background:#34b6a2;
+                position:absolute;
+                left:0;
+                top:0;
+            }
+            .el-table__body .el-table__row:nth-child(2n){
+                background:linear-gradient(to right,#02514c, #012a2f);
+            }
+        }
+    }
+</style>
 <style scoped lang='sass'>
 .supplier_information{
-    
     background-color:#15181f;
     color:#fff;
     // title样式
@@ -95,21 +237,36 @@ export default {
         border-left:10px solid #22c4ac;
         background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
         margin-bottom:11px;
-
         p{
             line-height:37px;
             color:#27F0D2;
             font-size:18px;
             margin-left:20px;
+            position:relative;
+            span{
+                position:absolute;
+                right:30px;
+                font-size:14px;
+                color:#20ad98;
+            }
         }
     }
     .information_top,.information_bottom{
         display:flex;
     }
+    .information_content{
+        background:linear-gradient(#02514c, #012a2f);
+        flex:1;
+        &.table{
+            padding:44px 20px 10px;
+        }
+    }
     //左右布局的样式
     .left{
         flex:3;
-        margin-right:20px;
+        margin-right:11px;
+        display:flex;
+        flex-direction:column;
     }
     .right{
         flex:1;
