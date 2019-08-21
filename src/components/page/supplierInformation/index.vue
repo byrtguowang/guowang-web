@@ -5,7 +5,24 @@
             <div class="title">
                 <p>供应商信息</p>
             </div>
-            <div class="information_content"></div>
+            <div class="information_content echarts_wrap">
+                <div class="echarts_box">
+                    <div class="echarts_tit">
+                        <p>供应商名称</p>
+                        <span>南京供应商</span>
+                    </div>
+                    <div class="echarts_con" ref="echarts1"></div>
+                    <div class="echarts_con" ref="echarts2"></div>
+                </div>
+                <div class="echarts_box">
+                    <div class="echarts_tit">
+                        <p>供应商地址</p>
+                        <span>南京解放路甲一号</span>
+                    </div>
+                    <div class="echarts_con" ref="echarts3"></div>
+                    <div class="echarts_con" ref="echarts4"></div>
+                </div>
+            </div>
         </div>
         <div class="right">
             <div class="title">
@@ -161,22 +178,235 @@ export default {
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
             speedOfProgress:'66%',
-            },]
+            },],
+            titleStyle:{
+                color:'#ffffff',
+                fontSize: 16
+            },
+            options:{
+                legend: {
+                    left:'75%',
+                    top:'50%',
+                    orient: 'vertical',
+                    itemWidth:14,
+                    itemHeight:14,
+                },
+                grid: {
+                    top:'50',
+                    left: '3%',
+                    right: '30%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : ['1','2','3','4','5','6','7','8','9','10','11','12'],
+                        axisLine:{
+                            lineStyle:{
+                                color:'#aaaaaa'
+                            }
+                        },
+                        axisLabel:{
+                            color:'#aaaaaa'
+                        },
+                        axisTick:false,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitLine: false,
+                        axisLine:{
+                            lineStyle:{
+                                color:'#aaaaaa'
+                            }
+                        },
+                        axisLabel:{
+                            color:'#aaaaaa'
+                        },
+                        splitLine:false,
+                        axisTick:false,
+                    }
+                ],
+            },
+            optionsPie:{
+                legend: {
+                    orient: 'vertical',
+                    height:'88',
+                    left:'50%',
+                    top:'30%',
+                    color: '#ffffff',
+                    itemWidth:14,
+                    itemHeight:14,
+                },
+                series: [
+                    {
+                        type:'pie',
+                        radius: ['50%', '70%'],
+                        center:['32%','54%'],
+                        avoidLabelOverlap: false,
+                        hoverAnimation:false,
+                        label: false,
+                        labelLine:false
+                    }
+                ]
+            }
         }
     },
-    mounted() {
-
+    mounted() { 
+        this.drawLine2();
+        this.drawLine3();
+        this.drawLine4();
+        window.onresize=()=>{
+            this.drawLine2();
+            this.drawLine3();
+            this.drawLine4();
+        }
     },
-    methods: {
+    
+    methods: {      
+        drawLine2(){
+            const data=[
+                {
+                    name:'已完成生产订单',
+                    value:[20, 12, 11, 14, 25, 23,20, 12, 11, 13, 17, 23]
+                },{
+                    name:'生产订单总量',
+                    value:[10, 22, 19, 14, 19, 20, 25, 6, 9, 19, 12, 5]
+                },
+            ];
 
-    },
-       
-    created() {
-      
-    },
+            let options={
+                ...this.options
+            },
+            series=[],
+            legend=[],
+            myCharts=this.$echarts.init(this.$refs.echarts2);
+            myCharts.resize();
+            options.color=['#0e7b54','#249291'];
+            options.title={
+                text:'订单完成率',
+                top:11,
+                textStyle:this.titleStyle
+            }
+            for(let item of data){
+                series.push({
+                    type:'line',
+                    areaStyle:{},
+                    name:item.name,
+                    data:item.value
+                });
+                legend.push({
+                    name: item.name,
+                    icon: 'rect',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                });
+            }
+            options.series=series;
+            options.legend.data=legend;
+            myCharts.setOption(options);
+        },
+        drawLine3(){
+            const data=[
+                {
+                    name:'PCB板贴片检测',
+                    value:500,
+                },{
+                    name:'电池电流测试',
+                    value:65,
+                },{
+                    name:'基本误差试验',
+                    value:350,
+                },{
+                    name:'通信端口检验',
+                    value:195,
+                },{
+                    name:'单板测试',
+                    value:335,
+                },{
+                    name:'耐压试验',
+                    value:310,
+                },{
+                    name:'日计时误差试验',
+                    value:234,
+                },{
+                    name:'参数设置',
+                    value:135,
+                }
+            ];
+            let options={
+                ...this.optionsPie
+            },
+            legend=[],
+            myCharts=this.$echarts.init(this.$refs.echarts3);
+            myCharts.resize();
+            options.color=['#0e7b54','#249291'];
+            options.title={
+                text:'今日报警信息',
+                top:11,
+                textStyle:this.titleStyle
+            }
+            for(let item of data){
+                legend.push({
+                    name: item.name,
+                    icon: 'rect',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                })
+            }
+            options.color=['#ee5353','#f47d5d','#ffb069','#e88800','#d63636','#c38090','#f76688','#f6e529'];
+            options.series[0].data=data;
+            options.legend.data=legend;
+            myCharts.setOption(options);
+        },
+        drawLine4(){
+            const data=[
+                {
+                    name:'生产数据总数',
+                    value:[20, 12, 11, 14, 25, 23,20, 12, 11, 13, 17, 23]
+                },{
+                    name:'报警数据总数',
+                    value:[10, 22, 19, 14, 19, 20, 25, 6, 9, 19, 12, 5]
+                },
+            ];
 
-    watch:{
-
+            let options={
+                ...this.options
+            },
+            series=[],
+            legend=[],
+            myCharts=this.$echarts.init(this.$refs.echarts4);
+            myCharts.resize();
+            options.color=['#249291','#d97d10'];
+            options.title={
+                text:'生产质量监控',
+                top:11,
+                textStyle:this.titleStyle
+            }
+            for(let item of data){
+                series.push({
+                    type:'line',
+                    areaStyle:{},
+                    name:item.name,
+                    data:item.value
+                });
+                legend.push({
+                    name: item.name,
+                    icon: 'rect',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                });
+            }
+            options.series=series;
+            options.legend.data=legend;
+            myCharts.setOption(options);
+        },
     },
 };
 </script>
@@ -259,6 +489,41 @@ export default {
         flex:1;
         &.table{
             padding:44px 20px 10px;
+        }
+        &.echarts_wrap{
+            padding:12px 17px 0 21px;
+            display:flex;
+            .echarts_box{
+                flex:1;
+                display:flex;
+                flex-direction:column;
+                &:first-child{
+                    margin-right:41px;
+                }
+                .echarts_tit{
+                    background:linear-gradient(to right, #035853, #139E8E, #035853);
+                    position:relative;
+                    font-size:16px;
+                    p{
+                        width:156px;
+                        height:41px;
+                        line-height:41px;
+                        background:#1b232c;
+                        border:1px solid #34b6a2;
+                        text-align:center;
+                        
+                    }
+                    span{
+                        position:absolute;
+                        right:30px;
+                        top:50%;
+                        transform: translateY(-50%);
+                    }
+                }
+                .echarts_con{
+                    flex:1;
+                }
+            }
         }
     }
     //左右布局的样式
