@@ -20,11 +20,11 @@
                 </div>
                 <div class="chart-box">
                     <h4>订单完成率</h4>
-                    <div class="chart"></div>
+                    <div class="chart" ref="myEchartLine"></div>
                 </div>
                 <div class="chart-box mb25">
                     <h4>生产监控质量</h4>
-                    <div class="chart"></div>
+                    <div class="chart" ref="myEchartLine2"></div>
                 </div>
                 <div class="three">
                     <div class="item">
@@ -43,8 +43,36 @@
             </div>
         </div>
         <div class="center">
-            <div class="map">
-
+            <div class="select">
+                <div class="selected" @click="select">
+                    <span>河南许继仪表有限公司</span>
+                    <img src="static/images/pull.png">
+                </div>
+                <div class="options" v-show="selectShow">
+                    <span @click="selectOver">河南许继仪表有限公司1</span>
+                    <span @click="selectOver">河南许继仪表有限公司2</span>
+                    <span @click="selectOver">河南许继仪表有限公司3</span>
+                    <span @click="selectOver">河南许继仪表有限公司4</span>
+                    <span @click="selectOver">河南许继仪表有限公司5</span>
+                    <span @click="selectOver">河南许继仪表有限公司6</span>
+                </div>
+            </div>
+            <div class="map" ref="myEchart">
+                
+            </div>
+            <div v-show="showPop" class="map_pop">
+                <div class="header_name">
+                    <span>河南许继仪表有限公司</span>
+                </div>
+                <div class="map_popbox">
+                    <p>地址：<span>河南许昌县许继大道1289号</span></p>
+                    <p>区域：<span>河南省电网公司</span></p>
+                    <p>品类：<span>电容表</span></p>
+                    <p>级别：<span>一级</span></p>
+                </div>
+                <div class="map_btnbox">
+                    <a class="pop_btn" @click="jump">详情</a>
+                </div>
             </div>
             <div class="title">
                 <p>全国概况</p>
@@ -108,22 +136,382 @@
                     <div class="gj_name">电流测试</div>
                     <div class="gj_btn">3项告警</div>
                 </div>
+                <div class="item">
+                    <img src="static/images/img.png" >
+                    <div class="gj_name">电流测试</div>
+                    <div class="gj_btn">3项告警</div>
+                </div>
+                <div class="item">
+                    <img src="static/images/img.png" >
+                    <div class="gj_name">电流测试</div>
+                    <div class="gj_btn">3项告警</div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import echarts from "echarts";
+import '../../../node_modules/echarts/map/js/china.js' // 引入中国地图数据
 export default {
     data() {
         return {
+            chart: null,
+            showPop:false,
+            selectShow:false,
         };
     },
     mounted() {
-
+        this.chinaConfigure();
+        this.orderChart();
+        this.productionQuality();
+    },
+    beforeDestroy() {
+      if (!this.chart) {
+        return;
+      }
+      this.chart.dispose();
+      this.chart = null;
     },
     methods: {
+        // 地图
+        chinaConfigure() {
+            let _this = this;
+            let myChart = echarts.init(this.$refs.myEchart); //这里是为了获得容器所在位置    
+            window.onresize = myChart.resize;
+            var mapName = 'china'
+            var data = [{
+                    name: "北京",
+                    value: 33
+                },
+                {
+                    name: "天津",
+                    value: 42
+                },
 
+                {
+                    name: "新疆",
+                    value: 180
+                },
+                {
+                    name: "四川",
+                    value: 125
+                },
+            ];
+
+            var geoCoordMap = {};
+            var toolTipData = [{
+                    name: "北京",
+                    value: [{
+                        name: "科技人才总数",
+                        value: 14
+                    }, {
+                        name: "理科",
+                        value: 2
+                    }]
+                },
+                {
+                    name: "天津",
+                    value: [{
+                        name: "文科",
+                        value: 22
+                    }, {
+                        name: "理科",
+                        value: 20
+                    }]
+                },
+                {
+                    name: "新疆",
+                    value: [{
+                        name: "文科",
+                        value: 36
+                    }, {
+                        name: "理科",
+                        value: 31
+                    }]
+                },
+                {
+                    name: "四川",
+                    value: [{
+                        name: "文科",
+                        value: 65
+                    }, {
+                        name: "理科",
+                        value: 60
+                    }]
+                },
+            ];
+
+            /*获取地图数据*/
+            myChart.showLoading();
+            var mapFeatures = echarts.getMap(mapName).geoJson.features;
+            myChart.hideLoading();
+            mapFeatures.forEach(function(v) {
+                
+                // 地区名称
+                var name = v.properties.name;
+                // 地区经纬度
+                geoCoordMap[name] = v.properties.cp;
+
+            });
+
+            console.log(data)
+            console.log(toolTipData)
+
+            var convertData = function(data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    
+                    var geoCoord = geoCoordMap[data[i].name];
+                    // var geoCoord = [115.930538,39.864667]
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value),
+                        });
+                    }
+                }
+                return res;
+            };
+            var option = {
+                tooltip: {
+                    padding: 0,
+                    enterable: true,
+                    transitionDuration: 1,
+                    textStyle: {
+                        color: '#000',
+                        decoration: 'none',
+                    },
+                    formatter: function(params) {
+                        _this.showPop = !_this.showPop;
+                        // console.log(params)
+                        // var tipHtml = '';
+                        // var add = '河南许昌县许继大道1289号';
+                        // var area = '河南省电网公司';
+                        // var type = '电容表';
+                        // var level = '一级';
+                        // tipHtml = '<div style="width:394px;height:262px;background:rgba(26,45,48,0.66);border-left:2px solid #22c4ab;border-right:2px solid #22c4ab;font-size:16px;color:#aafff2;">' +
+                        //     '<div style="width:100%;height:60px;line-height:60px;text-align:center;">' +
+                        //     '<span>' + params.name + '</span>' + 
+                        //     '</div>' +
+                        //     '<div style="padding:0 50px;text-align:left;line-height:28px;">' +
+                        //     '<p>地址：' + '<span style="margin:0 6px;">' + add + '</span>' + '</p>' +
+                        //     '<p>' + 
+                        //     '区域：' + '<span style="margin:0 6px;">' + area + '</span>' + '</p>' +
+                        //     '<p>' + 
+                        //     '品类：' + '<span style="margin:0 6px;">' + type + '</span>' + '</p>' +
+                        //     '<p>' + 
+                        //     '级别：' + '<span style="margin:0 6px;">' + level + '</span>' + '</p>' +
+                        //     '</div>' + 
+                        //     '<div style="text-align:center;padding:25px 0;">'+
+                        //     '<a style="" class="pop_btn">详情</a>'+
+                        //     '</div>'+
+                        //     '</div>';
+                        // return tipHtml;
+                    },
+                    triggerOn: 'click'
+                },
+
+                geo: {
+                    show: true,
+                    map: mapName,
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    roam: false,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#17302e',
+                            borderColor: '#22c4ab'
+                        },
+                        emphasis: {
+                            areaColor: '#22c4ab',
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Top 5',
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        data: convertData(data.sort(function(a, b) {
+                            return b.value - a.value;
+                        }).slice(0, 10)),
+                        symbolSize: function(val) {
+                            console.log('daxiao='+ (val[2] / 10));
+                            //return val[2] / 10;
+                            return 18
+                        },
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'left',
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#22c4ab',
+                                shadowBlur: 10,
+                                shadowColor: '#1D4C44'
+                            }
+                        },
+                        zlevel: 1
+                    },
+
+                ]
+            };
+            myChart.setOption(option)
+        },
+        // 跳转详情
+        jump(){
+            this.showPop = false;
+        },
+        
+        // 下拉
+        select(){
+            this.selectShow = !this.selectShow
+        },
+
+        // 下拉选中
+        selectOver(){
+            this.selectShow = false
+        },
+
+        // 订单完成率
+        orderChart(){
+            let myChart = echarts.init(this.$refs.myEchartLine); //这里是为了获得容器所在位置    
+
+            //设置数据
+            var legendData = ['生产订单总量','已完成生产订单总量'];
+            var axisData = ['周一','周二','周三','周四','周五','周六','周日'];
+            var color = ['#22c47a','#4c9ba0'];
+            var seriesData = [[120, 132, 101, 134, 90, 230, 210],[220, 182, 191, 234, 290, 330, 310]]
+
+            var option = this.chartsOptions(legendData,axisData,color,seriesData);
+
+            myChart.setOption(option)
+        },
+
+        // 生产监控质量
+        productionQuality(){
+            let myChart = echarts.init(this.$refs.myEchartLine2); //这里是为了获得容器所在位置    
+
+            //设置数据
+            var legendData = ['生产数据总和','报警数据总和'];
+            var axisData = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+            var color = ['#CF7610','#22c47a'];
+            var seriesData = [
+                [120, 132, 101, 134, 90, 230, 210,134, 90, 230, 210,90],
+                [220, 182, 191, 234, 290, 330, 310,90,191, 234, 290, 330]
+            ]
+
+            var option = this.chartsOptions(legendData,axisData,color,seriesData);
+
+            myChart.setOption(option)
+        },
+
+        // 折线图
+        chartsOptions(legendData,axisData,color,seriesData){
+            var seriesOptionData = []
+            
+            legendData.forEach((el,index) => {
+                seriesOptionData.push({
+                    name:el,
+                    type:'line',
+                    symbol: 'none',
+                    itemStyle : {
+                        normal : {
+                            color : color[index],//改变折线点的颜色
+                            lineStyle:{
+                                color:color[index] //改变折线颜色
+                            }
+                        }
+                    },
+                    areaStyle: {
+                        normal:{
+                            color: color[index],
+                        }
+                    },
+                    data:seriesData[index]
+                })
+            })
+
+            var option = {
+                title: {
+                    show:false
+                },
+                legend: {
+                    data:legendData,
+
+                    icon: "rect",   //  这个字段控制形状  类型包括 circle，rect ，roundRect，triangle，diamond，pin，arrow，none
+
+                    itemWidth: 12,  // 设置宽度
+
+                    itemHeight: 12, // 设置高度
+
+                    itemGap: 25, // 设置间距
+
+                    // 设置文本为红色
+                    textStyle: {
+                        color: '#ccc'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top:'10%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : axisData,
+                        axisLabel:{
+                            color:'#ccc',
+                        },
+                        axisTick:{show:false},
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff'
+                            }
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel:{
+                            color:'#ccc',
+                        },
+                        splitLine:{
+                    　　　　show:false,
+                    　　 },
+                        axisTick:{show:false},
+                        axisLine:{
+                            lineStyle:{
+                                color:'#fff'
+                            }
+                        }
+                    }
+                ],
+                series : seriesOptionData
+            };
+            return option;
+        }
     },
        
     created() {
@@ -215,12 +603,13 @@ export default {
                     h4{
                         margin-left:20px;
                         margin-top:5px;
+                        margin-bottom:10px;
                         font-size:16px;
                         font-weight:normal;
                     }
 
                     .chart{
-                        height:170px;
+                        height:150px;
                     }
                 }
 
@@ -239,6 +628,7 @@ export default {
                             width:35%;
                             height:72px;
                             line-height:72px;
+                            font-size:18px;
                             text-align:center;
                             border:1px solid #035853;
                             border-left:2px solid #34b6a2;
@@ -273,12 +663,108 @@ export default {
         .center{
             flex:2;
             margin-right:19px;
+            position:relative;
+
+            .select{
+                width:300px;
+                position:absolute;
+                top:50px;
+                left:50px;
+                z-index:99999;
+
+                .selected{
+                    height:42px;
+                    line-height:42px;
+                    border-left:2px solid #22c4ab;
+                    border-right:2px solid #22c4ab;
+                    font-size:16px;
+                    background:rgba(34,196,172,0.34);
+                    padding-left:10px;
+                    cursor:pointer;
+
+                    img{
+                        line-height: 42px;
+                        float: right;
+                        margin-top: 15px;
+                        margin-right: 20px;
+                    }
+                }
+
+                .options{
+                    max-height:300px;
+                    background:rgba(34,196,172,0.34);
+                    font-size:16px;
+
+                    span{
+                        line-height:35px;
+                        padding-left:10px;
+                        display:block;
+                        cursor:pointer;
+                    }
+
+                    span:hover{
+                        background:rgba(34,196,172,0.66);
+                    }
+                }
+                
+            }
 
             .map{
                 height:674px;
                 background:url(../../../static/images/map_ground.png);
                 background-size:100% 100%;
                 margin-bottom:18px;
+        
+                
+            }
+
+            .map_pop{
+                width:394px;
+                height:262px;
+                background:rgba(26,45,48,0.66);
+                border-left:2px solid #22c4ab;
+                border-right:2px solid #22c4ab;
+                font-size:16px;
+                color:#aafff2;
+                position:absolute;
+                top:200px;
+                left:30%;
+
+                .header_name{
+                    width:100%;
+                    height:60px;
+                    line-height:60px;
+                    text-align:center;
+                }
+
+                .map_popbox{
+                    padding:0 50px;
+                    text-align:left;
+                    line-height:28px;
+
+                    span{
+                        margin:0 6px;
+                    }
+                }
+
+                .map_btnbox{
+                    text-align:center;
+                    padding:25px 0;
+
+                    .pop_btn{
+                        padding:5px 50px;
+                        border:1px solid #22c4ab;
+                        border-radius:25px;
+                        cursor: pointer;
+                        color:#22c4ab;
+                        text-decoration:none;
+                    }
+
+                    .pop_btn:hover{
+                        color:#fff;
+                        background: #22c4ab;
+                    }
+                }
             }
 
             .title{
@@ -322,9 +808,11 @@ export default {
                         border-right:4px solid #22c4ac;
                         background:linear-gradient(to right,#035853,#139e8e,#035853);
                         font-size:16px;
+                        color: #AAFFF2;
 
                         span{
                             font-size:50px;
+                            color:#fff;
                         }
                     }
                 }
@@ -401,4 +889,6 @@ export default {
             }
         }
     }
+
+    
 </style>
