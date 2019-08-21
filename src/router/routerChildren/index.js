@@ -23,6 +23,13 @@ export default [{
             require(["../../components/page/map.vue"], resolve),
         meta:{title:'map'}
     }, 
+    {
+        path: "supplierInformation",
+        name: "supplierInformation",
+        component: resolve =>
+            require(["../../components/page/supplierInformation"], resolve),
+        meta:{title:'供应商信息'}
+    }, 
 
     // IT规划
     {
