@@ -245,10 +245,10 @@ export default {
             const data=[
                 {
                     name:'实际下线（台）',
-                    value:65,
+                    value:100,
                 },{
                     name:'当前计划（台）',
-                    value:500-65,
+                    value:900,
                 }
             ];
             let options={
@@ -272,9 +272,22 @@ export default {
                         color: '#ffffff'
                     }
                 })
+                
                 series.push(item);
             }
             options.series[0].data=series;
+            options.series[0].data[0].label={
+                normal:{
+                    show:true,
+                    position: 'center',
+                    textStyle:{
+                        fontSize:36
+                    },
+                    formatter:'{d}%',
+                    // formatter:'检测合格率 <br /> {d}%',
+                },
+                
+            },
             options.legend.data=legend;
             myCharts.setOption(options);
         },    
