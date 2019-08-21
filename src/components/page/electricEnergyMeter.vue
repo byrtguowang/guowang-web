@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="module-content-list-bottom">
                                         <p class="orderNumber-title">当前订单号</p>
-                                        <p class="orderNumber">XSD-6384697fwei-HFIDSA</p>
+                                        <p class="orderNumber">XSD-6386fei-HDSA</p>
                                     </div>
                                 </div>
                                 <div class="module-content-list-box">
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="module-content-list-bottom">
                                         <p class="orderNumber-title">当前订单号</p>
-                                        <p class="orderNumber">XSD-6384697fwei-HFIDSA</p>
+                                        <p class="orderNumber">XSD-6386fei-HDSA</p>
                                     </div>
                                 </div>
                                 <div class="module-content-list-box">
@@ -265,7 +265,7 @@ export default {
                     text-align:left;
                     background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                     span{
-                        margin-left:4px;
+                        margin-left:6px;
                     }
                 }
             }
