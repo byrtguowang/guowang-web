@@ -150,34 +150,6 @@ export default {
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
             speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
             },],
             titleStyle:{
                 color:'#ffffff',
@@ -256,17 +228,54 @@ export default {
         }
     },
     mounted() { 
+        this.drawLine1();
         this.drawLine2();
         this.drawLine3();
         this.drawLine4();
         window.onresize=()=>{
+            this.drawLine1();
             this.drawLine2();
             this.drawLine3();
             this.drawLine4();
         }
     },
     
-    methods: {      
+    methods: {  
+        drawLine1(){
+            const data=[
+                {
+                    name:'实际下线（台）',
+                    value:500,
+                },{
+                    name:'当前下线（台）',
+                    value:65,
+                }
+            ];
+            let options={
+                ...this.optionsPie
+            },
+            legend=[],
+            myCharts=this.$echarts.init(this.$refs.echarts1);
+            myCharts.resize();
+            options.color=['#24e3c7','#018287'];
+            options.title={
+                text:'当前生产状态',
+                top:11,
+                textStyle:this.titleStyle
+            }
+            for(let item of data){
+                legend.push({
+                    name: item.name,
+                    icon: 'rect',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                })
+            }
+            options.series[0].data=data;
+            options.legend.data=legend;
+            myCharts.setOption(options);
+        },    
         drawLine2(){
             const data=[
                 {
@@ -344,7 +353,6 @@ export default {
             legend=[],
             myCharts=this.$echarts.init(this.$refs.echarts3);
             myCharts.resize();
-            options.color=['#0e7b54','#249291'];
             options.title={
                 text:'今日报警信息',
                 top:11,
@@ -429,10 +437,13 @@ export default {
             &,.el-table__body td{
                 border:0;
             }
-            .el-table__body{
-                position:relative;
+            .el-table__body-wrapper.is-scrolling-none{
                 background:rgba(27,35,44,.4);
             }
+            .el-table__body-wrapper.is-scrolling-none,.el-table__body{
+                position:relative;
+            }
+            .el-table__body-wrapper.is-scrolling-none:after,
             .el-table__body:after{
                 content:'';
                 width:1px;
@@ -442,7 +453,7 @@ export default {
                 right:0;
                 top:0;
             }
-            .el-table__body:before{
+            .el-table__body-wrapper.is-scrolling-none:before, .el-table__body:before{
                 content:'';
                 width:1px;
                 height:100%;
