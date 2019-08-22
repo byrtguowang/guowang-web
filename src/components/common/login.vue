@@ -35,6 +35,13 @@
     </div>
 </template>
 <script>
+import {
+    getNumberOfSuppliers
+} from '@api/login'
+import {
+    mapState,
+    mapMutations
+} from 'vuex'
 export default {
     data(){
         return {
@@ -47,8 +54,14 @@ export default {
             role:'1',
         }
     },
+    computed: mapState([
+        'loginInfo'
+    ]),
     methods:{
-        loginIn(){
+        ...mapMutations({
+            setlogin: 'SET_LOGIN_DATA'
+        }),
+        async loginIn(){
             if(!this.username){
                 this.$message({
                     type:'warning',
@@ -67,9 +80,24 @@ export default {
             }
             const obj={
                username:this.username, 
-               password:this.password
+               password:this.password,
+               rememberMe:this.role
             }
+            , {data}=await getNumberOfSuppliers(obj);
+            if(data.status==='0'||data.status===0){
+                this.setlogin(obj);
+            }else this.$message({
+                type:'error',
+                message:data.message
+            })
         }
+    },
+    mounted(){
+        console.log(this.loginInfo)
+        // let {username,password,rememberMe}=this.loginInfo;
+        // this.username=username;
+        // this.password=password;
+        // this.role=rememberMe;
     }
 }
 </script>

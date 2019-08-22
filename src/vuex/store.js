@@ -4,10 +4,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import vuexPersistedstate from 'vuex-persistedstate'
 
-//views中modules
-import client from './module/clientStore'
-//...
-import binStore from './module/binStore'
+import login from './module/loginStote'
 
 Vue.use(Vuex);
 
@@ -15,7 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     strict: process.env.NODE_ENV !== "production",
     modules: {
-        client,binStore
+        login
     },
     plugins:[vuexPersistedstate()]//引入vuexPersistedstate 用于缓存
 
