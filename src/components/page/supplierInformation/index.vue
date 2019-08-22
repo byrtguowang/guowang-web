@@ -32,17 +32,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn">0项告警</div>
+                    <div class="gj_btn" @click="jump2('')">0项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn">2项告警</div>
+                    <div class="gj_btn" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn">3项告警</div>
+                    <div class="gj_btn" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -102,17 +102,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn">3项告警</div>
+                    <div class="gj_btn" @click="jump2('D_Pressure_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">基本误差</div>
-                    <div class="gj_btn">3项告警</div>
+                    <div class="gj_name">基本误差试验</div>
+                    <div class="gj_btn" @click="jump2('D_BasicError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">电流测试</div>
-                    <div class="gj_btn">3项告警</div>
+                    <div class="gj_name">日计时误差试验</div>
+                    <div class="gj_btn" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                </div>
+                <div class="item">
+                    <img src="static/images/img.png" >
+                    <div class="gj_name">参数设置</div>
+                    <div class="gj_btn" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                </div>
+                <div class="item">
+                    <img src="static/images/img.png" >
+                    <div class="gj_name">通信端口检验</div>
+                    <div class="gj_btn" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -285,6 +295,23 @@ export default {
         }, 
         // 更多
         getMore(){
+        },
+        // 跳转工艺详情页
+        jump2(param){
+            if (param != ''){
+                // sessionStorage.setItem('id',this.mapOneData.supplierID)
+                sessionStorage.setItem('param',param)
+                // sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
+                // sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
+                this.$router.push({
+                    path:'/Home/processDetails',
+                })
+            } else {
+                this.$message({
+                    message:'暂无相关数据',
+                    type: 'warning'
+                });
+            }
         },
         //第一个图
         drawLine1(){
