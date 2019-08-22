@@ -10,7 +10,7 @@
             </div>
             <div class="module">
                 <div class="module-box">
-                    <p>电能表</p>
+                    <p @click="toMap">电能表</p>
                     <div class="module-content">
                         <div class="module-content-box module-content-left">
                             <div class="module-content-list">
@@ -139,11 +139,7 @@ export default {
     mounted() {
         this.getPurchasingOrder();
         this.getChartData();
-        this.$echarts.init(this.$refs.chart).setOption(this.getBarOption(
-            ['1月', '2月', '3月', '4月', '5月', '6月'],
-            [10, 52, 200, 334, 390, 330],
-            [21, 34, 100, 300, 380, 320]
-        ));
+        
     },
     methods: {
         // 获取数据
@@ -163,6 +159,10 @@ export default {
                         this.productionData.push(el.count)
                         this.alarmInformation.push(el.count1)
                     });
+                    this.$echarts.init(this.$refs.chart).setOption(this.getBarOption(
+                        this.xData,this.productionData,this.alarmInformation
+                    ));
+
                 }
             })
         },
@@ -263,6 +263,12 @@ export default {
                 ]
             }
             return option;
+        },
+        // 跳转
+        toMap(){
+            this.$router.push({
+                path:'/Home/map',
+            })
         }
     },
        
@@ -324,6 +330,7 @@ export default {
                         font-size:24px;
                         text-align: left;
                         margin-bottom:15px;
+                        cursor:pointer;
                     }
                     .module-content{
                         background:linear-gradient(to right, #035853, #139E8E,#035853);
