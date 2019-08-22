@@ -58,28 +58,28 @@
                     style="width: 100%"
                     height="310">
                     <el-table-column
-                    prop="contractNumber"
+                    prop="sgPurchaseorder"
                     align="center"
                     label="国网采购合同号">
                     </el-table-column>
                     <el-table-column
-                    prop="orderNumber"
+                    prop="salesOrderCode"
                     align="center"
                     label="销售订单号">
                     </el-table-column>
                     <el-table-column
-                    prop="orderQuantity"
+                    prop="materialsNum"
                     align="center"
                     width="100"
                     label="订单数量">
                     </el-table-column>
                     <el-table-column
-                    prop="entryName"
+                    prop="materialsName"
                     align="center"
                     label="工程项目名称">
                     </el-table-column>
                     <el-table-column
-                    prop="date"
+                    prop="deliveryDate"
                     align="center"
                     width="100"
                     label="交货日期">
@@ -88,7 +88,7 @@
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="scope.row.speedOfProgress"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.percent||0)"></el-progress>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -122,40 +122,19 @@
 
 <script>
 import {
+    ringBrightGreen,
+    ringDarkGreen,
     salesOrderInfo
 } from '@api/supplierInformation'
 export default {
     data() {
         return {
-            tableData: [{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:66,
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:66,
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:66,
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:66,
-            },],
+            myCharts1:null,
+            myCharts2:null,
+            myCharts3:null,
+            myCharts4:null,
+            echarts1Date:[],
+            tableData: [],//表格数据
             titleStyle:{
                 color:'#ffffff',
                 fontSize: 16
@@ -233,20 +212,49 @@ export default {
         }
     },
     mounted() { 
+        this.myCharts1=this.$echarts.init(this.$refs.echarts1);
+        this.myCharts2=this.$echarts.init(this.$refs.echarts2);
+        this.myCharts3=this.$echarts.init(this.$refs.echarts3);
+        this.myCharts4=this.$echarts.init(this.$refs.echarts4);
+
         this.salesOrderInfo();
-        this.drawLine1();
+        this.ringGreen();
         this.drawLine2();
         this.drawLine3();
         this.drawLine4();
         window.onresize=()=>{
-            this.drawLine1();
-            this.drawLine2();
-            this.drawLine3();
-            this.drawLine4();
+            this.myCharts1.resize();
+            this.myCharts2.resize();
+            this.myCharts3.resize();
+            this.myCharts4.resize();
         }
     },
     
     methods: { 
+        // 第一个圆环的数据
+        async ringGreen(){
+            let {data:data1}=await ringBrightGreen({});
+            let {data:data2}=await ringDarkGreen({});
+            if(data1.status===0||data1.status==='0'){
+                this.echarts1Date.push({
+                    name:'实际下线（台）',
+                    value:parseFloat(data1.data),
+                })
+            }else this.echarts1Date.push({
+                name:'实际下线（台）',
+                value:0,
+            });
+            if(data2.status===0||data2.status==='0'){
+                this.echarts1Date.push({
+                    name:'当前计划（台）',
+                    value:parseFloat(data2.data),
+                })
+            }else this.echarts1Date.push({
+                name:'当前计划（台）',
+                value:0,
+            });
+            this.drawLine1();
+        },
         // 表格数据
         async salesOrderInfo(){
             let {data}=await salesOrderInfo({});
@@ -260,30 +268,19 @@ export default {
                 })
             }
         }, 
+        //第一个图
         drawLine1(){
-            const data=[
-                {
-                    name:'实际下线（台）',
-                    value:100,
-                },{
-                    name:'当前计划（台）',
-                    value:900,
-                }
-            ];
             let options={
                 ...this.optionsPie
             },
-            series=[],
-            legend=[],
-            myCharts=this.$echarts.init(this.$refs.echarts1);
-            myCharts.resize();
+            legend=[];
             options.color=['#24e3c7','#018287'];
             options.title={
                 text:'当前生产状态',
                 top:11,
                 textStyle:this.titleStyle
             }
-            for(let item of data){
+            for(let item of this.echarts1Date){
                 legend.push({
                     name: item.name,
                     icon: 'rect',
@@ -291,10 +288,8 @@ export default {
                         color: '#ffffff'
                     }
                 })
-                
-                series.push(item);
             }
-            options.series[0].data=series;
+            options.series[0].data=this.echarts1Date;
             options.series[0].data[0].label={
                 normal:{
                     show:true,
@@ -303,13 +298,12 @@ export default {
                         fontSize:36
                     },
                     formatter:'{d}%',
-                    // formatter:'检测合格率 <br /> {d}%',
-                },
-                
+                },  
             },
             options.legend.data=legend;
-            myCharts.setOption(options);
-        },    
+            this.myCharts1.setOption(options);
+        },   
+        //第二个图 
         drawLine2(){
             const data=[
                 {
@@ -325,9 +319,7 @@ export default {
                 ...this.options
             },
             series=[],
-            legend=[],
-            myCharts=this.$echarts.init(this.$refs.echarts2);
-            myCharts.resize();
+            legend=[];
             options.color=['#0e7b54','#249291'];
             options.title={
                 text:'订单完成率',
@@ -351,8 +343,9 @@ export default {
             }
             options.series=series;
             options.legend.data=legend;
-            myCharts.setOption(options);
+            this.myCharts2.setOption(options);
         },
+        //第三个图
         drawLine3(){
             const data=[
                 {
@@ -384,9 +377,7 @@ export default {
             let options={
                 ...this.optionsPie
             },
-            legend=[],
-            myCharts=this.$echarts.init(this.$refs.echarts3);
-            myCharts.resize();
+            legend=[];
             options.title={
                 text:'今日报警信息',
                 top:11,
@@ -404,8 +395,9 @@ export default {
             options.color=['#ee5353','#f47d5d','#ffb069','#e88800','#d63636','#c38090','#f76688','#f6e529'];
             options.series[0].data=data;
             options.legend.data=legend;
-            myCharts.setOption(options);
+            this.myCharts3.setOption(options);
         },
+        //第四个图
         drawLine4(){
             const data=[
                 {
@@ -421,9 +413,7 @@ export default {
                 ...this.options
             },
             series=[],
-            legend=[],
-            myCharts=this.$echarts.init(this.$refs.echarts4);
-            myCharts.resize();
+            legend=[];
             options.color=['#249291','#d97d10'];
             options.title={
                 text:'生产质量监控',
@@ -447,7 +437,7 @@ export default {
             }
             options.series=series;
             options.legend.data=legend;
-            myCharts.setOption(options);
+            this.myCharts4.setOption(options);
         },
     },
 };
