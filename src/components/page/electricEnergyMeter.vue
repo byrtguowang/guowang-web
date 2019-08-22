@@ -124,12 +124,52 @@
 
 <script>
 import{
-    getPurchasingOrder
+    getPurchasingOrder,
+    getChartData
 }from '@api/electricEnergyMeter'
 export default {
     data() {
         return {
-            option :{
+            PurchasingOrder:{},
+            xData:[], //柱状图横坐标
+            productionData:[], //柱状图生产数据
+            alarmInformation:[] //柱状图报警信息
+        };
+    },
+    mounted() {
+        this.getPurchasingOrder();
+        this.getChartData();
+        this.$echarts.init(this.$refs.chart).setOption(this.getBarOption(
+            ['1月', '2月', '3月', '4月', '5月', '6月'],
+            [10, 52, 200, 334, 390, 330],
+            [21, 34, 100, 300, 380, 320]
+        ));
+    },
+    methods: {
+        // 获取数据
+        getPurchasingOrder(){
+            getPurchasingOrder({})
+            .then(res => {
+                if(res.data.status == 0) this.PurchasingOrder = res.data.data
+            })
+        },
+        // 获取柱状图数据
+        getChartData(){
+            getChartData({})
+            .then(res => {
+                if(res.data.status == 0){
+                    res.data.data.forEach(el => {
+                        this.xData.push(el.month)
+                        this.productionData.push(el.count)
+                        this.alarmInformation.push(el.count1)
+                    });
+                }
+            })
+        },
+        // 柱状图配置
+        getBarOption(xData,productionData,alarmInformation){
+            let option;
+            option = {
                 legend: {
                     data:['生产数据','报警信息'],
                     itemGap:100,
@@ -142,7 +182,7 @@ export default {
                 xAxis : [
                     {
                         type : 'category',
-                        data : ['1月', '2月', '3月', '4月', '5月', '6月'],
+                        data : xData,
                         axisTick:false,
                         axisLabel: {
                             show: true,
@@ -181,10 +221,10 @@ export default {
                 ],
                 series : [
                     {
-                        name:'生产数据',
-                        type:'bar',
+                        name: '生产数据',
+                        type: 'bar',
                         barWidth: '18',
-                        data:[10, 52, 200, 334, 390, 330],
+                        data: productionData,
                         itemStyle:{
                             normal: {
                                 color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -204,7 +244,7 @@ export default {
                         name:'报警信息',
                         type:'bar',
                         barWidth: '18',
-                        data:[21, 34, 100, 300, 380, 320],
+                        data: alarmInformation,
                         itemStyle:{
                             normal: {
                                 color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -221,20 +261,8 @@ export default {
                         }       
                     } 
                 ]
-            },
-            PurchasingOrder:{}
-        };
-    },
-    mounted() {
-        this.$echarts.init(this.$refs.chart).setOption(this.option);
-        this.getPurchasingOrder()
-    },
-    methods: {
-        getPurchasingOrder(){
-            getPurchasingOrder({})
-            .then(res => {
-                if(res.data.status == 0) this.PurchasingOrder = res.data.data
-            })
+            }
+            return option;
         }
     },
        
@@ -276,6 +304,7 @@ export default {
                     background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                     span{
                         margin-left:6px;
+                        letter-spacing: 2px;
                     }
                 }
             }
