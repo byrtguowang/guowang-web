@@ -22,50 +22,50 @@
                                         </div>
                                         <div class="module-content-list-num">
                                             <p>
-                                                <span class="num">12280</span>
+                                                <span class="num">{{PurchasingOrder.purchaseCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
                                         <p class="orderNumber-title">当前订单号</p>
-                                        <p class="orderNumber">XSD-6386fei-HDSA</p>
+                                        <p class="orderNumber">{{PurchasingOrder.purchaseOrder}}</p>
                                     </div>
                                 </div>
                                 <div class="module-content-list-box">
                                     <div class="module-content-list-top">
                                         <div class="module-content-list-line"></div>
                                         <div class="module-content-list-words">
-                                            <p>国网采购订单</p>
+                                            <p>销售订单</p>
                                         </div>
                                         <div class="module-content-list-num">
                                             <p>
-                                                <span class="num">12280</span>
+                                                <span class="num">{{PurchasingOrder.totalCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
-                                        <p class="orderNumber-title">当前订单号</p>
-                                        <p class="orderNumber">XSD-6386fei-HDSA</p>
+                                        <p class="orderNumber-title">订单总量</p>
+                                        <p class="orderNumber">{{PurchasingOrder.materialsNumCunt}}台</p>
                                     </div>
                                 </div>
                                 <div class="module-content-list-box">
                                     <div class="module-content-list-top">
                                         <div class="module-content-list-line"></div>
                                         <div class="module-content-list-words">
-                                            <p>国网采购订单</p>
+                                            <p>24小时报警信息</p>
                                         </div>
                                         <div class="module-content-list-num">
                                             <p>
-                                                <span class="num">12280</span>
-                                                <span class="words">条</span>
+                                                <span class="num">{{PurchasingOrder.alarmCount}}</span>
+                                                <span class="words">项</span>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
-                                        <p class="orderNumber-title">当前订单号</p>
-                                        <p class="orderNumber">XSD-6384697fwei-HFIDSA</p>
+                                        <p class="orderNumber-title">24小时采集数据</p>
+                                        <p class="orderNumber">{{PurchasingOrder.count}}条</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,18 +77,18 @@
                                     <div class="module-content-list-top">
                                         <div class="module-content-list-line"></div>
                                         <div class="module-content-list-words">
-                                            <p>国网采购订单</p>
+                                            <p>在制品数量</p>
                                         </div>
                                         <div class="module-content-list-num">
                                             <p>
-                                                <span class="num">12280</span>
-                                                <span class="words">条</span>
+                                                <span class="num">{{PurchasingOrder.unFinishedCount}}</span>
+                                                <span class="words">台</span>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
                                         <div class="module-content-list-line"></div>
-                                        <p class="words-bg">当前订单号</p>
+                                        <p class="words-bg">生产数据监控</p>
                                     </div>
                                 </div>
                             </div>
@@ -123,6 +123,9 @@
 </template>
 
 <script>
+import{
+    getPurchasingOrder
+}from '@api/electricEnergyMeter'
 export default {
     data() {
         return {
@@ -218,14 +221,21 @@ export default {
                         }       
                     } 
                 ]
-            }
+            },
+            PurchasingOrder:{}
         };
     },
     mounted() {
         this.$echarts.init(this.$refs.chart).setOption(this.option);
+        this.getPurchasingOrder()
     },
     methods: {
-
+        getPurchasingOrder(){
+            getPurchasingOrder({})
+            .then(res => {
+                if(res.data.status == 0) this.PurchasingOrder = res.data.data
+            })
+        }
     },
        
     created() {
@@ -270,7 +280,6 @@ export default {
                 }
             }
             .module{
-                // font-size:0;
                 color:#fff;
                 margin-top:20px;
                 display: flex;
@@ -314,7 +323,7 @@ export default {
                                         }
                                         .module-content-list-words{
                                             height:100%;
-                                            width:39%;
+                                            width:43%;
                                             background:rgba(27,35,44,0.5);
                                             border:1px solid #34b6a2;
                                             box-sizing:border-box;
@@ -329,14 +338,14 @@ export default {
                                         }
                                         .module-content-list-num{
                                             height:100%;
-                                            width:60%;
+                                            width:56%;
                                             background:linear-gradient(to right, #035853, #139E8E, #035853);
                                             p{
                                                 text-align:right;
                                                 line-height:70px;
                                                 margin-right:9px;
                                                 .num{
-                                                    font-size:45px;
+                                                    font-size:44px;
                                                     font-family:'庞门正道标题'
                                                 }
                                                 .words{
@@ -353,7 +362,7 @@ export default {
                                         margin-top: 2px;
                                         .orderNumber-title{
                                             font-size: 18px;
-                                            width: 40%;
+                                            width: 44%;
                                             line-height: 35px;
                                             text-align: right;
                                             margin-right: 10px;
@@ -361,7 +370,7 @@ export default {
                                         .orderNumber{
                                             font-size:18px;
                                             height:35px;
-                                            width:60%;
+                                            width:56%;
                                             line-height:35px;
                                             text-align:right;
                                             padding-right:9px;
