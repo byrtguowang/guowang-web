@@ -81,13 +81,13 @@ const http = {};
         if (process.env.NODE_ENV == "development") {
              //  测试环境
             // 请求地址
-            var path = 'http://39.105.37.168:8080/'
+            var path = 'http://47.111.186.36:8101'
             
             if (typs == 1) action = path + action;
             
         } else {
             //  生产环境
-            var path = 'http://39.105.37.168:8080/'
+            var path = 'http://47.111.186.36:8101'
 
             if (typs == 1) action = path + action;
 
