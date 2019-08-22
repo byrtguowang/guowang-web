@@ -85,9 +85,11 @@
                     label="交货日期">
                     </el-table-column>
                     <el-table-column
-                    prop="speedOfProgress"
                     align="center"
                     label="进度">
+                        <template slot-scope="scope">
+                            <el-progress :percentage="scope.row.speedOfProgress"></el-progress>
+                        </template>
                     </el-table-column>
                 </el-table>
             </div>
@@ -128,28 +130,28 @@ export default {
             orderQuantity:9999999,
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
-            speedOfProgress:'66%',
+            speedOfProgress:66,
             },{
             contractNumber:'XSDD-20170616-V4BY7V343N',
             orderNumber:'XSDD-20170616-V4BY7V343N',
             orderQuantity:9999999,
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
-            speedOfProgress:'66%',
+            speedOfProgress:66,
             },{
             contractNumber:'XSDD-20170616-V4BY7V343N',
             orderNumber:'XSDD-20170616-V4BY7V343N',
             orderQuantity:9999999,
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
-            speedOfProgress:'66%',
+            speedOfProgress:66,
             },{
             contractNumber:'XSDD-20170616-V4BY7V343N',
             orderNumber:'XSDD-20170616-V4BY7V343N',
             orderQuantity:9999999,
             entryName:'圆钢供应商项目项目名称',
             date: '2018-05-10',
-            speedOfProgress:'66%',
+            speedOfProgress:66,
             },],
             titleStyle:{
                 color:'#ffffff',
@@ -479,6 +481,23 @@ export default {
             }
             .el-table__body .el-table__row:nth-child(2n){
                 background:linear-gradient(to right,#02514c, #012a2f);
+            }
+        }
+        .el-progress.el-progress--line{
+            height: 30px;
+            line-height: 30px;
+            border-radius:8px;
+            background:rgba(8,42,44,.71);
+            .el-progress-bar__outer{
+                height:10px !important;
+                background: #082a2c;
+                border: 1px solid #34b6a2;
+                .el-progress-bar__inner{
+                    background:linear-gradient(to right,#0d424c, #19ddf4);
+                }
+            }
+            .el-progress__text{
+                color:#2fc1ab;
             }
         }
     }
