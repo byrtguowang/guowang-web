@@ -402,7 +402,6 @@ export default {
         background:#151a20;
         display: flex;
         .module{
-            // height:350px;
             .meter-box{
                 height:38px;
                 display: flex;
@@ -473,7 +472,6 @@ export default {
             flex:2;  
             .table-box{
                 width:100%;
-                height:708px;
                 margin-top:8px;
                 background:linear-gradient(to right, #02514c, #012a2f);
                 display:flex;
@@ -534,8 +532,6 @@ export default {
                     }
                 }
                 .list{
-                    // flex:3;
-                    // height: 360px;
                     padding: 2px 9px;
                 }
                 .search{
