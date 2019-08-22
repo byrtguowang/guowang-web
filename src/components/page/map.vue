@@ -128,22 +128,22 @@
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">基本误差</div>
+                    <div class="gj_name">基本误差试验</div>
                     <div class="gj_btn">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">电流测试</div>
+                    <div class="gj_name">日计时误差试验</div>
                     <div class="gj_btn">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">电流测试</div>
+                    <div class="gj_name">参数设置</div>
                     <div class="gj_btn">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
-                    <div class="gj_name">电流测试</div>
+                    <div class="gj_name">通信端口检验</div>
                     <div class="gj_btn">3项告警</div>
                 </div>
             </div>

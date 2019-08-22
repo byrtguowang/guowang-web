@@ -56,9 +56,9 @@
                             <div class="chart" ref="chartBingYear"></div>
                             <div class="chart-box-font">
                                 <p class="content words">本年产生的报警数量</p>
-                                <p class="content num">1500</p>
+                                <p class="content num">{{year.alarm}}</p>
                                 <p class="content words">本年产生的总采集数据量</p>
-                                <p class="content num">300</p>
+                                <p class="content num">{{year.sum}}</p>
                             </div>
                         </div>
                     </div>
@@ -68,9 +68,9 @@
                             <div class="chart" ref="chartBingMonth"></div>
                             <div class="chart-box-font">
                                 <p class="content words">本年产生的报警数量</p>
-                                <p class="content num">1500</p>
+                                <p class="content num">{{month.alarm}}</p>
                                 <p class="content words">本年产生的总采集数据量</p>
-                                <p class="content num">300</p>
+                                <p class="content num">{{month.sum}}</p>
                             </div>
                         </div>
                     </div>
@@ -80,9 +80,9 @@
                             <div class="chart" ref="chartBingDay"></div>
                             <div class="chart-box-font">
                                 <p class="content words">本年产生的报警数量</p>
-                                <p class="content num">1500</p>
+                                <p class="content num">{{day.alarm}}</p>
                                 <p class="content words">本年产生的总采集数据量</p>
-                                <p class="content num">300</p>
+                                <p class="content num">{{day.sum}}</p>
                             </div>
                         </div>
                     </div>
@@ -159,10 +159,30 @@
     </div>
 </template>
 
+
 <script>
+import {
+    TheAnnualNumberOf,
+    TheNumberOfThisMonth,
+    TheNumberOf
+} from '@api/processDetails'
 export default {
     data() {
         return {
+            supplierid:'1',
+            category:'D_BasicError_DNB',
+            year:{
+                alarm:0,
+                sum:0
+            },
+            month:{
+                alarm:0,
+                sum:0
+            },
+            day:{
+                alarm:0,
+                sum:0
+            },
            tableData3: [{
             contractNumber:'XSDD-20170616-V4BY7V343N',
             orderNumber:'XSDD-20170616-V4BY7V343N',
@@ -203,14 +223,64 @@ export default {
         };
     },
     mounted() {
+        // 年度报警
+        this.yearData();
+        // 月度报警
+        this.monthData()
+        // 日度报警
+        this.dayData()
         this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3'));
         this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904'));
-        this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#A79809','#E3D824'));
-        this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#BA6D35','#FA8A37'));
-        this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343'));
-
     },
     methods: {
+        // 年度报警
+        yearData(){
+            let p = {
+                category: this.category,
+                conclusion: "",
+                supplierid: this.supplierid
+            }
+            TheAnnualNumberOf(JSON.stringify(p))
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.year = res.data.data;
+                    this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#A79809','#E3D824',this.year));   
+                }
+            })
+        },
+        
+        // 月度报警
+        monthData(){
+            let p = {
+                category: this.category,
+                conclusion: "",
+                supplierid: this.supplierid
+            }
+            TheAnnualNumberOf(JSON.stringify(p))
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.month = res.data.data;
+                    this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#BA6D35','#FA8A37',this.month));   
+                }
+            })
+        },
+
+        // 日度报警
+        dayData(){
+            let p = {
+                category: this.category,
+                conclusion: "",
+                supplierid: this.supplierid
+            }
+            TheAnnualNumberOf(JSON.stringify(p))
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.day = res.data.data;
+                    this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343',this.day));   
+                }
+            })
+        },
+
         // 柱状图配置
         getBarOption(color1,color2){
             let option;
@@ -280,9 +350,28 @@ export default {
             return option;
         },
         // 饼状图配置
-        getBingOption(color1,color2){
+        getBingOption(color1,color2,data){
             let option;
             option = {
+                 title: {
+                    text: '检测合格率',
+                    subtext: data.percentage + '%',
+                    x: 'center',
+                    y: 'center',
+                    itemGap: 5,
+                    textStyle : {
+                        color : '#1bd7c1',
+                        fontFamily : '微软雅黑',
+                        fontSize : 12,
+                        fontWeight : 'normal'
+                    },
+                    subtextStyle:  {
+                        color : '#fff',
+                        fontFamily : '微软雅黑',
+                        fontSize : 10,
+                        fontWeight : 'normal'
+                    }
+                },
                 series: [
                     {
                         name:'访问来源',
@@ -309,7 +398,7 @@ export default {
                         },
                         data:[
                             {
-                                value:335, 
+                                value:data.sum, 
                                 // name:'直接访问',
                                 itemStyle:{
                                     normal: {
@@ -318,7 +407,7 @@ export default {
                                 }
                             },
                             {
-                                value:310, 
+                                value:data.alarm, 
                                 // name:'邮件营销',
                                 itemStyle:{
                                     normal: {
