@@ -8,6 +8,10 @@ const state = {
         rememberMe:''
     }
 };
+//获取数据
+const getters = {
+    loginInfo:state=>state.loginInfo,
+};
 //数据保存方法
 const mutations = {
     [types.SET_LOGIN_DATA](state, loginInfo) {
@@ -16,5 +20,5 @@ const mutations = {
 };
 
 export default {
-    state,mutations
+    state,getters,mutations
 }

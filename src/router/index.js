@@ -18,7 +18,6 @@ const router = new Router({
       },
       {
           path: "/Home",
-          redirect: "/Home/Homepage",
           component: resolve =>
               require(["../components/common/Home.vue"], resolve),
           children: routerChildren

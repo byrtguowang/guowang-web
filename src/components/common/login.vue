@@ -23,8 +23,8 @@
                     </el-option>
                 </el-select>
             </div>
-            <div class="form_remanber">
-                <img src="static/images/sure.png" alt="">
+            <div class="form_remanber" :class="{'check':isActive}">
+                <img src="static/images/sure.png" alt="" v-if="isActive">
                 记住登录信息
             </div>
             <div class="form_btn cursor" @click="loginIn"></div>
@@ -39,7 +39,7 @@ import {
     getNumberOfSuppliers
 } from '@api/login'
 import {
-    mapState,
+    mapGetters,
     mapMutations
 } from 'vuex'
 export default {
@@ -49,14 +49,15 @@ export default {
                 {value: '1',label: '物资处'},
                 {value: '2',label: '物资处2'}
             ],
+            isActive:true,
             username:'',
             password:'',
             role:'1',
         }
     },
-    computed: mapState([
-        'loginInfo'
-    ]),
+    computed: {
+        ...mapGetters(['loginInfo'])
+    },
     methods:{
         ...mapMutations({
             setlogin: 'SET_LOGIN_DATA'
@@ -85,7 +86,14 @@ export default {
             }
             , {data}=await getNumberOfSuppliers(obj);
             if(data.status==='0'||data.status===0){
-                this.setlogin(obj);
+                this.setlogin({
+                    username:this.username, 
+                    password:this.isActive?this.password:'',
+                    rememberMe:this.role
+                });
+                this.$router.push({
+                    path:'/Home'
+                })
             }else this.$message({
                 type:'error',
                 message:data.message
@@ -93,11 +101,10 @@ export default {
         }
     },
     mounted(){
-        console.log(this.loginInfo)
-        // let {username,password,rememberMe}=this.loginInfo;
-        // this.username=username;
-        // this.password=password;
-        // this.role=rememberMe;
+        let {username,password,rememberMe}=this.loginInfo;
+        this.username=username;
+        this.password=password;
+        this.role=rememberMe;
     }
 }
 </script>

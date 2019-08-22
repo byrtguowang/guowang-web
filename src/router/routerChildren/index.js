@@ -3,7 +3,7 @@
 export default [{
         path: "/",
         // redirect: "/Home/SupplementaryMaterials"
-        redirect: "Homepage"
+        redirect: "electricEnergyMeter"
     },
     //首页
     // ==================>>>>>
