@@ -477,7 +477,7 @@ export default {
                 display:flex;
                 flex-direction:column;
                 .chart-line{
-                    flex:1.5;
+                    height:200px;
                     display:flex;
                     .chart-box{
                         flex:1;

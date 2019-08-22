@@ -6,11 +6,11 @@
         <div class="login_content">
             <div class="form_item">
                 <label for="username">用户名</label>
-                <input type="text" id="username" v-model="username" placeholder="请填写用户名">
+                <input type="text" ref="username" v-model="username" placeholder="请填写用户名">
             </div>
             <div class="form_item">
                 <label for="password">密&nbsp;&nbsp;&nbsp;码</label>
-                <input type="text" id="password" v-model="password" placeholder="请填写密码">
+                <input type="text" ref="password" v-model="password" placeholder="请填写密码">
             </div>
             <div class="form_item">
                 <label>角&nbsp;&nbsp;&nbsp;色</label>
@@ -27,7 +27,7 @@
                 <img src="static/images/sure.png" alt="">
                 记住登录信息
             </div>
-            <div class="form_btn"></div>
+            <div class="form_btn cursor" @click="loginIn"></div>
         </div>
         <p class="login_footer">
             2009-2019&nbsp;TJ-BYRT.com&nbsp;版权所有&nbsp;ICP证：京B2-2008010
@@ -45,6 +45,30 @@ export default {
             username:'',
             password:'',
             role:'1',
+        }
+    },
+    methods:{
+        loginIn(){
+            if(!this.username){
+                this.$message({
+                    type:'warning',
+                    message:'用户名输入不能为空，请输入！'
+                });
+                this.$refs.username.focus();
+                return;
+            }
+            if(!this.password){
+                this.$message({
+                    type:'warning',
+                    message:'密码输入不能为空，请输入！'
+                });
+                this.$refs.password.focus();
+                return;
+            }
+            const obj={
+               username:this.username, 
+               password:this.password
+            }
         }
     }
 }
