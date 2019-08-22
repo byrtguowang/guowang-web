@@ -36,7 +36,7 @@
 </template>
 <script>
 import {
-    getNumberOfSuppliers
+    login
 } from '@api/login'
 import {
     mapGetters,
@@ -84,7 +84,7 @@ export default {
                password:this.password,
                rememberMe:this.role
             }
-            , {data}=await getNumberOfSuppliers(obj);
+            , {data}=await login(obj);
             if(data.status==='0'||data.status===0){
                 this.setlogin({
                     username:this.username, 

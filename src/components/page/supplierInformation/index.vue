@@ -54,7 +54,7 @@
             </div>
             <div class="information_content table">
                 <el-table
-                    :data="tableData3"
+                    :data="tableData"
                     style="width: 100%"
                     height="310">
                     <el-table-column
@@ -121,10 +121,13 @@
 </template>
 
 <script>
+import {
+    salesOrderInfo
+} from '@api/supplierInformation'
 export default {
     data() {
         return {
-            tableData3: [{
+            tableData: [{
             contractNumber:'XSDD-20170616-V4BY7V343N',
             orderNumber:'XSDD-20170616-V4BY7V343N',
             orderQuantity:9999999,
@@ -230,6 +233,7 @@ export default {
         }
     },
     mounted() { 
+        this.salesOrderInfo();
         this.drawLine1();
         this.drawLine2();
         this.drawLine3();
@@ -242,7 +246,20 @@ export default {
         }
     },
     
-    methods: {  
+    methods: { 
+        // 表格数据
+        async salesOrderInfo(){
+            let {data}=await salesOrderInfo({});
+            if(data.status===0||data.status==='0'){
+                this.tableData=data.data?data.data:[];
+            }else{
+                this.tableData=[];
+                this.$message({
+                    type:'error',
+                    message:data.message
+                })
+            }
+        }, 
         drawLine1(){
             const data=[
                 {
