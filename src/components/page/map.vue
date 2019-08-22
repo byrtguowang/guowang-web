@@ -398,6 +398,8 @@ export default {
         jump(){
             this.showPop = false;
             sessionStorage.setItem('supplierID',this.mapOneData.supplierID)
+            sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
+            sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
             this.$router.push({
                 path:'/Home/supplierInformation'
             })
@@ -408,6 +410,8 @@ export default {
             if (param != ''){
                 sessionStorage.setItem('id',this.mapOneData.supplierID)
                 sessionStorage.setItem('param',param)
+                sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
+                sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
                 this.$router.push({
                     path:'/Home/processDetails',
                 })

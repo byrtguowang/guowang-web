@@ -11,7 +11,7 @@
                 <div class="meter-box">
                     <div class="meter-left"></div>
                     <div class="meter-right">
-                        <span>河南许继仪表公司</span>
+                        <span>{{supplierName}}</span>
                     </div>
                 </div>
                 <div class="meter-box meter-box-stranding">
@@ -171,6 +171,7 @@ export default {
         return {
             supplierid:'1',
             category:'D_BasicError_DNB',
+            supplierName:'',
             year:{
                 alarm:0,
                 sum:0
@@ -223,14 +224,20 @@ export default {
         };
     },
     mounted() {
+        this.supplierid = sessionStorage.getItem('id');
+        this.category = sessionStorage.getItem('param');
+        this.supplierName = sessionStorage.getItem('supplierName');
         // 年度报警
         this.yearData();
         // 月度报警
         this.monthData()
         // 日度报警
         this.dayData()
-        this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3'));
-        this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904'));
+        // 24小时左
+        this.chartsLeft();
+        // 24小时右
+        this.chartsRight();
+        
     },
     methods: {
         // 年度报警
@@ -279,6 +286,16 @@ export default {
                     this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343',this.day));   
                 }
             })
+        },
+
+        // 24小时左
+        chartsLeft(){
+            this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3'));
+        },
+
+        // 24小时右
+        chartsRight(){
+            this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904'));
         },
 
         // 柱状图配置
@@ -349,6 +366,7 @@ export default {
             }
             return option;
         },
+
         // 饼状图配置
         getBingOption(color1,color2,data){
             let option;
