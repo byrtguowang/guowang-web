@@ -7,7 +7,7 @@
                     <span>工艺详情</span>
                 </div>
             </div>
-            <div class="img-box module">
+            <div class="img-box">
                 <div class="meter-box">
                     <div class="meter-left"></div>
                     <div class="meter-right">
@@ -22,7 +22,7 @@
                 </div>
                 <!-- <img src="../../../static/images/img.png" alt=""> -->
             </div>
-            <div class="video-box module img-box">
+            <div class="video-box img-box">
                 <div class="meter-box">
                     <div class="meter-left"></div>
                     <div class="meter-right">
@@ -113,38 +113,43 @@
                         <el-table
                             :data="tableData3"
                             style="width: 100%"
-                            height="100%">
+                            height="350px">
                             <el-table-column
                             prop="contractNumber"
                             align="center"
-                            label="国网采购合同号">
+                            label="检测时间">
                             </el-table-column>
                             <el-table-column
                             prop="orderNumber"
                             align="center"
-                            label="销售订单号">
+                            label="检测结果">
                             </el-table-column>
                             <el-table-column
                             prop="orderQuantity"
                             align="center"
                             width="100"
-                            label="订单数量">
+                            label="物料编码">
                             </el-table-column>
                             <el-table-column
                             prop="entryName"
                             align="center"
-                            label="工程项目名称">
+                            label="设备名称">
                             </el-table-column>
                             <el-table-column
                             prop="date"
                             align="center"
                             width="100"
-                            label="交货日期">
+                            label="工单数量">
                             </el-table-column>
                             <el-table-column
                             prop="speedOfProgress"
                             align="center"
-                            label="进度">
+                            label="计划开始时间">
+                            </el-table-column>
+                            <el-table-column
+                            prop="speedOfProgress"
+                            align="center"
+                            label="基本误差测试">
                             </el-table-column>
                         </el-table>
                     </div>
@@ -397,7 +402,7 @@ export default {
         background:#151a20;
         display: flex;
         .module{
-            height:350px;
+            // height:350px;
             .meter-box{
                 height:38px;
                 display: flex;
@@ -422,6 +427,7 @@ export default {
                 }
             }
             .img-box{
+                flex:1;
                 background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                 margin-top:8px;
                 text-align:-webkit-center;
@@ -460,6 +466,8 @@ export default {
         .left{
             flex:1;
             margin-right:8px;
+            display:flex;
+            flex-direction:column;
         }
         .right{
             flex:2;  
@@ -511,7 +519,7 @@ export default {
                             }
                             .chart-box-font{
                                 flex:2;
-                                margin-right:30px;
+                                margin-right:14px;
                                 .content{
                                     border:none;
                                     background:transparent;
@@ -526,7 +534,9 @@ export default {
                     }
                 }
                 .list{
-                    flex:3;
+                    // flex:3;
+                    // height: 360px;
+                    padding: 2px 9px;
                 }
                 .search{
                     flex:1;
