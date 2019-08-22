@@ -25,3 +25,8 @@ export function getQualityControl(param) {
 export function getProductionControl(param) {
   return Request.http.post(`/SubcategoryHomepageController/getProductionControl`, param, 1);
 }
+
+// 地图数据
+export function getSuppliersList(param) {
+  return Request.http.post(`/SubcategoryHomepageController/getSuppliersList`, param, 1,{"Content-Type": "application/json"});
+}
