@@ -29,15 +29,15 @@
                 <div class="three">
                     <div class="item">
                         <div class="three-left">安全运行时间</div>
-                        <div class="three-area">360<p>天</p></div>
+                        <div class="three-area">{{leftDownData['安全运行时间']}}<p>天</p></div>
                     </div>
                     <div class="item">
                         <div class="three-left">24小时报警信息</div>
-                        <div class="three-area">50<p>项</p></div>
+                        <div class="three-area">{{leftDownData['24小时报警信息']}}<p>项</p></div>
                     </div>
                     <div class="item">
                         <div class="three-left">视频监控采集</div>
-                        <div class="three-area">1350<p>机位</p></div>
+                        <div class="three-area">{{leftDownData['视频监控采集']}}<p>机位</p></div>
                     </div>
                 </div>
             </div>
@@ -80,19 +80,19 @@
             <div class="info">
                 <div class="item">
                     <div class="info-head">当前在制产品</div>
-                    <div class="info-area"><span>9999</span>台</div>
+                    <div class="info-area"><span>{{centerData['当前在制品数量']}}</span>台</div>
                 </div>
                 <div class="item">
                     <div class="info-head">销售订单</div>
-                    <div class="info-area"><span>9999</span>项</div>
+                    <div class="info-area"><span>{{centerData['销售订单数量']}}</span>项</div>
                 </div>
                 <div class="item">
                     <div class="info-head">生产订单</div>
-                    <div class="info-area"><span>9999</span>项</div>
+                    <div class="info-area"><span>{{centerData['生产订单数量']}}</span>项</div>
                 </div>
                 <div class="item">
                     <div class="info-head">工单</div>
-                    <div class="info-area"><span>9999</span>项</div>
+                    <div class="info-area"><span>{{centerData['工单数量']}}</span>项</div>
                 </div>
             </div>
         </div>
@@ -156,7 +156,11 @@ import echarts from "echarts";
 import '../../../node_modules/echarts/map/js/china.js' // 引入中国地图数据
 
 import {
-    getNumberOfSuppliers
+    getNumberOfSuppliers,
+    getOperatingStatus,
+    getProductionControl,
+    getOrderCompletionRate,
+    getQualityControl
 } from '@api/map'
 export default {
     data() {
@@ -165,14 +169,22 @@ export default {
             showPop:false,
             selectShow:false,
             leftData:{},//左上
+            leftDownData:{}, //左下
+            centerData:{}, //中下
         };
     },
     mounted() {
         // 左上部 概况
         this.getNumberOfSuppliers();
+        // 左下部 运行状态
+        this.getOperatingStatus();
+        // 中间下部 生产监控
+        this.getProductionControl();
+        // 左中部 订单状态 订单完成率
+        this.getOrderCompletionRate();
+        // 左中部 订单状态 生产质量监控
+        this.getQualityControl();
         this.chinaConfigure();
-        this.orderChart();
-        this.productionQuality();
     },
     beforeDestroy() {
       if (!this.chart) {
@@ -182,11 +194,32 @@ export default {
       this.chart = null;
     },
     methods: {
+        // 左上部 概况
         getNumberOfSuppliers(){
             getNumberOfSuppliers({})
             .then(res => {
                 if (res.data.status === 0) {
                     this.leftData = res.data.data
+                }
+            })
+        },
+
+        // 左下部 运行状态
+        getOperatingStatus(){
+            getOperatingStatus({})
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.leftDownData = res.data.data
+                }
+            })
+        },
+
+        // 中间下部 生产监控
+        getProductionControl(){
+            getProductionControl({})
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.centerData = res.data.data
                 }
             })
         },
@@ -406,36 +439,63 @@ export default {
         },
 
         // 订单完成率
-        orderChart(){
-            let myChart = echarts.init(this.$refs.myEchartLine); //这里是为了获得容器所在位置    
+        getOrderCompletionRate(){
+            getOrderCompletionRate({})
+            .then(res => {
+                if (res.data.status === 0) {
+                    let data = res.data.data;
 
-            //设置数据
-            var legendData = ['生产订单总量','已完成生产订单总量'];
-            var axisData = ['周一','周二','周三','周四','周五','周六','周日'];
-            var color = ['#22c47a','#4c9ba0'];
-            var seriesData = [[120, 132, 101, 134, 90, 230, 210],[220, 182, 191, 234, 290, 330, 310]]
+                    let myChart = echarts.init(this.$refs.myEchartLine); //这里是为了获得容器所在位置    
 
-            var option = this.chartsOptions(legendData,axisData,color,seriesData);
+                    //设置数据
+                    var legendData = [];
+                    var axisData = [];
+                    var color = ['#22c47a','#4c9ba0'];
+                    var seriesData = []
 
-            myChart.setOption(option)
+                    data.forEach((el,index) => {
+                        legendData.push(el.name)
+                        if (el.month.length > axisData){
+                            axisData = el.month
+                        }
+                        seriesData.push(el.value)
+                    })
+                    var option = this.chartsOptions(legendData,axisData,color,seriesData);
+
+                    myChart.setOption(option)
+                }
+            })
+            
         },
 
         // 生产监控质量
-        productionQuality(){
-            let myChart = echarts.init(this.$refs.myEchartLine2); //这里是为了获得容器所在位置    
+        getQualityControl(){
+            getQualityControl({})
+            .then(res => {
+                if (res.data.status === 0) {
+                    let data = res.data.data;
 
-            //设置数据
-            var legendData = ['生产数据总和','报警数据总和'];
-            var axisData = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-            var color = ['#CF7610','#22c47a'];
-            var seriesData = [
-                [120, 132, 101, 134, 90, 230, 210,134, 90, 230, 210,90],
-                [220, 182, 191, 234, 290, 330, 310,90,191, 234, 290, 330]
-            ]
+                    let myChart = echarts.init(this.$refs.myEchartLine2); //这里是为了获得容器所在位置    
 
-            var option = this.chartsOptions(legendData,axisData,color,seriesData);
+                    //设置数据
+                    var legendData = [];
+                    var axisData = [];
+                    var color = ['#CF7610','#22c47a'];
+                    var seriesData = []
 
-            myChart.setOption(option)
+                    data.forEach((el,index) => {
+                        legendData.push(el.name)
+                        if (el.month.length > axisData){
+                            axisData = el.month
+                        }
+                        seriesData.push(el.value)
+                    })
+                    var option = this.chartsOptions(legendData,axisData,color,seriesData);
+
+                    myChart.setOption(option)
+                }
+            })
+
         },
 
         // 折线图
