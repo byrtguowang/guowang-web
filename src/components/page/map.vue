@@ -8,11 +8,11 @@
                 <div class="one">
                     <div class="item">
                         <div class="head">供应商数量</div>
-                        <div class="area">1280</div>
+                        <div class="area">{{leftData['供应商数量']}}</div>
                     </div>
                     <div class="item">
                         <div class="head">智慧网关数量</div>
-                        <div class="area">200</div>
+                        <div class="area">{{leftData['智慧网关数量']}}</div>
                     </div>
                 </div>
                 <div class="two">
@@ -154,15 +154,22 @@
 <script>
 import echarts from "echarts";
 import '../../../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+
+import {
+    getNumberOfSuppliers
+} from '@api/map'
 export default {
     data() {
         return {
             chart: null,
             showPop:false,
             selectShow:false,
+            leftData:{},//左上
         };
     },
     mounted() {
+        // 左上部 概况
+        this.getNumberOfSuppliers();
         this.chinaConfigure();
         this.orderChart();
         this.productionQuality();
@@ -175,6 +182,15 @@ export default {
       this.chart = null;
     },
     methods: {
+        getNumberOfSuppliers(){
+            getNumberOfSuppliers({})
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.leftData = res.data.data
+                }
+            })
+        },
+
         // 地图
         chinaConfigure() {
             let _this = this;
