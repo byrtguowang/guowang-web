@@ -91,9 +91,9 @@
                 <div class="search">
                     <div class="search-btn">
                         <span>检测结果：</span>
-                        <a class="btn all">全部</a>
-                        <a class="btn normal">正常</a>
-                        <a class="btn police">报警</a>
+                        <a class="btn all" @click='getList'>全部</a>
+                        <a class="btn normal" @click='getList(0)'>正常</a>
+                        <a class="btn police" @click='getList(1)'>报警</a>
                     </div>
                     <div class="time-box">
                         <el-date-picker v-model="time" type="daterange" align="right" start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
@@ -108,102 +108,102 @@
                             style="width: 100%"
                             height="350px">
                             <el-table-column 
-                            prop="BasicErrorID"
+                            prop="basicErrorID"
                             align="center"
                             label="数据编号"
                             v-if="this.category == 'D_BasicError_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="EpitopCode"
+                            prop="epitopCode"
                             align="center"
                             label="表位号"
                             v-if="this.category == 'D_BasicError_DNB' || this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="NameplateCode"
+                            prop="nameplateCode"
                             align="center"
                             label="局编号/下铭牌号"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="ParameterName"
+                            prop="parameterName"
                             align="center"
                             label="参数名称"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="ParameterValue"
+                            prop="parameterValue"
                             align="center"
                             label="参考值"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="ReadValue"
+                            prop="readValue"
                             align="center"
                             label="读取值"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="CheckDuration"
+                            prop="checkDuration"
                             align="center"
                             label="检测时长"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="Voltage"
+                            prop="voltage"
                             align="center"
                             label="试验电压"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="Unqualified"
+                            prop="unqualified"
                             align="center"
                             label="不合格项"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="AllowableError"
+                            prop="allowableError"
                             align="center"
                             label="允许误差"
                             v-if="this.category == 'D_TimingError_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="RealError"
+                            prop="realError"
                             align="center"
                             label="实际误差"
                             v-if="this.category == 'D_TimingError_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="PCBCode"
+                            prop="pCBCode"
                             align="center"
                             label="电路板编号"
                             v-if="this.category == 'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column 
-                            prop="SoftwareVersion"
+                            prop="softwareVersion"
                             align="center"
                             label="软件版本号"
                             v-if="this.category == 'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column
-                            prop="CheckTime"
+                            prop="checkTime"
                             align="center"
                             label="检测时间">
                             </el-table-column>
                             <el-table-column
-                            prop="Conclusion"
+                            prop="conclusion"
                             align="center"
                             width="100"
                             label="结论">
                             </el-table-column>
                             <el-table-column
-                            prop="PlantCode"
+                            prop="plantCode"
                             align="center"
                             label="厂内编号"
                             v-if="this.category == !'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column
-                            prop="DeviceCode"
+                            prop="deviceCode"
                             align="center"
                             width="130"
                             label="检定线/台体编号">
@@ -321,45 +321,56 @@ export default {
         chartsLeft(){
             let param = {
                 category:this.category,
-                supplierid:sessionStorage.getItem('supplierCode')
+                supplierid:this.supplierid
             }
             listCountBarGraphDDataLogDNB(JSON.stringify(param))
             .then(res => {
+                let hour = [];
+                let count = [];
                 if(res.data.status == 0){
-
+                    res.data.data.forEach(el => {
+                        hour.push(el.hour)
+                        count.push(el.count)
+                    });
+                    this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3',hour,count));
                 }
             })
-            this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3'));
         },
 
         // 24小时右
         chartsRight(){
             let param = {
                 category:this.category,
-                supplierid:sessionStorage.getItem('supplierCode')
+                supplierid:this.supplierid
             }
             listConcBarGraphDDataLogDNB(JSON.stringify(param))
             .then(res => {
+                let hour = [];
+                let count = [];
                 if(res.data.status == 0){
-                    
+                    res.data.data.forEach(el => {
+                        hour.push(el.hour)
+                        count.push(el.count)
+                    });
+                    this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904',hour,count));
                 }
             })
-            this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904'));
         },
 
         // 列表数据
-        getList(){
+        getList(index){
             let param = {
-                supplierid:sessionStorage.getItem('supplierCode'),
-                startingTime:this.time[0],
-                endTime:this.time[1]
+                supplierid:this.supplierid, //供应商id
+                startingTime:this.time[0], //开始时间
+                endTime:this.time[1], //结束时间
+                conclusion:index //检验结果 0正常 1报警
             }
             // 基本误差
             if(this.category == 'D_BasicError_DNB'){
                 listDBasicErrorDNB(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data
+                        this.listData = res.data.data.list
                     }else{
                         this.listData = []
                     }
@@ -370,7 +381,7 @@ export default {
                 listDParameterDNB(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data
+                        this.listData = res.data.data.list
                     }else{
                         this.listData = []
                     }
@@ -381,7 +392,7 @@ export default {
                 listPressure(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data
+                        this.listData = res.data.data.list
                     }else{
                         this.listData = []
                     }
@@ -392,7 +403,18 @@ export default {
                 listTimingError(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data
+                        this.listData = res.data.data.list
+                    }else{
+                        this.listData = []
+                    }
+                })
+            }
+            // 电能表单板测试采集数据
+            if(this.category == 'D_TimingError_DNB'){
+                listVeneerTest(JSON.stringify(param))
+                .then(res => {
+                    if(res.data.status == 0){
+                        this.listData = res.data.data.list
                     }else{
                         this.listData = []
                     }
@@ -401,7 +423,7 @@ export default {
         },
 
         // 柱状图配置
-        getBarOption(color1,color2){
+        getBarOption(color1,color2,hour,count){
             let option;
             option = {
                 grid:{
@@ -411,7 +433,7 @@ export default {
                 xAxis : [
                     {
                         type : 'category',
-                        data : ['1', '2', '3', '4', '5', '6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+                        data : hour,
                         axisTick:false,
                         axisLabel: {
                             show: true,
@@ -448,7 +470,7 @@ export default {
                         name:'生产数据',
                         type:'bar',
                         barWidth: '10',
-                        data:[10, 52, 200, 334, 390, 330,89,90,78,16,179,177,179,16,18,18,329,47,83,28,39,29,10],
+                        data:count,
                         itemStyle:{
                             normal: {
                                 color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
