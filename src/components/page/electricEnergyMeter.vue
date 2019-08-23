@@ -386,7 +386,7 @@ export default {
                                                 }
                                                 .words{
                                                     font-size:18px;
-                                                    color:#18BCAE;
+                                                    color:#58fff1;
                                                 }
                                             }
                                         }

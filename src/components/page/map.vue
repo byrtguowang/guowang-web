@@ -535,7 +535,6 @@ export default {
                     itemHeight: 12, // 设置高度
 
                     itemGap: 25, // 设置间距
-
                     // 设置文本为红色
                     textStyle: {
                         color: '#ccc'
@@ -545,7 +544,7 @@ export default {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    top:'13%',
+                    top:25,
                     containLabel: true
                 },
                 xAxis : [
@@ -649,7 +648,7 @@ export default {
                             border-right:4px solid #22c4ac;
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
                             font-size:16px;
-                            color:#AAFFF2;
+                            color:#58fff1;
 
                             span{
                                 font-size:50px;
@@ -727,7 +726,7 @@ export default {
 
                             p{
                                 font-size:16px;
-                                color:#aafff2;
+                                color:#58fff1;
                                 float:right;
                                 line-height: 100px;
                                 margin-left:10px;
@@ -889,8 +888,7 @@ export default {
                         border-right:4px solid #22c4ac;
                         background:linear-gradient(to right,#035853,#139e8e,#035853);
                         font-size:16px;
-                        color: #AAFFF2;
-
+                        color:#58fff1;
                         span{
                             font-size:50px;
                             color:#fff;
