@@ -1,0 +1,11 @@
+/* 公共样式 */
+/* 小手 */
+.cursor{
+    cursor: pointer;
+}
+/* 单行省略号 */
+.ellipsis{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

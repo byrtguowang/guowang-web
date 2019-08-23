@@ -134,6 +134,7 @@
 import {
     ringBrightGreen, //当前生产状态
     ringDarkGreen, //当前生产状态
+    rightPieChart,//今日报警信息
     salesOrderInfo
 } from '@api/supplierInformation'
 import {
@@ -151,6 +152,7 @@ export default {
             myCharts4:null,
             echarts1Date:[],
             echarts2Date:[],
+            echarts3Date:[],
             echarts4Date:[],
             tableData: [],//表格数据
             titleStyle:{
@@ -209,8 +211,6 @@ export default {
                 legend: {
                     orient: 'vertical',
                     height:'88',
-                    left:'50%',
-                    top:'30%',
                     color: '#ffffff',
                     itemWidth:14,
                     itemHeight:14,
@@ -239,8 +239,8 @@ export default {
         this.salesOrderInfo();
         this.ringGreen();
         this.getOrderCompletionRate();
+        this.rightPieChart();
         this.getQualityControl();
-        this.drawLine3();
         window.onresize=()=>{
             this.myCharts1.resize();
             this.myCharts2.resize();
@@ -285,6 +285,31 @@ export default {
                 });
             }
             this.drawLine1();
+        },
+        //今日报警信息
+        async rightPieChart(){
+            let {data}=await rightPieChart({});
+            if(data.status===0||data.status==='0'){
+                const obj={
+                    D_BasicError_DNB:'电能误差',
+                    D_Parameter_DNB:'电能参数',
+                    D_Pressure_DNB:'电能耐压',
+                    D_TimingError_DNB:'电能日计时',
+                    D_VeneerTest_DNB:'电能表单板'
+                }
+                for(let item of data.data){
+                    item.name=obj[item.dataName]
+                }
+                this.echarts3Date=data.data?data.data:[];
+            }
+            else{
+                this.echarts3Date=[];
+                this.$message({
+                    type:'error',
+                    message:data.message
+                });
+            }
+            this.drawLine3();
         },
         //订单完成率
         async getOrderCompletionRate(){
@@ -347,7 +372,7 @@ export default {
         },
         //第一个图
         drawLine1(){
-            let options1={
+            const options1={
                 ...this.optionsPie
             },
             legend=[],
@@ -391,7 +416,7 @@ export default {
         },   
         //第二个图 
         drawLine2(){
-            let options2={
+            const options2={
                 ...this.options
             },
             series=[],
@@ -420,38 +445,16 @@ export default {
         },
         //第三个图
         drawLine3(){
-            const data=[
-                {
-                    name:'PCB板贴片检测',
-                    value:500,
-                },{
-                    name:'电池电流测试',
-                    value:65,
-                },{
-                    name:'基本误差试验',
-                    value:350,
-                },{
-                    name:'通信端口检验',
-                    value:195,
-                },{
-                    name:'单板测试',
-                    value:335,
-                },{
-                    name:'耐压试验',
-                    value:310,
-                },{
-                    name:'日计时误差试验',
-                    value:234,
-                },{
-                    name:'参数设置',
-                    value:135,
-                }
-            ];
-            let options3={
+            const options3={
                 ...this.optionsPie
             },
+            series=[],
             legend=[];
-            for(let item of data){
+            for(let item of this.echarts3Date){
+                series.push({
+                    name: item.name,
+                    value:item.count
+                });
                 legend.push({
                     name: item.name,
                     icon: 'rect',
@@ -462,13 +465,15 @@ export default {
             }
             options3.color=['#ee5353','#f47d5d','#ffb069','#e88800','#d63636','#c38090','#f76688','#f6e529'];
             options3.series[0].center=['32%','54%'];
-            options3.series[0].data=data;
+            options3.series[0].data=series;
             options3.legend.data=legend;
+            options3.legend.left='50%';
+            options3.legend.top='30%';
             this.myCharts3.setOption(options3);
         },
         //第四个图
         drawLine4(){
-            let options4={
+            const options4={
                 ...this.options
             },
             series=[],

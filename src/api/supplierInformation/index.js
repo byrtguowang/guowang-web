@@ -7,6 +7,11 @@ export function ringBrightGreen(param) {
 export function ringDarkGreen(param) {
     return Request.http.post(`/platform/s-supplier/ringDarkGreen`, param, 1);
 }
+
+// 第二个圆环
+export function rightPieChart(param) {
+  return Request.http.post(`/platform/s-supplier/rightPieChart`, param, 1);
+}
 // 表格数据
 export function salesOrderInfo(param) {
   return Request.http.post(`/platform/s-supplier/salesOrderInfo`, param, 1);
