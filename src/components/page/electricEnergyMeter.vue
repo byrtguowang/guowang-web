@@ -215,6 +215,9 @@ export default {
                         color:'#fff'
                     }
                 },
+                tooltip:{
+                    show:true
+                },
                 xAxis : [
                     {
                         type : 'category',

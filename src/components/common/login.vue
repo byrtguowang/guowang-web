@@ -10,7 +10,7 @@
             </div>
             <div class="form_item">
                 <label for="password">密&nbsp;&nbsp;&nbsp;码</label>
-                <input type="text" ref="password" v-model="password" placeholder="请填写密码">
+                <input type="password" ref="password" v-model="password" placeholder="请填写密码">
             </div>
             <div class="form_item">
                 <label>角&nbsp;&nbsp;&nbsp;色</label>

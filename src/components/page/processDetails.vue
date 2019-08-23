@@ -20,6 +20,7 @@
                         <span>绞合</span>
                     </div>
                 </div>
+                <img src="../../../static/images/img.png" alt="">
             </div>
             <div class="video-box img-box">
                 <div class="meter-box">
@@ -28,6 +29,7 @@
                         <span>视频直播</span>
                     </div>
                 </div>
+                <img src="../../../static/images/img.png" alt="">
             </div>
         </div>
         <div class="module right">
@@ -90,14 +92,14 @@
                 <div class="search">
                     <div class="search-btn">
                         <span>检测结果：</span>
-                        <a class="btn all" @click='getList'>全部</a>
+                        <a class="btn all" @click='getList(2)'>全部</a>
                         <a class="btn normal" @click='getList(0)'>正常</a>
                         <a class="btn police" @click='getList(1)'>报警</a>
                     </div>
                     <div class="time-box">
                         <el-date-picker v-model="time" type="daterange" align="right" start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
                         </el-date-picker>
-                        <a class="cha" @click='getList'>查询</a>
+                        <a class="cha" @click='getList(2)'>查询</a>
                     </div>
                 </div>
                 <div class="list">
@@ -368,12 +370,17 @@ export default {
 
         // 列表数据
         getList(index){
+            let startingTime;
+            let endTime;
+            if(this.time[0]) startingTime = this.time[0];
+            if(this.time[1]) endTime = this.time[1];
             let param = {
                 supplierid:this.supplierid, //供应商id
-                startingTime:this.time[0], //开始时间
-                endTime:this.time[1], //结束时间
+                startingTime:startingTime, //开始时间
+                endTime:endTime, //结束时间
                 conclusion:index //检验结果 0正常 1报警
             }
+            if(index == '2') param.conclusion = ''
             // 基本误差
             if(this.category == 'D_BasicError_DNB'){
                 listDBasicErrorDNB(JSON.stringify(param))
@@ -479,6 +486,9 @@ export default {
                     top:'20%',
                     bottom:'20%'
                 },
+                tooltip:{
+                    show:true
+                },
                 legend: {
                     data:['生产数据'],
                     itemGap:100,
@@ -577,6 +587,9 @@ export default {
                         fontSize : 25,
                         fontWeight : 'normal'
                     }
+                },
+                tooltip:{
+                    show:true
                 },
                 series: [
                     {
@@ -751,6 +764,9 @@ export default {
                             margin-left:13px;
                         }
                     }
+                }
+                img{
+                    width:100%;
                 }
             }
             .video-box{

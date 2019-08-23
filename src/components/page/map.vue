@@ -272,7 +272,9 @@ export default {
         },
         //三维生产工艺
         async getProductionProcess(){
-            const {data}=await getProductionProcess({});
+            const {data}=await getProductionProcess({
+                supplierID:''
+            });
             if(data.status===0||data.status==='0'){
                 this.processList=data.data?data.data:{};
             }else{
