@@ -57,7 +57,7 @@
             </div>
             <div v-show="showPop" class="map_pop">
                 <div class="header_name">
-                    <span>{{mapOneData.supplierName}}</span>
+                    <span class="cursor" @click="jump()">{{mapOneData.supplierName}}</span>
                 </div>
                 <div class="map_popbox">
                     <p>地址：<span>{{mapOneData.supplierAddress}}</span></p>
