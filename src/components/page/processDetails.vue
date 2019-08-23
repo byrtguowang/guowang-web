@@ -107,6 +107,17 @@
                             :data="listData"
                             style="width: 100%"
                             height="350px">
+                            <el-table-column
+                            prop="checkTime"
+                            align="center"
+                            label="检测时间">
+                            </el-table-column>
+                            <el-table-column
+                            prop="conclusion"
+                            align="center"
+                            width="100"
+                            label="结论">
+                            </el-table-column>
                             <el-table-column 
                             prop="basicErrorID"
                             align="center"
@@ -186,17 +197,6 @@
                             v-if="this.category == 'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column
-                            prop="checkTime"
-                            align="center"
-                            label="检测时间">
-                            </el-table-column>
-                            <el-table-column
-                            prop="conclusion"
-                            align="center"
-                            width="100"
-                            label="结论">
-                            </el-table-column>
-                            <el-table-column
                             prop="plantCode"
                             align="center"
                             label="厂内编号"
@@ -207,6 +207,14 @@
                             align="center"
                             width="130"
                             label="检定线/台体编号">
+                            </el-table-column>
+                            <el-table-column
+                            align="center"
+                            width="100"
+                            label="">
+                                <template slot-scope="scope">
+                                    <div class="play-btn" v-if="this.conclusion == '1'"></div>
+                                </template>
                             </el-table-column>
                         </el-table>
                     </div>
@@ -249,6 +257,7 @@ export default {
             },
             time:'',
             listData:[],
+            conclusion:[], //0正常 1报警
         };
     },
     mounted() {
@@ -371,6 +380,14 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.listData.forEach(el => {
+                            this.conclusion.push(el.conclusion)
+                            if(el.conclusion == '0'){
+                                el.conclusion = '正常'
+                            }else{
+                                el.conclusion = '报警'
+                            }
+                        });
                     }else{
                         this.listData = []
                     }
@@ -430,6 +447,16 @@ export default {
                     top:'20%',
                     bottom:'20%'
                 },
+                legend: {
+                    data:['生产数据'],
+                    itemGap:100,
+                    itemWidth:15,
+                    itemHeight:15,
+                    right:'10%',
+                    textStyle:{
+                        color:'#fff'
+                    }
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -452,11 +479,16 @@ export default {
                     {
                         type : 'value',
                         axisLabel: {
-                            show: false
+                            show: true,
+                            textStyle: {
+                                color: '#fff'
+                            }
                         },
                         axisTick:false,
                         axisLine:{
-                            show:false
+                            lineStyle:{
+                                color:'rgba(255,255,255,0.3)'
+                            }
                         },
                         splitLine:{
                             lineStyle:{
@@ -764,6 +796,15 @@ export default {
                 }
                 .list{
                     padding: 2px 9px;
+                    .play-btn{
+                        width:18px;
+                        height:18px;
+                        background:url(../../../static/images/play_btn.png);
+                        cursor:pointer;
+                        &:hover{
+                           background:url(../../../static/images/play_hover.png); 
+                        }
+                    }
                 }
                 .search{
                     flex:1;

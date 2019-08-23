@@ -406,6 +406,7 @@ export default {
                                                 line-height:70px;
                                                 text-align:right;
                                                 margin-right:10px;
+                                                font-weight: bold;
                                             }
                                         }
                                         .module-content-list-num{
