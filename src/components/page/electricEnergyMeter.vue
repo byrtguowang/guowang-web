@@ -228,9 +228,13 @@ export default {
                         },
                         axisLine:{
                             lineStyle:{
-                                color:'rgba(255,255,255,0.3)'
+                                color:'rgba(255,255,255,0.5)'
                             }
                         },
+                        axisLabel: {
+                            interval:0, // 横轴信息全部显示
+                            rotate: 50 // 旋转30度角
+                        }
                     }
                 ],
                 yAxis : [
@@ -245,7 +249,7 @@ export default {
                         axisTick:false,
                         axisLine:{
                             lineStyle:{
-                                color:'rgba(255,255,255,0.3)'
+                                color:'rgba(255,255,255,0.5)'
                             }
                         },
                         splitLine:{

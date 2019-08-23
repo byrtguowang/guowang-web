@@ -20,7 +20,6 @@
                         <span>绞合</span>
                     </div>
                 </div>
-                <!-- <img src="../../../static/images/img.png" alt=""> -->
             </div>
             <div class="video-box img-box">
                 <div class="meter-box">
@@ -208,14 +207,14 @@
                             width="130"
                             label="检定线/台体编号">
                             </el-table-column>
-                            <el-table-column
+                            <!-- <el-table-column
                             align="center"
                             width="100"
                             label="">
                                 <template slot-scope="scope">
                                     <div class="play-btn"></div>
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                         </el-table>
                     </div>
                 </div>
@@ -824,6 +823,7 @@ export default {
                             line-height:38px;
                             border-radius:20px;
                             margin-right:5px;
+                            text-decoration: none;
                         }
                         .all{
                             color:#23E4C7;
