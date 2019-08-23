@@ -32,7 +32,7 @@
                         <div class="three-area">{{leftDownData['安全运行时间']}}<p>天</p></div>
                     </div>
                     <div class="item">
-                        <div class="three-left">24小时报警信息</div>
+                        <div class="three-left">24小时<br/>报警信息</div>
                         <div class="three-area">{{leftDownData['24小时报警信息']}}<p>项</p></div>
                     </div>
                     <div class="item">
@@ -704,23 +704,25 @@ export default {
                         display:flex;
 
                         .three-left{
-                            width:35%;
+                            width:85px;
                             height:72px;
-                            line-height:72px;
                             font-size:18px;
                             text-align:center;
                             border:1px solid #035853;
                             border-left:2px solid #34b6a2;
                             background:#1b232c;
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
                         }
 
                         .three-area{
-                            width:65%;
+                            flex:1;
                             height:72px;
                             line-height:72px;
                             text-align:right;
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
-                            font-size:50px;
+                            font-size:46px;
                             padding-right:15px;
 
                             p{
