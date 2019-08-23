@@ -213,7 +213,7 @@
                             width="100"
                             label="">
                                 <template slot-scope="scope">
-                                    <div class="play-btn" v-if="this.conclusion == '1'"></div>
+                                    <div class="play-btn"></div>
                                 </template>
                             </el-table-column>
                         </el-table>
