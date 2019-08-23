@@ -398,6 +398,14 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.listData.forEach(el => {
+                            this.conclusion.push(el.conclusion)
+                            if(el.conclusion == '0'){
+                                el.conclusion = '正常'
+                            }else{
+                                el.conclusion = '报警'
+                            }
+                        });
                     }else{
                         this.listData = []
                     }
@@ -409,6 +417,14 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.listData.forEach(el => {
+                            this.conclusion.push(el.conclusion)
+                            if(el.conclusion == '0'){
+                                el.conclusion = '正常'
+                            }else{
+                                el.conclusion = '报警'
+                            }
+                        });
                     }else{
                         this.listData = []
                     }
@@ -420,6 +436,14 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.listData.forEach(el => {
+                            this.conclusion.push(el.conclusion)
+                            if(el.conclusion == '0'){
+                                el.conclusion = '正常'
+                            }else{
+                                el.conclusion = '报警'
+                            }
+                        });
                     }else{
                         this.listData = []
                     }
@@ -431,6 +455,14 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.listData.forEach(el => {
+                            this.conclusion.push(el.conclusion)
+                            if(el.conclusion == '0'){
+                                el.conclusion = '正常'
+                            }else{
+                                el.conclusion = '报警'
+                            }
+                        });
                     }else{
                         this.listData = []
                     }
