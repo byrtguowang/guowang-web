@@ -117,17 +117,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn cursor" @click="jump2('')">0项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['PCB板贴片检测']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">{{processList['单板测试']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['电流测试']||0}}项告警</div>
                 </div>
             </div>
             <div class="title">
@@ -137,27 +137,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">{{processList['耐压试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">{{processList['基本误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">{{processList['日计时误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">{{processList['参数设置']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['通信端口检验']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -176,6 +176,9 @@ import {
     getQualityControl,
     getSuppliersList
 } from '@api/map'
+import {
+    getProductionProcess,//三维生产工艺
+} from '@api/supplierInformation'
 export default {
     data() {
         return {
@@ -187,6 +190,7 @@ export default {
             centerData:{}, //中下
             mapData:[], //地图数据
             mapOneData:{}, //选中的一条数据
+            processList:{},
         };
     },
     mounted() {
@@ -202,6 +206,7 @@ export default {
         this.getQualityControl();
         // 地图
         this.getMapChart();
+        this.getProductionProcess();
     },
     beforeDestroy() {
       if (!this.chart) {
@@ -265,7 +270,19 @@ export default {
                 }
             })
         },
-
+        //三维生产工艺
+        async getProductionProcess(){
+            const {data}=await getProductionProcess({});
+            if(data.status===0||data.status==='0'){
+                this.processList=data.data?data.data:{};
+            }else{
+                this.processList={};
+                this.$message({
+                    type:'error',
+                    message:data.message
+                })
+            }
+        },
         // 地图
         chinaConfigure() {
             let _this = this;

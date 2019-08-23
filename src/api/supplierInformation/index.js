@@ -16,3 +16,7 @@ export function rightPieChart(param) {
 export function salesOrderInfo(param) {
   return Request.http.post(`/platform/s-supplier/salesOrderInfo`, param, 1);
 }
+// 三维生产工艺
+export function getProductionProcess(param) {
+  return Request.http.post(`/SubcategoryHomepageController/getProductionProcess`, param, 1);
+}

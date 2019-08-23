@@ -32,17 +32,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn cursor" @click="jump2('')">0项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['PCB板贴片检测']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">{{processList['单板测试']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['电流测试']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -102,27 +102,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">{{processList['耐压试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">{{processList['基本误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">{{processList['日计时误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">{{processList['参数设置']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">{{processList['通信端口检验']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -135,6 +135,7 @@ import {
     ringBrightGreen, //当前生产状态
     ringDarkGreen, //当前生产状态
     rightPieChart,//今日报警信息
+    getProductionProcess,//三维生产工艺
     salesOrderInfo
 } from '@api/supplierInformation'
 import {
@@ -155,6 +156,7 @@ export default {
             echarts3Date:[],
             echarts4Date:[],
             tableData: [],//表格数据
+            processList:{},
             titleStyle:{
                 color:'#ffffff',
                 fontSize: 16
@@ -241,6 +243,7 @@ export default {
         this.getOrderCompletionRate();
         this.rightPieChart();
         this.getQualityControl();
+        this.getProductionProcess();
         window.onresize=()=>{
             this.myCharts1.resize();
             this.myCharts2.resize();
@@ -350,6 +353,21 @@ export default {
                 })
             }
         }, 
+        //三维生产工艺
+        async getProductionProcess(){
+            const {data}=await getProductionProcess({
+                supplierID:sessionStorage.getItem('supplierID')
+            });
+            if(data.status===0||data.status==='0'){
+                this.processList=data.data?data.data:{};
+            }else{
+                this.processList={};
+                this.$message({
+                    type:'error',
+                    message:data.message
+                })
+            }
+        },
         // 更多
         getMore(){
         },
