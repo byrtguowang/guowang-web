@@ -380,7 +380,8 @@ export default {
                     type:'line',
                     areaStyle:{},
                     name:item.name,
-                    data:item.value
+                    data:item.value,
+                    smooth: true,
                 });
                 legend.push({
                     name: item.name,
@@ -465,7 +466,8 @@ export default {
                     type:'line',
                     areaStyle:{},
                     name:item.name,
-                    data:item.value
+                    data:item.value,
+                    smooth: true,
                 });
                 legend.push({
                     name: item.name,
