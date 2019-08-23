@@ -773,7 +773,7 @@ export default {
                             border:1px solid #23b989; 
                         }
                         .police{
-                            color:#FF4545;
+                            color: #ff8e8e;
                             background:#6f1515;
                             border:1px solid #db6063; 
                         }

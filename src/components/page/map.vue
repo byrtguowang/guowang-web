@@ -727,7 +727,7 @@ export default {
 
                         .three-left{
                             width:85px;
-                            height:72px;
+                            height:70px;
                             font-size:18px;
                             text-align:center;
                             border:1px solid #035853;
