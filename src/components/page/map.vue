@@ -99,17 +99,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn" @click="jump2('')">0项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">0项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
             <div class="title">
@@ -119,27 +119,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn" @click="jump2('D_Pressure_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_BasicError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -943,9 +943,9 @@ export default {
                         color:#dcdcdc;
                         border:1px solid #f59a1b;
                         background:#011c1c;
+                        font-weight:bold;
                         font-size:16px;
                     }
-
                     .gj_btn{
                         height:33px;
                         line-height:33px;
@@ -953,9 +953,8 @@ export default {
                         border-left:3px solid #f59a1b;
                         border-right:3px solid #f59a1b;
                         background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
-                        font-size:16px;
                         color:#fff;
-                        cursor:pointer;
+                        font-size:16px;
                     }
                 }
             }
