@@ -499,8 +499,8 @@ export default {
                     text: '检测合格率',
                     subtext: data.percentage + '%',
                     x: 'center',
-                    y: 'center',
-                    itemGap: 5,
+                    y: '35%',
+                    itemGap: 10,
                     textStyle : {
                         color : '#1bd7c1',
                         fontFamily : '微软雅黑',
@@ -510,7 +510,7 @@ export default {
                     subtextStyle:  {
                         color : '#fff',
                         fontFamily : '微软雅黑',
-                        fontSize : 10,
+                        fontSize : 25,
                         fontWeight : 'normal'
                     }
                 },
@@ -518,7 +518,7 @@ export default {
                     {
                         name:'访问来源',
                         type:'pie',
-                        radius: ['50%', '70%'],
+                        radius: ['60%', '80%'],
                         avoidLabelOverlap: false,
                         label: {
                             normal: {
@@ -795,7 +795,7 @@ export default {
                             border:1px solid #23b989; 
                         }
                         .police{
-                            color:#FF4545;
+                            color: #ff8e8e;
                             background:#6f1515;
                             border:1px solid #db6063; 
                         }
