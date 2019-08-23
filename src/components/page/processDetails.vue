@@ -233,6 +233,7 @@ import {
     listDParameterDNB,
     listPressure,
     listTimingError,
+    listVeneerTest,
     listCountBarGraphDDataLogDNB, //24小时左侧柱状图
     listConcBarGraphDDataLogDNB //24小时右侧柱状图
 } from '@api/processDetails'
@@ -450,7 +451,7 @@ export default {
                 })
             }
             // 电能表单板测试采集数据
-            if(this.category == 'D_TimingError_DNB'){
+            if(this.category == 'D_VeneerTest_DNB'){
                 listVeneerTest(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
