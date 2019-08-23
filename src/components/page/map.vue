@@ -412,6 +412,7 @@ export default {
                 sessionStorage.setItem('param',param)
                 sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
                 sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
+                sessionStorage.setItem('supplierCode',this.mapOneData.supplierCode)
                 this.$router.push({
                     path:'/Home/processDetails',
                 })

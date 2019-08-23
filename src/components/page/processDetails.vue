@@ -96,60 +96,117 @@
                         <a class="btn police">报警</a>
                     </div>
                     <div class="time-box">
-                        <!-- <div class="block"> -->
-                        <el-date-picker
-                        v-model="time"
-                        type="daterange"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期"
-                        default-value="2010-10-01">
+                        <el-date-picker v-model="time" type="daterange" align="right" start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
                         </el-date-picker>
-                        <!-- </div> -->
-                        <a class="cha">查询</a>
+                        <a class="cha" @click='getList'>查询</a>
                     </div>
                 </div>
                 <div class="list">
                     <div class="information_content table">
                         <el-table
-                            :data="tableData3"
+                            :data="listData"
                             style="width: 100%"
                             height="350px">
+                            <el-table-column 
+                            prop="BasicErrorID"
+                            align="center"
+                            label="数据编号"
+                            v-if="this.category == 'D_BasicError_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="EpitopCode"
+                            align="center"
+                            label="表位号"
+                            v-if="this.category == 'D_BasicError_DNB' || this.category == 'D_Pressure_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="NameplateCode"
+                            align="center"
+                            label="局编号/下铭牌号"
+                            v-if="this.category == 'D_Parameter_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="ParameterName"
+                            align="center"
+                            label="参数名称"
+                            v-if="this.category == 'D_Parameter_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="ParameterValue"
+                            align="center"
+                            label="参考值"
+                            v-if="this.category == 'D_Parameter_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="ReadValue"
+                            align="center"
+                            label="读取值"
+                            v-if="this.category == 'D_Parameter_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="CheckDuration"
+                            align="center"
+                            label="检测时长"
+                            v-if="this.category == 'D_Pressure_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="Voltage"
+                            align="center"
+                            label="试验电压"
+                            v-if="this.category == 'D_Pressure_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="Unqualified"
+                            align="center"
+                            label="不合格项"
+                            v-if="this.category == 'D_Pressure_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="AllowableError"
+                            align="center"
+                            label="允许误差"
+                            v-if="this.category == 'D_TimingError_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="RealError"
+                            align="center"
+                            label="实际误差"
+                            v-if="this.category == 'D_TimingError_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="PCBCode"
+                            align="center"
+                            label="电路板编号"
+                            v-if="this.category == 'D_VeneerTest_DNB'">
+                            </el-table-column>
+                            <el-table-column 
+                            prop="SoftwareVersion"
+                            align="center"
+                            label="软件版本号"
+                            v-if="this.category == 'D_VeneerTest_DNB'">
+                            </el-table-column>
                             <el-table-column
-                            prop="contractNumber"
+                            prop="CheckTime"
                             align="center"
                             label="检测时间">
                             </el-table-column>
                             <el-table-column
-                            prop="orderNumber"
-                            align="center"
-                            label="检测结果">
-                            </el-table-column>
-                            <el-table-column
-                            prop="orderQuantity"
+                            prop="Conclusion"
                             align="center"
                             width="100"
-                            label="物料编码">
+                            label="结论">
                             </el-table-column>
                             <el-table-column
-                            prop="entryName"
+                            prop="PlantCode"
                             align="center"
-                            label="设备名称">
+                            label="厂内编号"
+                            v-if="this.category == !'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column
-                            prop="date"
+                            prop="DeviceCode"
                             align="center"
-                            width="100"
-                            label="工单数量">
-                            </el-table-column>
-                            <el-table-column
-                            prop="speedOfProgress"
-                            align="center"
-                            label="计划开始时间">
-                            </el-table-column>
-                            <el-table-column
-                            prop="speedOfProgress"
-                            align="center"
-                            label="基本误差测试">
+                            width="130"
+                            label="检定线/台体编号">
                             </el-table-column>
                         </el-table>
                     </div>
@@ -164,7 +221,13 @@
 import {
     TheAnnualNumberOf,
     TheNumberOfThisMonth,
-    TheNumberOf
+    TheNumberOf,
+    listDBasicErrorDNB,
+    listDParameterDNB,
+    listPressure,
+    listTimingError,
+    listCountBarGraphDDataLogDNB, //24小时左侧柱状图
+    listConcBarGraphDDataLogDNB //24小时右侧柱状图
 } from '@api/processDetails'
 export default {
     data() {
@@ -184,43 +247,8 @@ export default {
                 alarm:0,
                 sum:0
             },
-           tableData3: [{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },{
-            contractNumber:'XSDD-20170616-V4BY7V343N',
-            orderNumber:'XSDD-20170616-V4BY7V343N',
-            orderQuantity:9999999,
-            entryName:'圆钢供应商项目项目名称',
-            date: '2018-05-10',
-            speedOfProgress:'66%',
-            },],
-            time:''
+            time:'',
+            listData:[],
         };
     },
     mounted() {
@@ -237,7 +265,8 @@ export default {
         this.chartsLeft();
         // 24小时右
         this.chartsRight();
-        
+        // 列表
+        this.getList()
     },
     methods: {
         // 年度报警
@@ -290,12 +319,85 @@ export default {
 
         // 24小时左
         chartsLeft(){
+            let param = {
+                category:this.category,
+                supplierid:sessionStorage.getItem('supplierCode')
+            }
+            listCountBarGraphDDataLogDNB(JSON.stringify(param))
+            .then(res => {
+                if(res.data.status == 0){
+
+                }
+            })
             this.$echarts.init(this.$refs.chart1).setOption(this.getBarOption('#119788','#1ae7e3'));
         },
 
         // 24小时右
         chartsRight(){
+            let param = {
+                category:this.category,
+                supplierid:sessionStorage.getItem('supplierCode')
+            }
+            listConcBarGraphDDataLogDNB(JSON.stringify(param))
+            .then(res => {
+                if(res.data.status == 0){
+                    
+                }
+            })
             this.$echarts.init(this.$refs.chart2).setOption(this.getBarOption('#db761b','#974904'));
+        },
+
+        // 列表数据
+        getList(){
+            let param = {
+                supplierid:sessionStorage.getItem('supplierCode'),
+                startingTime:this.time[0],
+                endTime:this.time[1]
+            }
+            // 基本误差
+            if(this.category == 'D_BasicError_DNB'){
+                listDBasicErrorDNB(JSON.stringify(param))
+                .then(res => {
+                    if(res.data.status == 0){
+                        this.listData = res.data.data
+                    }else{
+                        this.listData = []
+                    }
+                })
+            }
+            // 参数设置
+            if(this.category == 'D_Parameter_DNB'){
+                listDParameterDNB(JSON.stringify(param))
+                .then(res => {
+                    if(res.data.status == 0){
+                        this.listData = res.data.data
+                    }else{
+                        this.listData = []
+                    }
+                })
+            }
+            // 耐压
+            if(this.category == 'D_Pressure_DNB'){
+                listPressure(JSON.stringify(param))
+                .then(res => {
+                    if(res.data.status == 0){
+                        this.listData = res.data.data
+                    }else{
+                        this.listData = []
+                    }
+                })
+            }
+            // 日记时误差
+            if(this.category == 'D_TimingError_DNB'){
+                listTimingError(JSON.stringify(param))
+                .then(res => {
+                    if(res.data.status == 0){
+                        this.listData = res.data.data
+                    }else{
+                        this.listData = []
+                    }
+                })
+            }
         },
 
         // 柱状图配置
