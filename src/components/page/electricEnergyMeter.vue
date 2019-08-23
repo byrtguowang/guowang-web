@@ -21,10 +21,19 @@
                                             <p>国网采购订单</p>
                                         </div>
                                         <div class="module-content-list-num">
-                                            <p>
+                                            <p v-if="PurchasingOrder.purchaseCount>10000">
+                                                <span class="num">{{PurchasingOrder.purchaseCount/10000}}</span>
+                                                <!-- <span class="num">{{Math.round((PurchasingOrder.purchaseCount /10000) * 100) / 100}}</span> -->
+                                                <span class="words">万条</span>
+                                            </p>
+                                            <p v-else>
                                                 <span class="num">{{PurchasingOrder.purchaseCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
+                                            <!-- <p>
+                                                <span class="num">{{PurchasingOrder.purchaseCount}}</span>
+                                                <span class="words">条</span>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -39,10 +48,19 @@
                                             <p>销售订单</p>
                                         </div>
                                         <div class="module-content-list-num">
-                                            <p>
+                                            <p v-if="PurchasingOrder.totalCount>10000">
+                                                <span class="num">{{PurchasingOrder.totalCount/10000}}</span>
+                                                <!-- <span class="num">{{Math.round((PurchasingOrder.totalCount /10000) * 100) / 100}}</span> -->
+                                                <span class="words">万条</span>
+                                            </p>
+                                            <p v-else>
                                                 <span class="num">{{PurchasingOrder.totalCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
+                                            <!-- <p>
+                                                <span class="num">{{PurchasingOrder.totalCount}}</span>
+                                                <span class="words">条</span>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -57,10 +75,19 @@
                                             <p>24小时报警</p>
                                         </div>
                                         <div class="module-content-list-num">
-                                            <p>
+                                            <p v-if="PurchasingOrder.alarmCount>10000">
+                                                <span class="num">{{PurchasingOrder.alarmCount/10000}}</span>
+                                                <!-- <span class="num">{{Math.round((PurchasingOrder.alarmCount /10000) * 100) / 100}}</span> -->
+                                                <span class="words">万项</span>
+                                            </p>
+                                            <p v-else>
                                                 <span class="num">{{PurchasingOrder.alarmCount}}</span>
                                                 <span class="words">项</span>
                                             </p>
+                                            <!-- <p>
+                                                <span class="num">{{PurchasingOrder.alarmCount}}</span>
+                                                <span class="words">项</span>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -80,10 +107,19 @@
                                             <p>在制品数量</p>
                                         </div>
                                         <div class="module-content-list-num">
-                                            <p>
+                                            <p v-if="PurchasingOrder.unFinishedCount>10000">
+                                                <span class="num">{{PurchasingOrder.unFinishedCount/10000}}</span>
+                                                <!-- <span class="num">{{Math.round((PurchasingOrder.unFinishedCount /10000) * 100) / 100}}</span> -->
+                                                <span class="words">万台</span>
+                                            </p>
+                                            <p v-else>
                                                 <span class="num">{{PurchasingOrder.unFinishedCount}}</span>
                                                 <span class="words">台</span>
                                             </p>
+                                            <!-- <p>
+                                                <span class="num">{{PurchasingOrder.unFinishedCount}}</span>
+                                                <span class="words">台</span>
+                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
@@ -377,16 +413,21 @@ export default {
                                             width:56%;
                                             background:linear-gradient(to right, #035853, #139E8E, #035853);
                                             p{
-                                                text-align:right;
+                                                text-align:center;
                                                 line-height:70px;
-                                                margin-right:9px;
+                                                position:relative;
                                                 .num{
                                                     font-size:44px;
                                                     font-family:'庞门正道标题'
                                                 }
                                                 .words{
-                                                    font-size:18px;
+                                                    font-size:16px;
+                                                    line-height:1;
+                                                    height:16px;
                                                     color:#58fff1;
+                                                    position:absolute;
+                                                    right:6px;
+                                                    bottom:24px;
                                                 }
                                             }
                                         }
