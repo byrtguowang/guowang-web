@@ -28,7 +28,7 @@ export function listConcBarGraphDDataLogDNB(param) {
 
 // 电能表基本误差测试总结论表采集数据
 export function listDBasicErrorDNB(param) {
-  return Request.http.post(`/ProcessDetailInterfaceController/listDBasicErrorDNB`, param, 1 ,{"Content-Type": "application/json"});
+  return Request.http.post(`/ProcessDetailInterfaceController/listDBasicErrorDNB`, param, 1,{"Content-Type": "application/json"});
 }
 
 // 电能表参数设置采集数据表
