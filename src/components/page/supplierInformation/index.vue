@@ -9,7 +9,7 @@
                 <div class="echarts_box">
                     <div class="echarts_tit">
                         <p>供应商名称</p>
-                        <span>{{supplierName}}</span>
+                        <span class="ellipsis cursor">{{supplierName}}</span>
                     </div>
                     <div class="echarts_con echarts_con1" ref="echarts1"></div>
                     <div class="echarts_con echarts_con2" ref="echarts2"></div>
@@ -17,7 +17,7 @@
                 <div class="echarts_box">
                     <div class="echarts_tit">
                         <p>供应商地址</p>
-                        <span>{{supplierAddr}}</span>
+                        <span class="ellipsis cursor" :title="supplierAddr">{{supplierAddr}}</span>
                     </div>
                     <div class="echarts_con echarts_con3" ref="echarts3"></div>
                     <div class="echarts_con echarts_con4" ref="echarts4"></div>
@@ -212,7 +212,7 @@ export default {
                 series: [
                     {
                         type:'pie',
-                        radius: ['60%', '80%'],
+                        radius: ['55%', '75%'],
                         avoidLabelOverlap: false,
                         hoverAnimation:false,
                         label: false,
@@ -607,11 +607,12 @@ export default {
                     }
                     span{
                         position:absolute;
-                        width:60%;
+                        width:50%;
                         text-align:right;
                         right:30px;
                         top:50%;
                         transform: translateY(-50%);
+                        
                     }
                 }
                 .echarts_con{
@@ -624,6 +625,7 @@ export default {
                     top:11px;
                     left:0;
                     font-size:16px;
+                    font-weight:bold;
                 }
                 .echarts_con2:before{
                      content:'订单完成率';
@@ -659,6 +661,7 @@ export default {
                 img{
                     height:128px;
                     width:100%;
+                    font-size:16px;
                 }
 
                 .gj_name{
@@ -668,6 +671,7 @@ export default {
                     color:#dcdcdc;
                     border:1px solid #f59a1b;
                     background:#011c1c;
+                    font-weight:bold;
                 }
 
                 .gj_btn{
@@ -677,7 +681,6 @@ export default {
                     border-left:3px solid #f59a1b;
                     border-right:3px solid #f59a1b;
                     background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
-                    font-size:16px;
                     color:#fff;
                 }
             }
