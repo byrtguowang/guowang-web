@@ -32,17 +32,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn" @click="jump2('')">0项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">0项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -102,27 +102,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn" @click="jump2('D_Pressure_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_BasicError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -132,10 +132,14 @@
 
 <script>
 import {
-    ringBrightGreen,
-    ringDarkGreen,
+    ringBrightGreen, //当前生产状态
+    ringDarkGreen, //当前生产状态
     salesOrderInfo
 } from '@api/supplierInformation'
+import {
+    getOrderCompletionRate, //订单完成率
+    getQualityControl, //生产质量监控
+} from '@api/map'
 export default {
     data() {
         return {
@@ -146,6 +150,8 @@ export default {
             myCharts3:null,
             myCharts4:null,
             echarts1Date:[],
+            echarts2Date:[],
+            echarts4Date:[],
             tableData: [],//表格数据
             titleStyle:{
                 color:'#ffffff',
@@ -232,9 +238,9 @@ export default {
 
         this.salesOrderInfo();
         this.ringGreen();
-        this.drawLine2();
+        this.getOrderCompletionRate();
+        this.getQualityControl();
         this.drawLine3();
-        this.drawLine4();
         window.onresize=()=>{
             this.myCharts1.resize();
             this.myCharts2.resize();
@@ -244,7 +250,7 @@ export default {
     },
     
     methods: { 
-        // 第一个圆环的数据
+        // 当前生产状态
         async ringGreen(){
             let {data:data1}=await ringBrightGreen({});
             let {data:data2}=await ringDarkGreen({});
@@ -279,6 +285,32 @@ export default {
                 });
             }
             this.drawLine1();
+        },
+        //订单完成率
+        async getOrderCompletionRate(){
+            const {data}=await getOrderCompletionRate({});
+            if(data.status===0||data.status==='0') this.echarts2Date=data.data?data.data:[];
+            else{
+                this.echarts2Date=[];
+                this.$message({
+                    type:'error',
+                    message:data.message
+                });
+            }
+            this.drawLine2();
+        },
+        //生产质量监控
+        async getQualityControl(){
+            const {data}=await getQualityControl({});
+            if(data.status===0||data.status==='0') this.echarts4Date=data.data?data.data:[];
+            else{
+                this.echarts4Date=[];
+                this.$message({
+                    type:'error',
+                    message:data.message
+                });
+            }
+            this.drawLine4();
         },
         // 表格数据
         async salesOrderInfo(){
@@ -359,29 +391,13 @@ export default {
         },   
         //第二个图 
         drawLine2(){
-            const data=[
-                {
-                    name:'已完成生产订单',
-                    value:[20, 12, 11, 14, 25, 23,20, 12, 11, 13, 17, 23]
-                },{
-                    name:'生产订单总量',
-                    value:[10, 22, 19, 14, 19, 20, 25, 6, 9, 19, 12, 5]
-                },
-            ];
-
-            let options={
+            let options2={
                 ...this.options
             },
             series=[],
             legend=[];
-            options.color=['#0e7b54','#249291'];
-            for(let item of data){
-                series.push({
-                    type:'line',
-                    areaStyle:{},
-                    name:item.name,
-                    data:item.value
-                });
+            options2.color=['#0e7b54','#249291'];
+            for(let item of this.echarts2Date){
                 legend.push({
                     name: item.name,
                     icon: 'rect',
@@ -389,10 +405,18 @@ export default {
                         color: '#ffffff'
                     }
                 });
+                series.push({
+                    type:'line',
+                    areaStyle:{},
+                    name:item.name,
+                    data:item.value,
+                    smooth: true,
+                });
             }
-            options.series=series;
-            options.legend.data=legend;
-            this.myCharts2.setOption(options);
+            options2.xAxis[0].data=this.echarts2Date[0].month;
+            options2.series=series;
+            options2.legend.data=legend;
+            this.myCharts2.setOption(options2);
         },
         //第三个图
         drawLine3(){
@@ -444,29 +468,13 @@ export default {
         },
         //第四个图
         drawLine4(){
-            const data=[
-                {
-                    name:'生产数据总数',
-                    value:[20, 12, 11, 14, 25, 23,20, 12, 11, 13, 17, 23]
-                },{
-                    name:'报警数据总数',
-                    value:[10, 22, 19, 14, 19, 20, 25, 6, 9, 19, 12, 5]
-                },
-            ];
-
-            let options={
+            let options4={
                 ...this.options
             },
             series=[],
             legend=[];
-            options.color=['#249291','#d97d10'];
-            for(let item of data){
-                series.push({
-                    type:'line',
-                    areaStyle:{},
-                    name:item.name,
-                    data:item.value
-                });
+            options4.color=['#0e7b54','#249291'];
+            for(let item of this.echarts4Date){
                 legend.push({
                     name: item.name,
                     icon: 'rect',
@@ -474,10 +482,18 @@ export default {
                         color: '#ffffff'
                     }
                 });
+                series.push({
+                    type:'line',
+                    areaStyle:{},
+                    name:item.name,
+                    data:item.value,
+                    smooth: true,
+                });
             }
-            options.series=series;
-            options.legend.data=legend;
-            this.myCharts4.setOption(options);
+            options4.xAxis[0].data=this.echarts4Date[0].month;
+            options4.series=series;
+            options4.legend.data=legend;
+            this.myCharts4.setOption(options4);
         },
     },
 };
@@ -661,9 +677,7 @@ export default {
                 img{
                     height:128px;
                     width:100%;
-                    font-size:16px;
                 }
-
                 .gj_name{
                     height:31px;
                     line-height:31px;
@@ -672,8 +686,8 @@ export default {
                     border:1px solid #f59a1b;
                     background:#011c1c;
                     font-weight:bold;
+                    font-size:16px;
                 }
-
                 .gj_btn{
                     height:33px;
                     line-height:33px;
@@ -681,7 +695,7 @@ export default {
                     border-left:3px solid #f59a1b;
                     border-right:3px solid #f59a1b;
                     background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
-                    color:#fff;
+                    font-size:16px;
                 }
             }
         }

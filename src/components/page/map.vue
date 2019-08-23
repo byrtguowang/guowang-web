@@ -32,7 +32,7 @@
                         <div class="three-area">{{leftDownData['安全运行时间']}}<p>天</p></div>
                     </div>
                     <div class="item">
-                        <div class="three-left">24小时报警信息</div>
+                        <div class="three-left">24小时<br/>报警信息</div>
                         <div class="three-area">{{leftDownData['24小时报警信息']}}<p>项</p></div>
                     </div>
                     <div class="item">
@@ -57,7 +57,7 @@
             </div>
             <div v-show="showPop" class="map_pop">
                 <div class="header_name">
-                    <span>{{mapOneData.supplierName}}</span>
+                    <span class="cursor" @click="jump()">{{mapOneData.supplierName}}</span>
                 </div>
                 <div class="map_popbox">
                     <p>地址：<span>{{mapOneData.supplierAddress}}</span></p>
@@ -99,17 +99,17 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn" @click="jump2('')">0项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">0项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">2项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
             <div class="title">
@@ -119,27 +119,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn" @click="jump2('D_Pressure_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_BasicError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn" @click="jump2('D_TimingError_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn" @click="jump2('D_Parameter_DNB')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">3项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn" @click="jump2('')">3项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('')">3项告警</div>
                 </div>
             </div>
         </div>
@@ -705,23 +705,25 @@ export default {
                         display:flex;
 
                         .three-left{
-                            width:35%;
+                            width:85px;
                             height:72px;
-                            line-height:72px;
                             font-size:18px;
                             text-align:center;
                             border:1px solid #035853;
                             border-left:2px solid #34b6a2;
                             background:#1b232c;
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
                         }
 
                         .three-area{
-                            width:65%;
+                            flex:1;
                             height:72px;
                             line-height:72px;
                             text-align:right;
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
-                            font-size:50px;
+                            font-size:46px;
                             padding-right:15px;
 
                             p{
@@ -944,9 +946,9 @@ export default {
                         color:#dcdcdc;
                         border:1px solid #f59a1b;
                         background:#011c1c;
+                        font-weight:bold;
                         font-size:16px;
                     }
-
                     .gj_btn{
                         height:33px;
                         line-height:33px;
@@ -954,9 +956,8 @@ export default {
                         border-left:3px solid #f59a1b;
                         border-right:3px solid #f59a1b;
                         background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
-                        font-size:16px;
                         color:#fff;
-                        cursor:pointer;
+                        font-size:16px;
                     }
                 }
             }

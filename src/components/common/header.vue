@@ -4,12 +4,15 @@
             <img src="static/images/logo.png">
         </div>
         <div class="right">
-            <div class="title">早上好，周先生（国网浙江分公司管理员）</div>
+            <div class="title">早上好，{{loginInfo.username}}（国网浙江分公司管理员）</div>
             <img src="static/images/top_more.png">
         </div>
     </div>
 </template>
 <script>
+import {
+    mapGetters
+} from 'vuex'
 export default {
     data(){
         return{
@@ -26,7 +29,7 @@ export default {
         
     },
     computed: {
-
+        ...mapGetters(['loginInfo'])
     },
     watch:{
         

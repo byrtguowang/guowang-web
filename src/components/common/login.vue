@@ -23,8 +23,9 @@
                     </el-option>
                 </el-select>
             </div>
-            <div class="form_remanber" :class="{'check':isActive}">
+            <div class="form_remanber cursor" @click="chnageCheck">
                 <img src="static/images/sure.png" alt="" v-if="isActive">
+                <img src="static/images/no_sure.png" alt="" v-else>
                 记住登录信息
             </div>
             <div class="form_btn cursor" @click="loginIn"></div>
@@ -47,7 +48,6 @@ export default {
         return {
             options: [
                 {value: '1',label: '物资处'},
-                {value: '2',label: '物资处2'}
             ],
             isActive:true,
             username:'',
@@ -62,6 +62,9 @@ export default {
         ...mapMutations({
             setlogin: 'SET_LOGIN_DATA'
         }),
+        chnageCheck(){
+            this.isActive=!this.isActive;
+        },
         async loginIn(){
             if(!this.username){
                 this.$message({
@@ -87,9 +90,10 @@ export default {
             , {data}=await login(obj);
             if(data.status==='0'||data.status===0){
                 this.setlogin({
-                    username:this.username, 
+                    loginName:this.username, 
+                    username:data.data.name,
                     password:this.isActive?this.password:'',
-                    rememberMe:this.role
+                    rememberMe:this.role,
                 });
                 this.$router.push({
                     path:'/Home'
@@ -101,10 +105,10 @@ export default {
         }
     },
     mounted(){
-        let {username,password,rememberMe}=this.loginInfo;
-        this.username=username;
+        let {loginName,password,rememberMe}=this.loginInfo;
+        this.username=loginName;
         this.password=password;
-        this.role=rememberMe;
+        this.role=rememberMe||'1';
     }
 }
 </script>

@@ -54,7 +54,7 @@
                                     <div class="module-content-list-top">
                                         <div class="module-content-list-line"></div>
                                         <div class="module-content-list-words">
-                                            <p>24小时报警信息</p>
+                                            <p>24小时报警</p>
                                         </div>
                                         <div class="module-content-list-num">
                                             <p>
