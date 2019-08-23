@@ -23,8 +23,9 @@
                     </el-option>
                 </el-select>
             </div>
-            <div class="form_remanber" :class="{'check':isActive}">
+            <div class="form_remanber cursor" @click="chnageCheck">
                 <img src="static/images/sure.png" alt="" v-if="isActive">
+                <img src="static/images/no_sure.png" alt="" v-else>
                 记住登录信息
             </div>
             <div class="form_btn cursor" @click="loginIn"></div>
@@ -61,6 +62,9 @@ export default {
         ...mapMutations({
             setlogin: 'SET_LOGIN_DATA'
         }),
+        chnageCheck(){
+            this.isActive=!this.isActive;
+        },
         async loginIn(){
             if(!this.username){
                 this.$message({
@@ -87,7 +91,7 @@ export default {
             if(data.status==='0'||data.status===0){
                 this.setlogin({
                     loginName:this.username, 
-                    username:data.name,
+                    username:data.data.name,
                     password:this.isActive?this.password:'',
                     rememberMe:this.role,
                 });
