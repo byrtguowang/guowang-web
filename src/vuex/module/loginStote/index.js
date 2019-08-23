@@ -3,6 +3,7 @@ import * as types from './types';
 //初始化状态
 const state = {
     loginInfo:{
+        loginName:'',
         username:'',
         password:'',
         rememberMe:''

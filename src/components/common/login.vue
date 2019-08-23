@@ -47,7 +47,6 @@ export default {
         return {
             options: [
                 {value: '1',label: '物资处'},
-                {value: '2',label: '物资处2'}
             ],
             isActive:true,
             username:'',
@@ -87,9 +86,10 @@ export default {
             , {data}=await login(obj);
             if(data.status==='0'||data.status===0){
                 this.setlogin({
-                    username:this.username, 
+                    loginName:this.username, 
+                    username:data.name,
                     password:this.isActive?this.password:'',
-                    rememberMe:this.role
+                    rememberMe:this.role,
                 });
                 this.$router.push({
                     path:'/Home'
@@ -101,10 +101,10 @@ export default {
         }
     },
     mounted(){
-        let {username,password,rememberMe}=this.loginInfo;
-        this.username=username;
+        let {loginName,password,rememberMe}=this.loginInfo;
+        this.username=loginName;
         this.password=password;
-        this.role=rememberMe;
+        this.role=rememberMe||'1';
     }
 }
 </script>
