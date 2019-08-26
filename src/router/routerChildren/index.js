@@ -65,6 +65,13 @@ export default [{
             require(["../../components/page/productionQualityDaily"], resolve),
         meta:{title:'生产质量日报'}
     },
+    {
+        path: "liveVideo",
+        name: "liveVideo",
+        component: resolve =>
+            require(["../../components/page/liveVideo"], resolve),
+        meta:{title:'直播视频'}
+    },
     // IT规划
     {
         path: "ITPlanning",
