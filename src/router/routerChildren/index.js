@@ -58,7 +58,13 @@ export default [{
             require(["../../components/page/productionOrder"], resolve),
         meta:{title:'生产订单'}
     }, 
-
+    {
+        path: "productionQualityDaily",
+        name: "productionQualityDaily",
+        component: resolve =>
+            require(["../../components/page/productionQualityDaily"], resolve),
+        meta:{title:'生产质量日报'}
+    },
     // IT规划
     {
         path: "ITPlanning",
