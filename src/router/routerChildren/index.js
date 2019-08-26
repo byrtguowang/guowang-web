@@ -51,6 +51,13 @@ export default [{
             require(["../../components/page/processDetails"], resolve),
         meta:{title:'工艺详情'}
     }, 
+    {
+        path: "productionOrder",
+        name: "productionOrder",
+        component: resolve =>
+            require(["../../components/page/productionOrder"], resolve),
+        meta:{title:'生产订单'}
+    }, 
 
     // IT规划
     {
