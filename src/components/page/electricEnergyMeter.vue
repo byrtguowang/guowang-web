@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chart" ref="chart">
+                            <div class="chart" ref="chart1">
                             </div>
                         </div>
                     </div>
@@ -412,6 +412,10 @@ import{
 export default {
     data() {
         return {
+            chart1:null,
+            chart2:null,
+            chart3:null,
+            chart4:null,
             PurchasingOrder:{},
             xData:[], //柱状图横坐标
             productionData:[], //柱状图生产数据
@@ -419,8 +423,36 @@ export default {
         };
     },
     mounted() {
+        this.chart1=this.$echarts.init(this.$refs.chart1);
+        this.chart2=this.$echarts.init(this.$refs.chart2);
+        this.chart3=this.$echarts.init(this.$refs.chart3);
+        this.chart4=this.$echarts.init(this.$refs.chart4);
         this.getPurchasingOrder();
         this.getChartData();
+        
+        this.chart2.setOption(this.getBarOption(
+            ["2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08"],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]
+        ));
+        this.chart3.setOption(this.getBarOption(
+            ["2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08"],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]
+        ));
+        this.chart4.setOption(this.getBarOption(
+            ["2019-03", "2019-04", "2019-05", "2019-06", "2019-07", "2019-08"],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]
+        ));
+
+
+        window.onresize=()=>{
+            this.chart1.resize();
+            this.chart2.resize();
+            this.chart3.resize();
+            this.chart4.resize();
+        }
         
     },
     methods: {
@@ -441,7 +473,7 @@ export default {
                         this.productionData.push(el.count)
                         this.alarmInformation.push(el.count1)
                     });
-                    this.$echarts.init(this.$refs.chart).setOption(this.getBarOption(
+                    this.chart1.setOption(this.getBarOption(
                         this.xData,this.productionData,this.alarmInformation
                     ));
 
