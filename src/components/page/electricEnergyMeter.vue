@@ -135,8 +135,90 @@
                 </div>
                 <div class="module-box">
                     <p>机器人</p>
-                    <div class="module-content robot-bg">
-                        <img src="../../../static/images/robot.png" alt="">
+                    <div class="module-content">
+                        <div class="module-content-box module-content-left">
+                            <div class="module-content-list">
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>国网采购订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">当前订单号</p>
+                                        <p class="orderNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>销售订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">订单总量</p>
+                                        <p class="orderNumber">0台</p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>24小时报警</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">项</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">24小时采集数据</p>
+                                        <p class="orderNumber">0条</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="module-content-box module-content-right module-content-left">
+                            <div class="module-chart module-content-list">
+                                 <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>在制品数量</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">台</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
+                                        <div class="module-content-list-line"></div>
+                                        <p class="words-bg">生产数据监控</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart" ref="chart2">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,13 +226,177 @@
                 <div class="module-box">
                     <p>无人机</p>
                     <div class="module-content">
-                        <img src="../../../static/images/UAV.png" alt="">
+                        <div class="module-content-box module-content-left">
+                            <div class="module-content-list">
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>国网采购订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">当前订单号</p>
+                                        <p class="orderNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>销售订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">订单总量</p>
+                                        <p class="orderNumber">0台</p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>24小时报警</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">项</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">24小时采集数据</p>
+                                        <p class="orderNumber">0条</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="module-content-box module-content-right module-content-left">
+                            <div class="module-chart module-content-list">
+                                 <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>在制品数量</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">台</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
+                                        <div class="module-content-list-line"></div>
+                                        <p class="words-bg">生产数据监控</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart" ref="chart2">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="module-box">
                     <p>用电信息采集</p>
                     <div class="module-content">
-                        <img src="../../../static/images/electricityInformation.png" alt="">
+                        <div class="module-content-box module-content-left">
+                            <div class="module-content-list">
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>国网采购订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">当前订单号</p>
+                                        <p class="orderNumber"></p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>销售订单</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">条</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">订单总量</p>
+                                        <p class="orderNumber">0台</p>
+                                    </div>
+                                </div>
+                                <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>24小时报警</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">项</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom">
+                                        <p class="orderNumber-title">24小时采集数据</p>
+                                        <p class="orderNumber">0条</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="module-content-box module-content-right module-content-left">
+                            <div class="module-chart module-content-list">
+                                 <div class="module-content-list-box">
+                                    <div class="module-content-list-top">
+                                        <div class="module-content-list-line"></div>
+                                        <div class="module-content-list-words">
+                                            <p>在制品数量</p>
+                                        </div>
+                                        <div class="module-content-list-num">
+                                            <p>
+                                                <span class="num">0</span>
+                                                <span class="words">台</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
+                                        <div class="module-content-list-line"></div>
+                                        <p class="words-bg">生产数据监控</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart" ref="chart2">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
