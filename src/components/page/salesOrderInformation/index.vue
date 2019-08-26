@@ -370,9 +370,6 @@ export default {
         },
         // 更多
         getMore(){
-            this.$router.push({
-                path:'salesOrderInformation'
-            })
         },
         // 跳转工艺详情页
         jump2(param){

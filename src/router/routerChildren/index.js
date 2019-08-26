@@ -31,6 +31,13 @@ export default [{
         meta:{title:'供应商信息'}
     }, 
     {
+        path: "salesOrderInformation",
+        name: "salesOrderInformation",
+        component: resolve =>
+            require(["../../components/page/salesOrderInformation"], resolve),
+        meta:{title:'销售订单信息'}
+    },
+    {
         path: "electricEnergyMeter",
         name: "electricEnergyMeter",
         component: resolve =>
