@@ -306,7 +306,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chart" ref="chart2">
+                            <div class="chart" ref="chart3">
                             </div>
                         </div>
                     </div>
@@ -394,7 +394,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chart" ref="chart2">
+                            <div class="chart" ref="chart4">
                             </div>
                         </div>
                     </div>
