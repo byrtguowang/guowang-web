@@ -1,6 +1,187 @@
 <template>
-<div class="supplier_information" id="supplier_information">
-    <div class="information_top mb10">
+<div class="sales_order_information" id="sales_order_information">
+     <div class="information_top mb10">
+         <div class="title">
+            <p>销售订单列表 <span class="cursor">返回供应商主页></span></p>
+        </div>
+        <div class="top_box">
+            <div class="search">
+                <div class="search_left">
+                    <div class="demo-input-suffix">
+                        <span>供应商：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>国网采购订单号：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>销售订单号：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>交货日期：</span>
+                        <el-date-picker
+                            type="daterange"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>交货地点：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>国网框架合同号：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>工程项目名称：</span>
+                        <el-input
+                            placeholder="请输入内容">
+                        </el-input>
+                    </div>
+                </div>
+                <div class="search_right">
+                    <button>查询</button>
+                    <button>导出</button>
+                    <button>生产质量日报</button>
+                </div>
+            </div>
+            <div class="table">
+                <el-table
+                    :data="tableData"
+                    style="width: 100%"
+                    height="450">
+                    <el-table-column
+                    prop="sgPurchaseorder"
+                    align="center"
+                    label="国网采购订单号">
+                    </el-table-column>
+                    <el-table-column
+                    prop="salesOrderCode"
+                    align="center"
+                    label="销售订单号">
+                    </el-table-column>
+                    <el-table-column
+                    prop="sgProjectname"
+                    align="center"
+                    label="供应商名称">
+                    </el-table-column>
+                    <el-table-column
+                    prop="materialsNum"
+                    align="center"
+                    width="100"
+                    label="订单数量">
+                    </el-table-column>
+                    <el-table-column
+                    prop="deliveryDate"
+                    align="center"
+                    width="100"
+                    label="交货日期">
+                    </el-table-column>
+                    <el-table-column
+                    align="center"
+                    label="进度">
+                        <template slot-scope="scope">
+                            <el-progress :percentage="parseFloat(scope.row.percent||0)"></el-progress>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                    align="center"
+                    label="操作">
+                        <template slot-scope="scope">
+                            <span>查看对应生产订单</span>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
+     </div>
+     <div class="information_bottom">
+         <div class="title">
+            <p>销售订单详细信息 <span class="cursor">工作订单></span></p>
+        </div>
+        <div class="botttom_box">
+            <ul class="item">
+                <li>
+                    <span class="item_name">国网采购订单号：</span>
+                    <span class="item_value ellipsis" title="FDJJGHDHGFHDVGHC ccffffffccffffffccffffff">FDJJGHDHGFHDVGHC ccffffffccffffffccffffff</span>
+                </li>
+                <li>
+                    <span class="item_name">国网采购订单项目号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">国网框架合同号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">工程项目名称：</span>
+                    <span class="item_value">工程项目名称</span>
+                </li>
+                <li>
+                    <span class="item_name">销售订单号：</span>
+                    <span class="item_value">SDFFHFGDJGHGF</span>
+                </li>
+            </ul>
+            <ul class="item">
+                <li>
+                    <span class="item_name">国网采购订单号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">国网采购订单项目号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">国网框架合同号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">工程项目名称：</span>
+                    <span class="item_value">工程项目名称</span>
+                </li>
+                <li>
+                    <span class="item_name">销售订单号：</span>
+                    <span class="item_value">SDFFHFGDJGHGF</span>
+                </li>
+            </ul>
+            <ul class="item">
+                <li>
+                    <span class="item_name">国网采购订单号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">国网采购订单项目号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">国网框架合同号：</span>
+                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                </li>
+                <li>
+                    <span class="item_name">工程项目名称：</span>
+                    <span class="item_value">工程项目名称</span>
+                </li>
+                <li>
+                    <span class="item_name">销售订单号：</span>
+                    <span class="item_value">SDFFHFGDJGHGF</span>
+                </li>
+            </ul>
+        </div>
+     </div>
+    <!-- <div class="information_top mb10">
         <div class="left">
             <div class="title">
                 <p>供应商信息</p>
@@ -126,7 +307,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 </template>
 
@@ -145,384 +326,170 @@ import {
 export default {
     data() {
         return {
-            supplierName:'',
-            supplierAddr:'',
-            myCharts1:null,
-            myCharts2:null,
-            myCharts3:null,
-            myCharts4:null,
-            echarts1Date:[],
-            echarts2Date:[],
-            echarts3Date:[],
-            echarts4Date:[],
-            tableData: [],//表格数据
-            processList:{},
-            titleStyle:{
-                color:'#ffffff',
-                fontSize: 16
-            },
-            options:{
-                legend: {
-                    left:'75%',
-                    top:'50%',
-                    orient: 'vertical',
-                    itemWidth:14,
-                    itemHeight:14,
-                },
-                grid: {
-                    top:'50',
-                    left: '3%',
-                    right: '30%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['1','2','3','4','5','6','7','8','9','10','11','12'],
-                        axisLine:{
-                            lineStyle:{
-                                color:'#aaaaaa'
-                            }
-                        },
-                        axisLabel:{
-                            color:'#aaaaaa'
-                        },
-                        axisTick:false,
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        splitLine: false,
-                        axisLine:{
-                            lineStyle:{
-                                color:'#aaaaaa'
-                            }
-                        },
-                        axisLabel:{
-                            color:'#aaaaaa'
-                        },
-                        splitLine:false,
-                        axisTick:false,
-                    }
-                ],
-            },
-            optionsPie:{
-                legend: {
-                    orient: 'vertical',
-                    height:'88',
-                    color: '#ffffff',
-                    itemWidth:14,
-                    itemHeight:14,
-                },
-                series: [
-                    {
-                        type:'pie',
-                        radius: ['55%', '75%'],
-                        avoidLabelOverlap: false,
-                        hoverAnimation:false,
-                        label: false,
-                        labelLine:false,
-                    }
-                ]
-            }
+            tableData: [
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+            ],//表格数据
         }
     },
     mounted() {
-        this.supplierName=sessionStorage.getItem('supplierName');
-        this.supplierAddr=sessionStorage.getItem('supplierAddr');
-        this.myCharts1=this.$echarts.init(this.$refs.echarts1);
-        this.myCharts2=this.$echarts.init(this.$refs.echarts2);
-        this.myCharts3=this.$echarts.init(this.$refs.echarts3);
-        this.myCharts4=this.$echarts.init(this.$refs.echarts4);
-
-        this.salesOrderInfo();
-        this.ringGreen();
-        this.getOrderCompletionRate();
-        this.rightPieChart();
-        this.getQualityControl();
-        this.getProductionProcess();
-        window.onresize=()=>{
-            this.myCharts1.resize();
-            this.myCharts2.resize();
-            this.myCharts3.resize();
-            this.myCharts4.resize();
-        }
+        // this.salesOrderInfo();
     },
     
     methods: { 
-        // 当前生产状态
-        async ringGreen(){
-            let {data:data1}=await ringBrightGreen({});
-            let {data:data2}=await ringDarkGreen({});
-            if(data1.status===0||data1.status==='0'){
-                this.echarts1Date.push({
-                    name:'实际下线（台）',
-                    value:parseFloat(data1.data),
-                })
-            }else{
-                this.$message({
-                    type:'error',
-                    message:data1.message
-                });
-                this.echarts1Date.push({
-                    name:'实际下线（台）',
-                    value:0,
-                });
-            } 
-            if(data2.status===0||data2.status==='0'){
-                this.echarts1Date.push({
-                    name:'当前计划（台）',
-                    value:parseFloat(data2.data),
-                })
-            }else{
-                this.$message({
-                    type:'error',
-                    message:data1.message
-                });
-                this.echarts1Date.push({
-                    name:'当前计划（台）',
-                    value:0,
-                });
-            }
-            this.drawLine1();
-        },
-        //今日报警信息
-        async rightPieChart(){
-            let {data}=await rightPieChart({});
-            if(data.status===0||data.status==='0'){
-                const obj={
-                    D_BasicError_DNB:'电能误差',
-                    D_Parameter_DNB:'电能参数',
-                    D_Pressure_DNB:'电能耐压',
-                    D_TimingError_DNB:'电能日计时',
-                    D_VeneerTest_DNB:'电能表单板'
-                }
-                for(let item of data.data){
-                    item.name=obj[item.dataName]
-                }
-                this.echarts3Date=data.data?data.data:[];
-            }
-            else{
-                this.echarts3Date=[];
-                this.$message({
-                    type:'error',
-                    message:data.message
-                });
-            }
-            this.drawLine3();
-        },
-        //订单完成率
-        async getOrderCompletionRate(){
-            const {data}=await getOrderCompletionRate({});
-            if(data.status===0||data.status==='0') this.echarts2Date=data.data?data.data:[];
-            else{
-                this.echarts2Date=[];
-                this.$message({
-                    type:'error',
-                    message:data.message
-                });
-            }
-            this.drawLine2();
-        },
-        //生产质量监控
-        async getQualityControl(){
-            const {data}=await getQualityControl({});
-            if(data.status===0||data.status==='0') this.echarts4Date=data.data?data.data:[];
-            else{
-                this.echarts4Date=[];
-                this.$message({
-                    type:'error',
-                    message:data.message
-                });
-            }
-            this.drawLine4();
-        },
-        // 表格数据
-        async salesOrderInfo(){
-            let {data}=await salesOrderInfo({});
-            if(data.status===0||data.status==='0'){
-                this.tableData=data.data?data.data:[];
-            }else{
-                this.tableData=[];
-                this.$message({
-                    type:'error',
-                    message:data.message
-                })
-            }
-        }, 
-        //三维生产工艺
-        async getProductionProcess(){
-            const {data}=await getProductionProcess({
-                supplierID:sessionStorage.getItem('supplierID')
-            });
-            if(data.status===0||data.status==='0'){
-                this.processList=data.data?data.data:{};
-            }else{
-                this.processList={};
-                this.$message({
-                    type:'error',
-                    message:data.message
-                })
-            }
-        },
-        // 更多
-        getMore(){
-        },
-        // 跳转工艺详情页
-        jump2(param){
-            if (param != ''){
-                // sessionStorage.setItem('id',this.mapOneData.supplierID)
-                sessionStorage.setItem('param',param)
-                // sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
-                // sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
-                this.$router.push({
-                    path:'/Home/processDetails',
-                })
-            } else {
-                this.$message({
-                    message:'暂无相关数据',
-                    type: 'warning'
-                });
-            }
-        },
-        //第一个图
-        drawLine1(){
-            const options1={
-                ...this.optionsPie
-            },
-            legend=[],
-            percentage=this.echarts1Date[0].value/(this.echarts1Date[0].value+this.echarts1Date[1].value) * 100;
-            options1.title={
-                text: '检测合格率',
-                subtext: percentage + '%',
-                x: 'center',
-                y: '34%',
-                itemGap: 10,
-                textStyle : {
-                    color : '#fff',
-                    fontFamily : '微软雅黑',
-                    fontSize : 14,
-                    fontWeight : 'normal'
-                },
-                subtextStyle:  {
-                    color : '#fff',
-                    fontFamily : '微软雅黑',
-                    fontSize : 35,
-                    fontWeight : 'normal'
-                }
-            },
-            options1.color=['#24e3c7','#018287'];
-            for(let item of this.echarts1Date){
-                legend.push({
-                    name: item.name,
-                    icon: 'rect',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                })
-            }
-            
-            options1.series[0].data=this.echarts1Date;
-            options1.series[0].center=['50%','50%'];
-            options1.legend.left='70%';
-            options1.legend.top='40%';
-            options1.legend.data=legend;
-            this.myCharts1.setOption(options1);
-        },   
-        //第二个图 
-        drawLine2(){
-            const options2={
-                ...this.options
-            },
-            series=[],
-            legend=[];
-            options2.color=['#0e7b54','#249291'];
-            for(let item of this.echarts2Date){
-                legend.push({
-                    name: item.name,
-                    icon: 'rect',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                });
-                series.push({
-                    type:'line',
-                    areaStyle:{},
-                    name:item.name,
-                    data:item.value,
-                    smooth: true,
-                });
-            }
-            options2.xAxis[0].data=this.echarts2Date[0].month;
-            options2.series=series;
-            options2.legend.data=legend;
-            this.myCharts2.setOption(options2);
-        },
-        //第三个图
-        drawLine3(){
-            const options3={
-                ...this.optionsPie
-            },
-            series=[],
-            legend=[];
-            for(let item of this.echarts3Date){
-                series.push({
-                    name: item.name,
-                    value:item.count
-                });
-                legend.push({
-                    name: item.name,
-                    icon: 'rect',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                })
-            }
-            options3.color=['#ee5353','#f47d5d','#ffb069','#e88800','#d63636','#c38090','#f76688','#f6e529'];
-            options3.series[0].center=['32%','54%'];
-            options3.series[0].data=series;
-            options3.legend.data=legend;
-            options3.legend.left='50%';
-            options3.legend.top='30%';
-            this.myCharts3.setOption(options3);
-        },
-        //第四个图
-        drawLine4(){
-            const options4={
-                ...this.options
-            },
-            series=[],
-            legend=[];
-            options4.color=['#0e7b54','#249291'];
-            for(let item of this.echarts4Date){
-                legend.push({
-                    name: item.name,
-                    icon: 'rect',
-                    textStyle: {
-                        color: '#ffffff'
-                    }
-                });
-                series.push({
-                    type:'line',
-                    areaStyle:{},
-                    name:item.name,
-                    data:item.value,
-                    smooth: true,
-                });
-            }
-            options4.xAxis[0].data=this.echarts4Date[0].month;
-            options4.series=series;
-            options4.legend.data=legend;
-            this.myCharts4.setOption(options4);
-        },
+        // // 当前生产状态
+        // async ringGreen(){
+        //     let {data:data1}=await ringBrightGreen({});
+        //     let {data:data2}=await ringDarkGreen({});
+        //     if(data1.status===0||data1.status==='0'){
+        //         this.echarts1Date.push({
+        //             name:'实际下线（台）',
+        //             value:parseFloat(data1.data),
+        //         })
+        //     }else{
+        //         this.$message({
+        //             type:'error',
+        //             message:data1.message
+        //         });
+        //         this.echarts1Date.push({
+        //             name:'实际下线（台）',
+        //             value:0,
+        //         });
+        //     } 
+        //     if(data2.status===0||data2.status==='0'){
+        //         this.echarts1Date.push({
+        //             name:'当前计划（台）',
+        //             value:parseFloat(data2.data),
+        //         })
+        //     }else{
+        //         this.$message({
+        //             type:'error',
+        //             message:data1.message
+        //         });
+        //         this.echarts1Date.push({
+        //             name:'当前计划（台）',
+        //             value:0,
+        //         });
+        //     }
+        //     this.drawLine1();
+        // },
+        // //今日报警信息
+        // async rightPieChart(){
+        //     let {data}=await rightPieChart({});
+        //     if(data.status===0||data.status==='0'){
+        //         const obj={
+        //             D_BasicError_DNB:'电能误差',
+        //             D_Parameter_DNB:'电能参数',
+        //             D_Pressure_DNB:'电能耐压',
+        //             D_TimingError_DNB:'电能日计时',
+        //             D_VeneerTest_DNB:'电能表单板'
+        //         }
+        //         for(let item of data.data){
+        //             item.name=obj[item.dataName]
+        //         }
+        //         this.echarts3Date=data.data?data.data:[];
+        //     }
+        //     else{
+        //         this.echarts3Date=[];
+        //         this.$message({
+        //             type:'error',
+        //             message:data.message
+        //         });
+        //     }
+        //     this.drawLine3();
+        // },
+        // //订单完成率
+        // async getOrderCompletionRate(){
+        //     const {data}=await getOrderCompletionRate({});
+        //     if(data.status===0||data.status==='0') this.echarts2Date=data.data?data.data:[];
+        //     else{
+        //         this.echarts2Date=[];
+        //         this.$message({
+        //             type:'error',
+        //             message:data.message
+        //         });
+        //     }
+        //     this.drawLine2();
+        // },
+        // //生产质量监控
+        // async getQualityControl(){
+        //     const {data}=await getQualityControl({});
+        //     if(data.status===0||data.status==='0') this.echarts4Date=data.data?data.data:[];
+        //     else{
+        //         this.echarts4Date=[];
+        //         this.$message({
+        //             type:'error',
+        //             message:data.message
+        //         });
+        //     }
+        //     this.drawLine4();
+        // },
+        // // 表格数据
+        // async salesOrderInfo(){
+        //     let {data}=await salesOrderInfo({});
+        //     if(data.status===0||data.status==='0'){
+        //         this.tableData=data.data?data.data:[];
+        //     }else{
+        //         this.tableData=[];
+        //         this.$message({
+        //             type:'error',
+        //             message:data.message
+        //         })
+        //     }
+        // }, 
+        // //三维生产工艺
+        // async getProductionProcess(){
+        //     const {data}=await getProductionProcess({
+        //         supplierID:sessionStorage.getItem('supplierID')
+        //     });
+        //     if(data.status===0||data.status==='0'){
+        //         this.processList=data.data?data.data:{};
+        //     }else{
+        //         this.processList={};
+        //         this.$message({
+        //             type:'error',
+        //             message:data.message
+        //         })
+        //     }
+        // },
+        // // 更多
+        // getMore(){
+        // },
     },
 };
 </script>
 <style lang='sass'>
-    #supplier_information{
+    #sales_order_information{
+        .search_left{
+            .demo-input-suffix{
+                .el-date-editor.el-date-editor--daterange{
+                    width:256px;
+                    height:27px;
+                    background:rgba(27,35,44,.4);
+                    border-color:#34b6a2;
+                    .el-input__icon.el-range__icon.el-icon-date,.el-range-separator{
+                        line-height:20px;
+                        color: #2bdcc1;
+                    }
+                }
+                .el-input{
+                    width:156px;
+                    height:27px;
+                    .el-input__inner{
+                        height:100%;
+                        background:rgba(27,35,44,.4);
+                        border-color:#34b6a2;
+                        color: #2bdcc1;
+                    }
+                }
+            }
+        }
         .el-table{
             color:#23e4c7;
             thead{
@@ -589,9 +556,7 @@ export default {
     }
 </style>
 <style scoped lang='sass'>
-.supplier_information{
-    background-color:#15181f;
-    color:#fff;
+.sales_order_information{
     // title样式
     .title{
         height:37px;
@@ -611,124 +576,220 @@ export default {
                 color:#20ad98;
             }
         }
-    }
-    .information_top,.information_bottom{
-        display:flex;
-    }
-    .information_content{
-        background:linear-gradient(#02514c, #012a2f);
-        flex:1;
-        &.table{
-            padding:44px 20px 10px;
-        }
-        &.echarts_wrap{
-            padding:12px 17px 0 21px;
+    } 
+    .top_box {
+        .search{
             display:flex;
-            .echarts_box{
+            padding:18px 0 10px 0;
+            border-bottom:1px solid #34b6a2;
+            .search_left{
                 flex:1;
-                display:flex;
-                flex-direction:column;
-                &:first-child{
-                    margin-right:41px;
-                }
-                .echarts_tit{
-                    background:linear-gradient(to right, #035853, #139E8E, #035853);
-                    position:relative;
-                    font-size:16px;
-                    p{
-                        width:156px;
-                        height:41px;
-                        line-height:41px;
-                        background:#1b232c;
-                        border:1px solid #34b6a2;
-                        text-align:center;
-                        
-                    }
+                overflow:hidden;
+                .demo-input-suffix{
+                    float:left;
+                    margin-right:40px;
+                    margin-bottom:17px;
                     span{
-                        position:absolute;
-                        width:50%;
-                        text-align:right;
-                        right:30px;
-                        top:50%;
-                        transform: translateY(-50%);
-                        
+                        color:#40f3d8;
+                        display:inline-block;
+                        width:115px;
                     }
+                } 
+            }
+            .search_right{
+                display: flex;
+                align-items: flex-end;
+                button{
+                    width:85px;
+                    height:38px;
+                    border-radius:5px;
+                    background: rgba(44, 32, 4, 0.67);
+                    border: 1px solid #f4aa00;
+                    color:#fff;
+                    margin-right:20px;
                 }
-                .echarts_con{
-                    flex:1;
-                    position:relative;
-                }
-                .echarts_con:before{
-                    content:'当前生产状态';
-                    position:absolute;
-                    top:11px;
-                    left:0;
-                    font-size:16px;
-                    font-weight:bold;
-                }
-                .echarts_con2:before{
-                     content:'订单完成率';
-                }
-                .echarts_con3:before{
-                     content:'今日报警信息';
-                }
-                .echarts_con4:before{
-                     content:'生产质量监控';
+                button:last-child{
+                    background:rgba(6,141,146,0.67);
+                    border:1px solid #00e3ff;
+                    width:157px;
+                    margin-right:0;
                 }
             }
         }
+        
     }
-    //左右布局的样式
-    .left{
-        flex:3;
-        margin-right:11px;
+    .top_box ,.botttom_box{
+        background:linear-gradient(#02514c, #012a2f);
+        padding:0 21px;
+    }
+    .botttom_box{
         display:flex;
-        flex-direction:column;
-    }
-    .right{
-        flex:1;
-        .right_box{
-            background:linear-gradient(#02514c, #012a2f);
-            padding:12px;
+        .item{
+            flex:1;
+            background:rgba(27,35,44,.4);
+            height:184px;
+            margin:22px 11px;
+            padding:24px 50px;
             display:flex;
-            flex-wrap:wrap;
-            .item{
-                width:49%;
-                padding-right:1%;
-                margin-bottom:10px;
-                
-                img{
-                    height:128px;
-                    width:100%;
+            flex-direction:column;
+            li{
+                width:100%;
+                flex:1;
+                line-height:36px;
+                .item_name{
+                    color:#20ad98;
+                    width:150px;
+                    float:left;
                 }
-                .gj_name{
-                    height:31px;
-                    line-height:31px;
-                    text-align:center;
-                    color:#dcdcdc;
-                    border:1px solid #f59a1b;
-                    background:#011c1c;
-                    font-weight:bold;
-                    font-size:16px;
-                }
-                .gj_btn{
-                    height:33px;
-                    line-height:33px;
-                    text-align:center;
-                    border-left:3px solid #f59a1b;
-                    border-right:3px solid #f59a1b;
-                    background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
-                    font-size:16px;
+                .item_value{
+                    color:#2bdcc1;
+                    float:right;
+                    width:calc(100% - 150px);
                 }
             }
-        }
-        .mb10{
-            margin-bottom:10px;
-        }
-        .scroll_h{
-            height:340px;
-            overflow-y: scroll;
         }
     }
 }
+// .supplier_information{
+//     background-color:#15181f;
+//     color:#fff;
+//     // title样式
+//     .title{
+//         height:37px;
+//         border-left:10px solid #22c4ac;
+//         background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
+//         margin-bottom:11px;
+//         p{
+//             line-height:37px;
+//             color:#27F0D2;
+//             font-size:18px;
+//             margin-left:20px;
+//             position:relative;
+//             span{
+//                 position:absolute;
+//                 right:30px;
+//                 font-size:14px;
+//                 color:#20ad98;
+//             }
+//         }
+//     }
+//     .information_top,.information_bottom{
+//         display:flex;
+//     }
+//     .information_content{
+//         background:linear-gradient(#02514c, #012a2f);
+//         flex:1;
+//         &.table{
+//             padding:44px 20px 10px;
+//         }
+//         &.echarts_wrap{
+//             padding:12px 17px 0 21px;
+//             display:flex;
+//             .echarts_box{
+//                 flex:1;
+//                 display:flex;
+//                 flex-direction:column;
+//                 &:first-child{
+//                     margin-right:41px;
+//                 }
+//                 .echarts_tit{
+//                     background:linear-gradient(to right, #035853, #139E8E, #035853);
+//                     position:relative;
+//                     font-size:16px;
+//                     p{
+//                         width:156px;
+//                         height:41px;
+//                         line-height:41px;
+//                         background:#1b232c;
+//                         border:1px solid #34b6a2;
+//                         text-align:center;
+                        
+//                     }
+//                     span{
+//                         position:absolute;
+//                         width:50%;
+//                         text-align:right;
+//                         right:30px;
+//                         top:50%;
+//                         transform: translateY(-50%);
+                        
+//                     }
+//                 }
+//                 .echarts_con{
+//                     flex:1;
+//                     position:relative;
+//                 }
+//                 .echarts_con:before{
+//                     content:'当前生产状态';
+//                     position:absolute;
+//                     top:11px;
+//                     left:0;
+//                     font-size:16px;
+//                     font-weight:bold;
+//                 }
+//                 .echarts_con2:before{
+//                      content:'订单完成率';
+//                 }
+//                 .echarts_con3:before{
+//                      content:'今日报警信息';
+//                 }
+//                 .echarts_con4:before{
+//                      content:'生产质量监控';
+//                 }
+//             }
+//         }
+//     }
+//     //左右布局的样式
+//     .left{
+//         flex:3;
+//         margin-right:11px;
+//         display:flex;
+//         flex-direction:column;
+//     }
+//     .right{
+//         flex:1;
+//         .right_box{
+//             background:linear-gradient(#02514c, #012a2f);
+//             padding:12px;
+//             display:flex;
+//             flex-wrap:wrap;
+//             .item{
+//                 width:49%;
+//                 padding-right:1%;
+//                 margin-bottom:10px;
+                
+//                 img{
+//                     height:128px;
+//                     width:100%;
+//                 }
+//                 .gj_name{
+//                     height:31px;
+//                     line-height:31px;
+//                     text-align:center;
+//                     color:#dcdcdc;
+//                     border:1px solid #f59a1b;
+//                     background:#011c1c;
+//                     font-weight:bold;
+//                     font-size:16px;
+//                 }
+//                 .gj_btn{
+//                     height:33px;
+//                     line-height:33px;
+//                     text-align:center;
+//                     border-left:3px solid #f59a1b;
+//                     border-right:3px solid #f59a1b;
+//                     background:linear-gradient(to right,rgba(141,69,0,0.57),rgba(171,128,40,0.57),rgba(141,69,0,0.57));
+//                     font-size:16px;
+//                 }
+//             }
+//         }
+//         .mb10{
+//             margin-bottom:10px;
+//         }
+//         .scroll_h{
+//             height:340px;
+//             overflow-y: scroll;
+//         }
+//     }
+// }
 </style>
