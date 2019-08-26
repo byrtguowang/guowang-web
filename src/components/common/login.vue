@@ -31,6 +31,7 @@
             <div class="form_btn cursor" @click="loginIn"></div>
         </div>
         <p class="login_footer">
+            <img src="static/images/login_footer.png" alt="">
             2009-2019&nbsp;TJ-BYRT.com&nbsp;版权所有&nbsp;ICP证：京B2-2008010
         </p>
     </div>
@@ -211,6 +212,9 @@ export default {
         bottom:34px;
         text-align: center;
         color:#0e8a7d;
+        img{
+            transform: translateY(-2px);
+        }
     }
 }
 </style>
