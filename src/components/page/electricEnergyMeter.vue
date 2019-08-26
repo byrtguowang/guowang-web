@@ -9,8 +9,8 @@
                 </div>
             </div>
             <div class="module">
-                <div class="module-box">
-                    <p @click="toMap">电能表</p>
+                <div class="module-box cursor" @click="toMap">
+                    <p>电能表</p>
                     <div class="module-content">
                         <div class="module-content-box module-content-left">
                             <div class="module-content-list">
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="module-box">
+                <div class="module-box cursor">
                     <p>机器人</p>
                     <div class="module-content">
                         <div class="module-content-box module-content-left">
@@ -223,7 +223,7 @@
                 </div>
             </div>
             <div class="module">
-                <div class="module-box">
+                <div class="module-box cursor">
                     <p>无人机</p>
                     <div class="module-content">
                         <div class="module-content-box module-content-left">
@@ -311,7 +311,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="module-box">
+                <div class="module-box cursor">
                     <p>用电信息采集</p>
                     <div class="module-content">
                         <div class="module-content-box module-content-left">
@@ -651,7 +651,6 @@ export default {
                         font-size:24px;
                         text-align: left;
                         margin-bottom:15px;
-                        cursor:pointer;
                     }
                     .module-content{
                         background:linear-gradient(to right, #035853, #139E8E,#035853);
