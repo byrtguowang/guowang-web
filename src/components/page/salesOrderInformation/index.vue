@@ -26,14 +26,6 @@
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
-                        <span>交货日期：</span>
-                        <el-date-picker
-                            type="daterange"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期">
-                        </el-date-picker>
-                    </div>
-                    <div class="demo-input-suffix">
                         <span>交货地点：</span>
                         <el-input
                             placeholder="请输入内容">
@@ -50,6 +42,14 @@
                         <el-input
                             placeholder="请输入内容">
                         </el-input>
+                    </div>
+                    <div class="demo-input-suffix">
+                        <span>交货日期：</span>
+                        <el-date-picker
+                            type="daterange"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
+                        </el-date-picker>
                     </div>
                 </div>
                 <div class="search_right">
@@ -581,7 +581,7 @@ export default {
         .search{
             display:flex;
             padding:18px 0 10px 0;
-            border-bottom:1px solid #34b6a2;
+            border-bottom:1px solid rgba(52,182,162,.1);
             .search_left{
                 flex:1;
                 overflow:hidden;
