@@ -265,7 +265,7 @@ export default {
             if(argv==1) this.searchObj.pageNum=1;
             const {data}=await listSalesorderDnb(JSON.stringify({
                 ...this.searchObj,
-                SupplierID:sessionStorage.getItem('supplierID'),
+                supplierID:sessionStorage.getItem('supplierID'),
                 deliveryDate:this.date?this.date[0]:'',
                 jendTime:this.date?this.date[1]:''
             }));
@@ -303,7 +303,7 @@ export default {
         async listSalesorderDnbb(){
             const obj={
                 ...this.searchObj,
-                Supplierid:sessionStorage.getItem('supplierID'),
+                supplierID:sessionStorage.getItem('supplierID'),
                 deliveryDate:this.date?this.date[0]:'',
                 jendTime:this.date?this.date[1]:''
             };

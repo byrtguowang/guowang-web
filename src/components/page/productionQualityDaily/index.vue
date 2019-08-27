@@ -102,6 +102,9 @@
 </template>
 
 <script>
+import {
+    productionDaily, //生产质量日报
+} from '@api/productionQualityDaily'
 export default {
     data() {
         return {
@@ -142,13 +145,14 @@ export default {
             this.activeMonth=idx;
             this.getList();
         },
-        getList(){
-            let obj={
-                year:this.year||'',
-                month:this.monthData[this.activeMonth]
-            }
-            console.log(obj);
+        async getList(){
+            // let obj={
+            //     year:this.year||'',
+            //     month:this.monthData[this.activeMonth]
+            // }
+            // productionDaily
         },
+
     },
 };
 </script>
