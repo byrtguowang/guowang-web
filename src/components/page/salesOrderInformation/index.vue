@@ -2,7 +2,7 @@
 <div class="sales_order_information" id="sales_order_information">
      <div class="information_top mb10">
          <div class="title">
-            <p>销售订单列表 <span class="cursor">返回供应商主页></span></p>
+            <p>销售订单列表 <span class="cursor" @click="goInformation">返回供应商主页></span></p>
         </div>
         <div class="top_box">
             <div class="search">
@@ -55,7 +55,7 @@
                 <div class="search_right">
                     <button>查询</button>
                     <button>导出</button>
-                    <button>生产质量日报</button>
+                    <button @click="goQualityDaily">生产质量日报</button>
                 </div>
             </div>
             <div class="table">
@@ -208,8 +208,18 @@ export default {
     },
     mounted() {
     },
-    
     methods: {
+        goInformation(){
+            this.$router.push({
+                path:'supplierInformation'
+            })
+        },
+        // 生产质量日报
+        goQualityDaily(){
+            this.$router.push({
+                path:'productionQualityDaily'
+            })
+        }
     },
 };
 </script>

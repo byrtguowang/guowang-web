@@ -393,11 +393,12 @@ export default {
         },
         //第一个图
         drawLine1(){
+            console.log(this.echarts1Date[0].value/(this.echarts1Date[0].value+this.echarts1Date[1].value) * 100)
             const options1={
                 ...this.optionsPie
             },
             legend=[],
-            percentage=this.echarts1Date[0].value/(this.echarts1Date[0].value+this.echarts1Date[1].value) * 100;
+            percentage=(this.echarts1Date[0].value/(this.echarts1Date[0].value+this.echarts1Date[1].value) * 100).toFixed(1);
             options1.title={
                 text: '检测合格率',
                 subtext: percentage + '%',
@@ -413,7 +414,7 @@ export default {
                 subtextStyle:  {
                     color : '#fff',
                     fontFamily : '微软雅黑',
-                    fontSize : 35,
+                    fontSize : 32,
                     fontWeight : 'normal'
                 }
             },
