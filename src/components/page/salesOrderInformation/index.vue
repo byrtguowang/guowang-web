@@ -134,67 +134,67 @@
             <ul class="item">
                 <li>
                     <span class="item_name">物资编码：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.materialsCode}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.materialsCode">{{SalesOrderObj.materialsCode}}</span>
                 </li>
                 <li>
                     <span class="item_name">物资名称：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.materialsName}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.materialsName">{{SalesOrderObj.materialsName}}</span>
                 </li>
                 <li>
                     <span class="item_name">订单数量：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.materialsNum}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.materialsNum">{{SalesOrderObj.materialsNum}}</span>
                 </li>
                 <li>
                     <span class="item_name">交货日期：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.deliveryDate}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.deliveryDate">{{SalesOrderObj.deliveryDate}}</span>
                 </li>
                 <li>
                     <span class="item_name">交货地点：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.deliveryPlace}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.deliveryPlace">{{SalesOrderObj.deliveryPlace}}</span>
                 </li>
             </ul>
             <ul class="item">
                 <li>
                     <span class="item_name">销售订单行项目号：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.salesOrderProjectNo}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.salesOrderProjectNo">{{SalesOrderObj.salesOrderProjectNo}}</span>
                 </li>
                 <li>
                     <span class="item_name">建立日期：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.createTime}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.createTime">{{SalesOrderObj.createTime}}</span>
                 </li>
                 <li>
                     <span class="item_name">进度：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.sumproductionorde}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.sumproductionorde">{{SalesOrderObj.sumproductionorde}}</span>
                 </li>
                 <li>
                     <span class="item_name">供应商代码：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.supplierCode}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.supplierCode">{{SalesOrderObj.supplierCode}}</span>
                 </li>
                 <li>
                     <span class="item_name">供应商名称：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.supplierName}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.supplierName">{{SalesOrderObj.supplierName}}</span>
                 </li>
             </ul>
             <ul class="item">
                 <li>
                     <span class="item_name">国网采购订单号：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.sgPurchaseorder}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.sgPurchaseorder">{{SalesOrderObj.sgPurchaseorder}}</span>
                 </li>
                 <li>
                     <span class="item_name">国网采购订单行项目号：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.sgPurchaseorderprojectno}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.sgPurchaseorderprojectno">{{SalesOrderObj.sgPurchaseorderprojectno}}</span>
                 </li>
                 <li>
                     <span class="item_name">国网框架合同号：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.sgFrameworkcode}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.sgFrameworkcode">{{SalesOrderObj.sgFrameworkcode}}</span>
                 </li>
                 <li>
                     <span class="item_name">工程项目名称：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.sgProjectname}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.sgProjectname">{{SalesOrderObj.sgProjectname}}</span>
                 </li>
                 <li>
                     <span class="item_name">销售订单号：</span>
-                    <span class="item_value ellipsis">{{SalesOrderObj.salesOrderCode}}</span>
+                    <span class="item_value ellipsis" :title="SalesOrderObj.salesOrderCode">{{SalesOrderObj.salesOrderCode}}</span>
                 </li>
             </ul>
         </div>

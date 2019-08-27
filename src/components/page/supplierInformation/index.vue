@@ -393,7 +393,6 @@ export default {
         },
         //第一个图
         drawLine1(){
-            console.log(this.echarts1Date[0].value/(this.echarts1Date[0].value+this.echarts1Date[1].value) * 100)
             const options1={
                 ...this.optionsPie
             },
