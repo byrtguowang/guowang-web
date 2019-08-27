@@ -29,7 +29,10 @@
                         <span>视频直播</span>
                     </div>
                 </div>
-                <img src="../../../static/images/img.png" alt="">
+                <!-- <img src="../../../static/images/img.png" alt=""> -->
+                <div class="video_box">
+                    <video class="h5video" id="divPlugin" ></video>
+                </div>
             </div>
         </div>
         <div class="module right">
@@ -239,6 +242,9 @@ import {
     listCountBarGraphDDataLogDNB, //24小时左侧柱状图
     listConcBarGraphDDataLogDNB //24小时右侧柱状图
 } from '@api/processDetails'
+import '../../assets/adapter.js'
+import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../../assets/h5splayer.js'
+import {H5siOS,H5sPlayerCreate} from '../../assets/h5splayerhelper.js'
 export default {
     data() {
         return {
@@ -260,6 +266,7 @@ export default {
             time:'',
             listData:[],
             conclusion:[], //0正常 1报警
+            v1:null, //视频
         };
     },
     mounted() {
@@ -277,7 +284,9 @@ export default {
         // 24小时右
         this.chartsRight();
         // 列表
-        this.getList()
+        this.getList();
+        // 播放视频
+        this.createH5Video();
     },
     methods: {
         // 年度报警
@@ -639,11 +648,42 @@ export default {
                 ]
             }
             return option;
+        },
+        // 播放视频
+        createH5Video() {
+            if (this.v1 != undefined)
+            {
+                this.v1.disconnect();
+                delete this.v1;
+                this.v1 = undefined;
+            }
+            let conf1 = {
+                videoid: 'divPlugin',
+                //protocol: this.$store.state.config.H5_STREAM_SERVER_PROTOCOL,
+                //host: this.$store.state.config.H5_STREAM_SERVER_HOST,
+                protocol: window.location.protocol,
+                host: this.$vedioHost,
+                rootpath: '/',
+                token: 'token1',
+                hlsver: 'v1',
+                session: 'c1782caf-b670-42d8-ba90-2342340ee83'
+            }
+            // this.v1 = H5sPlayerCreate(conf1)
+            this.v1 = new H5sPlayerWS(conf1);
+            this.v1.connect()
+        },
+        // 关闭视频
+        closeH5Video() {
+            if (this.v1) {
+                this.v1.disconnect()
+                this.v1 = null
+                $(".h5video").get(0).pause()
+            }
         }
     },
        
     created() {
-
+        
     },
 
     watch:{
@@ -766,8 +806,19 @@ export default {
                     }
                 }
                 img{
-                    width:100%;
+                    width:95%;
                 }
+                
+                .video_box{
+                    width:95%;
+                    height:100%;
+
+                    .h5video{
+                        margin-top:50px;
+                        width:100%;
+                    }
+                }
+                
             }
             .video-box{
                 margin-top:8px;
