@@ -83,7 +83,7 @@
                         <p>{{ProductionOrderDetail.realStartDate}}</p>
                         <p>{{ProductionOrderDetail.realFinishDate}}</p>
                         <p>{{ProductionOrderDetail.workShop}}</p>
-                        <p>{{ProductionOrderDetail.createTime}}</p>
+                        <p>{{ProductionOrderDetail.CreateTime}}</p>
                     </div>
                 </div>
                 <div class="detailInfo-left detailInfo-right">
@@ -100,8 +100,8 @@
                         <p>{{ProductionOrderDetail.sgpurchaseOrder}}</p>
                         <p>{{ProductionOrderDetail.salesOrderCode}}</p>
                         <p>{{ProductionOrderDetail.salesOrderProjectNo}}</p>
-                        <p>{{ProductionOrderDetail.createTime}}</p>
-                        <p>{{ProductionOrderDetail.createTime}}</p>
+                        <p>{{ProductionOrderDetail.materialsCode}}</p>
+                        <p>{{ProductionOrderDetail.productionOrderMaterials}}</p>
                     </div>
                 </div>
             </div>
