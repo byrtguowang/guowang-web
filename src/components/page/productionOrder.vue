@@ -1,10 +1,10 @@
 <template>
-    <div class="box">
+    <div class="box" id="productionOrder">
         <div class="meter-box">
             <div class="meter-left"></div>
             <div class="meter-right">
                 <span>生产订单列表</span>
-                <p>返回销售订单详情页 ></p>
+                <p @click="goSalesOrders">返回销售订单详情页 ></p>
             </div>
         </div>
         <div class="product-table-box">
@@ -15,81 +15,35 @@
                     <td>计划开始日期</td>
                     <td>计划结束日期</td>
                     <td>实际开始日期</td>
-                    <td>进度</td>
+                    <td width="200">进度</td>
                     <td>订单状态</td>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
+                    <tr v-for="(item,index) in ProductionOrderList" :key="index" @click="getProductionOrder(item.productionOrderID,item.productionOrderCode)">
+                        <td>{{item.productionOrderCode}}</td>
+                        <td>{{item.productionOrderNum}}</td>
+                        <td>{{item.planStartDate}}</td>
+                        <td>{{item.planFinishDate}}</td>
+                        <td>{{item.realStartDate}}</td>
+                        <td>
+                            <el-progress :percentage="this.completionRate || 0"></el-progress>
+                        </td>
+                        <td>{{item.productionOrderStatus}}</td>
                     </tr>
                     <tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr> 
-                    <tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr> 
-                    <tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr>
-                    <tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr><tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr><tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr><tr>
-                        <td>FHIESC</td>
-                        <td>9999</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>2019-08-26</td>
-                        <td>进度</td>
-                        <td>开始</td>
-                    </tr>
-                    <tr>
-                        <td colspan="7">分页</td>
+                        <td colspan="7">
+                            <div class="block">
+                                <el-pagination 
+                                background 
+                                layout="prev, pager, next" 
+                                :current-page="pageIndex" 
+                                @current-change="handleCurrentChange" 
+                                @prev-click="handleCurrentChange" 
+                                @next-click="handleCurrentChange" 
+                                :total="totalPage * pageSize">
+                                </el-pagination>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -122,14 +76,14 @@
                         <p>建立时间：</p>
                     </div>
                     <div class="detailInfo-mennu detailInfo-info">
-                        <p>999</p>
-                        <p>进行中</p>
-                        <p>2019-08-26</p>
-                        <p>2019-08-26</p>
-                        <p>2019-08-26</p>
-                        <p>2019-08-26</p>
-                        <p>车间A</p>
-                        <p>2019-08-26</p>
+                        <p>{{ProductionOrderDetail.productionOrderNum}}</p>
+                        <p>{{ProductionOrderDetail.productionOrderStatus}}</p>
+                        <p>{{ProductionOrderDetail.planStartDate}}</p>
+                        <p>{{ProductionOrderDetail.planFinishDate}}</p>
+                        <p>{{ProductionOrderDetail.realStartDate}}</p>
+                        <p>{{ProductionOrderDetail.realFinishDate}}</p>
+                        <p>{{ProductionOrderDetail.workShop}}</p>
+                        <p>{{ProductionOrderDetail.createTime}}</p>
                     </div>
                 </div>
                 <div class="detailInfo-left detailInfo-right">
@@ -142,12 +96,12 @@
                         <p>物料：</p>
                     </div>
                     <div class="detailInfo-mennu detailInfo-info">
-                        <p>REWIUFFYEUSFDS</p>
-                        <p>REWIUFFYEUSFDS</p>
-                        <p>REWIUFFYEUSFDS</p>
-                        <p>工程项目名称</p>
-                        <p>REWIUFFYEUSFDS</p>
-                        <p>工程项目名称、工程项目名称、工程项目名称、工程项目名称、工程项目名称、工程项目名称、工程项目名称</p>
+                        <p>{{ProductionOrderDetail.productionOrderCode}}</p>
+                        <p>{{ProductionOrderDetail.sgpurchaseOrder}}</p>
+                        <p>{{ProductionOrderDetail.salesOrderCode}}</p>
+                        <p>{{ProductionOrderDetail.salesOrderProjectNo}}</p>
+                        <p>{{ProductionOrderDetail.createTime}}</p>
+                        <p>{{ProductionOrderDetail.createTime}}</p>
                     </div>
                 </div>
             </div>
@@ -163,58 +117,29 @@
                         <td>工单状态</td>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
+                        <tr v-for="(item,index) in WorkOrderList" :key="index">
+                            <td>{{item.workOrderCode}}</td>
+                            <td>{{item.workOrderNum}}</td>
+                            <td>{{item.planStartDate}}</td>
+                            <td>{{item.planFinishDate}}</td>
+                            <td>{{item.realStartDate}}</td>
+                            <td>{{item.realFinishDate}}</td>
+                            <td>{{item.workOrderStatus}}</td>
                         </tr>
                         <tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
-                        </tr> 
-                        <tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
-                        </tr>
-                        <tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
-                        </tr><tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
-                        </tr>
-                        <tr>
-                            <td>FHIESC</td>
-                            <td>9999</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>2019-08-26</td>
-                            <td>进度</td>
-                            <td>开始</td>
+                            <td colspan="7">
+                                <div class="block">
+                                    <el-pagination 
+                                    background 
+                                    layout="prev, pager, next" 
+                                    :current-page="workListPageIndex" 
+                                    @current-change="workListHandleCurrentChange" 
+                                    @prev-click="workListHandleCurrentChange" 
+                                    @next-click="workListHandleCurrentChange" 
+                                    :total="workListTotalPage * workListPageSize">
+                                    </el-pagination>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -224,21 +149,148 @@
 </template>
 
 <script>
+import{
+    getProductionOrderList,
+    getWorkOrderList
+}from '@api/productionOrder'
 export default {
     data() {
         return {
-            
+            pageIndex: 1,
+            pageSize: 9, //每页显示条数
+            totalPage:'', //一共多少条
+            workListPageIndex:1,
+            workListTotalPage:'',
+            workListPageSize:5,
+            ProductionOrderList:[], //生产订单列表
+            ProductionOrderDetail:{}, //生产订单详细信息
+            productionOrderID:'', //生产订单ID
+            WorkOrderList:[], //工单列表
+            productionOrderCode:'', //生产订单编号
         };
     },
     mounted() {
-
+        this.getProductionOrderList();
     },
     methods: {
+        //生产订单列表分页
+        handleCurrentChange(pageNumber) {
+            this.pageIndex = pageNumber;
+            this.getProductionOrderList(this.productionOrderID);
+        },
+        // 工单列表分页
+        workListHandleCurrentChange(pageNumber){
+            this.workListPageIndex = pageNumber;
+            this.getWorkOrderList(this.productionOrderCode);
+        },
+        // 返回销售订单
+        goSalesOrders(){
+            this.$router.push({
+                path:'/Home/salesOrderInformation',
+            })
+        },
+        // 生产订单列表
+        getProductionOrderList(){
+            getProductionOrderList(JSON.stringify({
+                pageNum:this.pageIndex,
+                pageSize:this.pageSize,
+                salesOrderCode: "1100009557" //销售订单编号 
+            }))
+            .then( res =>{
+                if(res.data.status == 0){
+                    res.data.data.list.forEach(el => {
+                        switch (el.productionOrderStatus){
+                            case '1':
+                               el.productionOrderStatus = '计划' 
+                               break;
+                            case '2':
+                               el.productionOrderStatus = '确认' 
+                               break;
+                            case '3':
+                               el.productionOrderStatus = '下达' 
+                               break;
+                            case '4':
+                               el.productionOrderStatus = '完成' 
+                               break;
+                        }
+                    });
+                    this.ProductionOrderList = res.data.data.list
+                    this.totalPage = res.data.data.pages
+                    this.productionOrderID = res.data.data.list[0].productionOrderID
+                    this.productionOrderCode = res.data.data.list[0].productionOrderCode
+                    this.getProductionOrderDetail(this.productionOrderID);
+                    this.getWorkOrderList(this.productionOrderCode);
+                }
+            })
+        },
+        // 点击某一行查询生产订单详细信息和工单列表
+        getProductionOrder(productionOrderID,productionOrderCode){
+            this.getProductionOrderDetail(productionOrderID);
+            this.getWorkOrderList(productionOrderCode)
 
+        },
+        // 获取生产订单详细信息
+        getProductionOrderDetail(productionOrderID){
+            getProductionOrderList(JSON.stringify({
+                productionOrderID:productionOrderID, //生产订单ID
+                salesOrderCode: "1100009557" //销售订单编号 
+            }))
+            .then( res => {
+                if(res.data.status == 0){
+                     res.data.data.list.forEach(el => {
+                        switch (el.productionOrderStatus){
+                            case '1':
+                               el.productionOrderStatus = '计划' 
+                               break;
+                            case '2':
+                               el.productionOrderStatus = '确认' 
+                               break;
+                            case '3':
+                               el.productionOrderStatus = '下达' 
+                               break;
+                            case '4':
+                               el.productionOrderStatus = '完成' 
+                               break;
+                        }
+                    });
+                    this.ProductionOrderDetail = res.data.data.list[0]
+                }
+            })
+        },
+        // 工单列表
+        getWorkOrderList(productionOrderCode){
+            getWorkOrderList(JSON.stringify({
+                pageNum:this.workListPageIndex,
+                pageSize:this.workListPageSize,
+                productionOrderCode: productionOrderCode //生产订单编号 
+            }))
+            .then(res => {
+                if(res.data.status == 0){
+                    res.data.data.list.forEach(el => {
+                        switch (el.workOrderStatus){
+                            case '1':
+                               el.workOrderStatus = '计划' 
+                               break;
+                            case '2':
+                               el.workOrderStatus = '确认' 
+                               break;
+                            case '3':
+                               el.workOrderStatus = '下达' 
+                               break;
+                            case '4':
+                               el.workOrderStatus = '完成' 
+                               break;
+                        }
+                    });
+                    this.WorkOrderList = res.data.data.list
+                    this.workListTotalPage = res.data.data.pages
+                }
+            })
+        }
     },
        
     created() {
-
+        
     },
 
     watch:{
@@ -246,7 +298,38 @@ export default {
     },
 };
 </script>
-
+<style lang="sass">
+    #productionOrder{
+        //分页样式 
+        .el-pagination.is-background .el-pager li,
+        .el-pagination.is-background .btn-prev,
+        .el-pagination.is-background .btn-next
+        {
+            background: linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
+            color:#21e9cc;
+        }
+        .el-pagination.is-background .el-pager li:not(.disabled):hover{
+            color:#fff;
+        }
+        .el-pagination.is-background .el-pager li:not(.disabled).active{
+            background-color: #21cbda;
+        }
+        // 进度条样式
+        .el-progress-bar__outer{
+            border: 1px solid #35b6a2;
+            background:#082a2c;
+        }
+        .el-progress-bar__inner{
+            background:linear-gradient(to right, #0e5662, #19c5d9);
+        }
+        .el-progress-bar{
+            width:90%;
+        }
+        .el-progress__text{
+            color:#21e9cc;
+        }
+    }
+</style>
 <style scoped lang='sass'>
     .box{color:#21e9cc;}
     .meter-box{
@@ -275,7 +358,6 @@ export default {
             }
             p{
                 float:right;
-                color:#21e9cc;
                 font-size:20px;
                 cursor:pointer;
                 margin-right:20px;
@@ -305,6 +387,7 @@ export default {
             }
             tr{
                 height:45px;
+                cursor:pointer;
                 &:nth-child(2n){
                     background:#0c3c3e;
                 }
@@ -363,8 +446,8 @@ export default {
                 }
                 tbody{
                     display:block;
-                    height:220px;
-                    overflow:scroll;
+                    // height:220px;
+                    // overflow:scroll;
                     tr{
                        display: table;
                         width: 100%; 
