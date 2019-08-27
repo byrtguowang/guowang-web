@@ -4,6 +4,7 @@
             <div class="meter-left"></div>
             <div class="meter-right">
                 <span>生产订单列表</span>
+                <p>返回销售订单详情页 ></p>
             </div>
         </div>
         <div class="product-table-box">
@@ -270,6 +271,14 @@ export default {
             span{
                 margin-left:6px;
                 letter-spacing: 2px;
+                font-size:20px;
+            }
+            p{
+                float:right;
+                color:#21e9cc;
+                font-size:20px;
+                cursor:pointer;
+                margin-right:20px;
             }
         }
     }
