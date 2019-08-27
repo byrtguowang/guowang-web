@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="logo">
-            <img src="static/images/logo.png">
+            <img src="static/images/header_logo.png">
         </div>
         <div class="right">
             <div class="title">早上好，{{loginInfo.username}}（国网浙江分公司管理员）</div>
@@ -47,6 +47,7 @@ export default {
 
         .logo {
             float:left;
+            padding-left:42px;
         }
 
         .right{

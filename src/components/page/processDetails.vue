@@ -263,7 +263,7 @@ export default {
                 alarm:0,
                 sum:0
             },
-            time:'',
+            time:[],
             listData:[],
             conclusion:[], //0正常 1报警
             v1:null, //视频
@@ -381,8 +381,16 @@ export default {
         getList(index){
             let startingTime;
             let endTime;
-            if(this.time[0]) startingTime = this.time[0];
-            if(this.time[1]) endTime = this.time[1];
+            // if(this.time[0]) startingTime = this.time[0];
+            // if(this.time[1]) endTime = this.time[1];
+            if(this.time){
+                if(this.time.length != 0 ){
+                    console.log(typeof(this.time),11111)
+                    console.log(this.time)
+                    startingTime = this.time[0];
+                    endTime = this.time[1];
+                }
+            }
             let param = {
                 supplierid:this.supplierid, //供应商id
                 startingTime:startingTime, //开始时间

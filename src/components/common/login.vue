@@ -1,7 +1,7 @@
 <template>
     <div class="login" id="login">
         <div class="login_logo">
-            <img src="static/images/logo.png" alt="">
+            <img src="static/images/login_logo.png" alt="">
         </div>
         <div class="login_content">
             <div class="form_item">
@@ -31,6 +31,7 @@
             <div class="form_btn cursor" @click="loginIn"></div>
         </div>
         <p class="login_footer">
+            <img src="static/images/login_footer.png" alt="">
             2009-2019&nbsp;TJ-BYRT.com&nbsp;版权所有&nbsp;ICP证：京B2-2008010
         </p>
     </div>
@@ -124,7 +125,7 @@ export default {
     background-size: 100% 100%;
     overflow:hidden;
     .login_logo,.login_content{
-        width:35%;
+        width:40%;
         box-sizing: border-box;
         margin:0 auto;
         min-width:550px;
@@ -145,7 +146,7 @@ export default {
         }
     }
     .login_logo{
-        padding:0 20px;
+        padding:0 80px;
         img{
             width:100%;
             height:auto;
@@ -211,6 +212,9 @@ export default {
         bottom:34px;
         text-align: center;
         color:#0e8a7d;
+        img{
+            transform: translateY(-2px);
+        }
     }
 }
 </style>
