@@ -8,16 +8,18 @@
                 <div class="one">
                     <div class="item">
                         <div class="head">供应商数量</div>
-                        <!-- <div class="area">{{leftData['供应商数量']}}<span>个</span></div> -->
-                        <!-- <div class="area" v-if="leftData['供应商数量']>10000">{{Math.round((leftData['供应商数量'] /10000) * 100) / 100}}<span>万个</span></div> -->
-                        <div class="area" v-if="leftData['供应商数量']>10000">{{leftData['供应商数量'] /10000}}<span>万个</span></div>
+                        <div class="area_wan" v-if="leftData['供应商数量']>10000">
+                            <span :title="leftData['供应商数量']">{{Math.round((leftData['供应商数量'] /10000) * 100) / 100}}</span>
+                            <span>万个</span>
+                        </div>
                         <div class="area" v-else>{{leftData['供应商数量']}}<span>个</span></div>
                     </div>
                     <div class="item">
                         <div class="head">智慧网关数量</div>
-                        <!-- <div class="area">{{leftData['智慧网关数量']}}<span>台</span></div> -->
-                        <!-- <div class="area" v-if="leftData['智慧网关数量']>10000">{{Math.round((leftData['智慧网关数量'] /10000) * 100) / 100}}<span>万个</span></div> -->
-                        <div class="area" v-if="leftData['智慧网关数量']>10000">{{leftData['智慧网关数量'] /10000}}<span>万个</span></div>
+                        <div class="area_wan" v-if="leftData['智慧网关数量']>10000">
+                            <span :title="leftData['智慧网关数量']">{{Math.round((leftData['智慧网关数量'] /10000) * 100) / 100}}</span>
+                            <span>万个</span>
+                        </div>
                         <div class="area" v-else>{{leftData['智慧网关数量']}}<span>个</span></div>
                     </div>
                 </div>
@@ -82,31 +84,35 @@
             <div class="info">
                 <div class="item">
                     <div class="info-head">当前在制产品</div>
-                    <!-- <div class="info-area" v-if="centerData['当前在制品数量']>10000">{{Math.round((centerData['当前在制品数量'] /10000) * 100) / 100}}<span>万台</span></div> -->
-                    <div class="info-area" v-if="centerData['当前在制品数量']>10000">{{centerData['当前在制品数量'] /10000}}<span>万台</span></div>
+                    <div class="area_wan" v-if="centerData['当前在制品数量']>10000">
+                        <span :title="centerData['当前在制品数量']">{{Math.round((centerData['当前在制品数量'] /10000) * 100) / 100}}</span>
+                        <span>万台</span>
+                    </div>
                     <div class="info-area" v-else>{{centerData['当前在制品数量']}}<span>台</span></div>
-                    <!-- <div class="info-area"><span>{{Math.round((centerData['当前在制品数量'] /10000) * 100) / 100}}</span>台</div> -->
                 </div>
                 <div class="item">
                     <div class="info-head">销售订单</div>
-                    <!-- <div class="info-area" v-if="centerData['销售订单数量']>10000">{{Math.round((centerData['销售订单数量'] /10000) * 100) / 100}}<span>万项</span></div> -->
-                    <div class="info-area" v-if="centerData['销售订单数量']>10000">{{centerData['销售订单数量'] /10000}}<span>万项</span></div>
+                    <div class="area_wan" v-if="centerData['销售订单数量']>10000">
+                        <span :title="centerData['销售订单数量']">{{Math.round((centerData['销售订单数量'] /10000) * 100) / 100}}</span>
+                        <span>万项</span>
+                    </div>
                     <div class="info-area" v-else>{{centerData['销售订单数量']}}<span>项</span></div>
-                    <!-- <div class="info-area"><span>{{centerData['销售订单数量']}}</span>项</div> -->
                 </div>
                 <div class="item">
                     <div class="info-head">生产订单</div>
-                    <!-- <div class="info-area" v-if="centerData['生产订单数量']>10000">{{Math.round((centerData['生产订单数量'] /10000) * 100) / 100}}<span>万项</span></div> -->
-                    <div class="info-area" v-if="centerData['生产订单数量']>10000">{{centerData['生产订单数量'] /10000}}<span>万项</span></div>
+                    <div class="area_wan" v-if="centerData['生产订单数量']>10000">
+                        <span :title="centerData['生产订单数量']">{{Math.round((centerData['生产订单数量'] /10000) * 100) / 100}}</span>
+                        <span>万项</span>
+                    </div>
                     <div class="info-area" v-else>{{centerData['生产订单数量']}}<span>项</span></div>
-                    <!-- <div class="info-area"><span>{{centerData['生产订单数量']}}</span>项</div> -->
                 </div>
                 <div class="item">
                     <div class="info-head">工单</div>
-                    <!-- <div class="info-area" v-if="centerData['工单数量']>10000">{{Math.round((centerData['工单数量'] /10000) * 100) / 100}}<span>万项</span></div> -->
-                    <div class="info-area" v-if="centerData['工单数量']>10000">{{centerData['工单数量'] /10000}}<span>万项</span></div>
+                    <div class="area_wan" v-if="centerData['工单数量']>10000">
+                        <span :title="centerData['工单数量']">{{Math.round((centerData['工单数量'] /10000) * 100) / 100}}</span>
+                        <span>万项</span>
+                    </div>
                     <div class="info-area" v-else>{{centerData['工单数量']}}<span>项</span></div>
-                    <!-- <div class="info-area"><span>{{centerData['工单数量']}}</span>项</div> -->
                 </div>
             </div>
         </div>
@@ -654,7 +660,27 @@ export default {
         background-color:#15181f;
         display:flex;
         color:#fff;
-
+        //超过1w之后的style
+        .area_wan{
+            height:70px;
+            border-left:4px solid #22c4ac;
+            border-right:4px solid #22c4ac;
+            background:linear-gradient(to right,#035853,#139e8e,#035853);
+            font-size:40px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            span{
+                line-height:1;
+                text-align:center;
+                &:last-child{
+                    font-size:16px;
+                    text-align:right;
+                    padding:0 20px;
+                    color:#58fff1;
+                }
+            }
+        }
         .left{
             flex:1;
             margin-right:16px;
@@ -692,7 +718,6 @@ export default {
                             border-top:2px solid #34b6a2;
                             background:#1b232c;
                         }
-
                         .area{
                             height:70px;
                             line-height:70px;
@@ -957,10 +982,10 @@ export default {
                         position:relative;
                         span{
                             font-size:16px;
-                            height:16px;
-                            line-height:1;
                             color:#58fff1;
                             position:absolute;
+                            height:16px;
+                            line-height:1;
                             right:6px;
                             bottom:12px;
                         }

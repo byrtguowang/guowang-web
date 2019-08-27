@@ -22,18 +22,13 @@
                                         </div>
                                         <div class="module-content-list-num">
                                             <p v-if="PurchasingOrder.purchaseCount>10000">
-                                                <span class="num">{{PurchasingOrder.purchaseCount/10000}}</span>
-                                                <!-- <span class="num">{{Math.round((PurchasingOrder.purchaseCount /10000) * 100) / 100}}</span> -->
+                                                <span class="num" :title="PurchasingOrder.purchaseCount">{{Math.round((PurchasingOrder.purchaseCount /10000) * 100) / 100}}</span>
                                                 <span class="words">万条</span>
                                             </p>
                                             <p v-else>
                                                 <span class="num">{{PurchasingOrder.purchaseCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
-                                            <!-- <p>
-                                                <span class="num">{{PurchasingOrder.purchaseCount}}</span>
-                                                <span class="words">条</span>
-                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -49,18 +44,13 @@
                                         </div>
                                         <div class="module-content-list-num">
                                             <p v-if="PurchasingOrder.totalCount>10000">
-                                                <span class="num">{{PurchasingOrder.totalCount/10000}}</span>
-                                                <!-- <span class="num">{{Math.round((PurchasingOrder.totalCount /10000) * 100) / 100}}</span> -->
+                                                <span class="num" :title="PurchasingOrder.totalCount">{{Math.round((PurchasingOrder.totalCount /10000) * 100) / 100}}</span>
                                                 <span class="words">万条</span>
                                             </p>
                                             <p v-else>
                                                 <span class="num">{{PurchasingOrder.totalCount}}</span>
                                                 <span class="words">条</span>
                                             </p>
-                                            <!-- <p>
-                                                <span class="num">{{PurchasingOrder.totalCount}}</span>
-                                                <span class="words">条</span>
-                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -76,18 +66,13 @@
                                         </div>
                                         <div class="module-content-list-num">
                                             <p v-if="PurchasingOrder.alarmCount>10000">
-                                                <span class="num">{{PurchasingOrder.alarmCount/10000}}</span>
-                                                <!-- <span class="num">{{Math.round((PurchasingOrder.alarmCount /10000) * 100) / 100}}</span> -->
+                                                <span class="num" :title="PurchasingOrder.alarmCount">{{Math.round((PurchasingOrder.alarmCount /10000) * 100) / 100}}</span>
                                                 <span class="words">万项</span>
                                             </p>
                                             <p v-else>
                                                 <span class="num">{{PurchasingOrder.alarmCount}}</span>
                                                 <span class="words">项</span>
                                             </p>
-                                            <!-- <p>
-                                                <span class="num">{{PurchasingOrder.alarmCount}}</span>
-                                                <span class="words">项</span>
-                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom">
@@ -108,18 +93,13 @@
                                         </div>
                                         <div class="module-content-list-num">
                                             <p v-if="PurchasingOrder.unFinishedCount>10000">
-                                                <span class="num">{{PurchasingOrder.unFinishedCount/10000}}</span>
-                                                <!-- <span class="num">{{Math.round((PurchasingOrder.unFinishedCount /10000) * 100) / 100}}</span> -->
+                                                <span class="num" :title="PurchasingOrder.unFinishedCount">{{Math.round((PurchasingOrder.unFinishedCount /10000) * 100) / 100}}</span>
                                                 <span class="words">万台</span>
                                             </p>
                                             <p v-else>
                                                 <span class="num">{{PurchasingOrder.unFinishedCount}}</span>
                                                 <span class="words">台</span>
                                             </p>
-                                            <!-- <p>
-                                                <span class="num">{{PurchasingOrder.unFinishedCount}}</span>
-                                                <span class="words">台</span>
-                                            </p> -->
                                         </div>
                                     </div>
                                     <div class="module-content-list-bottom module-content-list-top module-chart-bottom">
