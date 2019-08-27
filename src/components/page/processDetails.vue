@@ -689,6 +689,9 @@ export default {
             }
         }
     },
+    destroyed() {
+        this.closeH5Video()
+    },
        
     created() {
         

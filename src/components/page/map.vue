@@ -62,6 +62,7 @@
                 
             </div>
             <div v-show="showPop" class="map_pop">
+                <div class="close" @click="closeDetail">X</div>
                 <div class="header_name">
                     <span class="cursor" @click="jump()">{{mapOneData.supplierName}}</span>
                 </div>
@@ -270,6 +271,12 @@ export default {
                 }
             })
         },
+
+        // 关闭详情
+        closeDetail(){
+            this.showPop = false;
+        },
+
         //三维生产工艺
         async getProductionProcess(){
             const {data}=await getProductionProcess({
@@ -344,10 +351,17 @@ export default {
             };
 
             var pointData = function(){
+                
                 var res = [];
                 for (var i = 0; i < _this.mapData.length; i++) {
-                    res.push({ 
-                        value:_this.mapData[i].coordinate
+                    let d = []
+                    d.push(_this.mapData[i].longitude)
+                    d.push(_this.mapData[i].latitude)
+                    res.push({
+                        indexC:i,
+                        id:_this.mapData[i].supplierID,
+                        name:_this.mapData[i].supplierName,
+                        value:d
                     })
                 }
                 return res;
@@ -363,6 +377,7 @@ export default {
                         decoration: 'none',
                     },
                     formatter: function(params) {
+                        _this.mapOneData = _this.mapData[params.data.indexC]
                         _this.showPop = !_this.showPop;
                     },
                     triggerOn: 'click'
@@ -851,6 +866,15 @@ export default {
                 position:absolute;
                 top:200px;
                 left:30%;
+
+                .close{
+                    width: 30px;
+                    height: 30px;
+                    position: absolute;
+                    right: -5px;
+                    top: 4px;
+                    cursor: pointer;
+                }
 
                 .header_name{
                     width:100%;
