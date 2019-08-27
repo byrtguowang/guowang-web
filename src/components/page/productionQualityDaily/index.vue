@@ -48,7 +48,20 @@
                 </el-table>
             </div>
             <div class="top_right">
-
+                <div class="date_picker_year">
+                    <el-date-picker
+                        :editable="false"
+                        type="year"
+                        v-model="year"
+                        format='yyyy 年'
+                        value-format='yyyy'
+                        :change='getList'
+                        placeholder="选择年份">
+                    </el-date-picker>
+                </div>
+                <ul class="date_picker_month cursor">
+                    <li v-for='(item,index) in monthData' :key="index" :class="[activeMonth==index?'active':'']" @click="changeMonth(index)">{{item}}</li>
+                </ul>
             </div>
         </div>
         <div class="bottom">
@@ -110,13 +123,31 @@ export default {
                 {},
                 {},
                 {}
-            ]
+            ],
+            year:'',
+            monthData:[1,2,3,4,5,6,7,8,9,10,11,12],
+            activeMonth:0,
         }
     },
     mounted() {
+        const dateNow=new Date();
+        this.year=dateNow.getFullYear().toString();
+        this.monthData.forEach((item,index)=>{
+            if(item==dateNow.getMonth()+1) this.activeMonth=index;
+        })
     },
-    
     methods: {
+        changeMonth(idx){
+            this.activeMonth=idx;
+            this.getList();
+        },
+        getList(){
+            let obj={
+                year:this.year||'',
+                month:this.monthData[this.activeMonth]
+            }
+            console.log(obj);
+        },
     },
 };
 </script>
@@ -135,6 +166,28 @@ export default {
                     .el-table__body{
                         tr{
                             height:55px;
+                        }
+                    }
+                }
+            }
+            .top_right{
+                .date_picker_year{
+                    .el-date-editor.el-date-editor--year{
+                        
+                        font-size:20px;
+                        &,.el-input__inner{
+                        width:100%;
+                        height:100%;
+                        }
+                        .el-input__icon.el-icon-date,.el-input__suffix{
+                            color:#a2fff5;
+                        }
+                        .el-input__inner{
+                            padding:0 40px;
+                            background:transparent;
+                            border:none;
+                            color:#a2fff5;
+                            text-align:center;
                         }
                     }
                 }
@@ -203,6 +256,33 @@ export default {
             .top_right{
                 flex:1;
                 margin-left:16px;
+                display:flex;
+                flex-direction:column;
+
+                .date_picker_year{
+                    height:55px;
+                    background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
+                }
+                .date_picker_month{
+                    flex:1;
+                    display:flex;
+                    flex-wrap:wrap;
+                    background:rgba(27,35,44,.4);
+                    padding:0 10px;
+                    li{
+                        width:25%;
+                        margin:10px 0;
+                        color:#4ae6d6;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:18px;
+                        &.active{
+                            background: linear-gradient(to right, #035853, #139e8e, #035853);
+                        }
+                    }
+
+                }
             }
         }
         .bottom{
