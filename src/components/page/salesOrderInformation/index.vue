@@ -10,57 +10,68 @@
                     <div class="demo-input-suffix">
                         <span>供应商：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.supplierName"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>国网采购订单号：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.sgPurchaseorder"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>销售订单号：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.salesOrderCode"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>交货地点：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.deliveryPlace"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>国网框架合同号：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.sgFrameworkcode"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>工程项目名称：</span>
                         <el-input
-                            placeholder="请输入内容">
+                            v-model="searchObj.sgProjectname"
+                            placeholder="请输入">
                         </el-input>
                     </div>
                     <div class="demo-input-suffix">
                         <span>交货日期：</span>
                         <el-date-picker
                             type="daterange"
+                            :editable="false"
+                            v-model="date"
+                            value-format="yyyy-MM-dd"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期">
                         </el-date-picker>
                     </div>
                 </div>
                 <div class="search_right">
-                    <button>查询</button>
-                    <button>导出</button>
+                    <button @click="listSalesorderDnb(1)">查询</button>
+                    <button @click="listSalesorderDnbb">导出</button>
                     <button @click="goQualityDaily">生产质量日报</button>
                 </div>
             </div>
             <div class="table">
                 <el-table
                     :data="tableData"
+                    :row-class-name="tableRowClass"
+                    @row-click="changeRowClass"
                     style="width: 100%">
                     <el-table-column
                     prop="sgPurchaseorder"
@@ -73,31 +84,32 @@
                     label="销售订单号">
                     </el-table-column>
                     <el-table-column
-                    prop="sgProjectname"
+                    prop="supplierName"
                     align="center"
                     label="供应商名称">
                     </el-table-column>
                     <el-table-column
                     prop="materialsNum"
                     align="center"
-                    width="100"
+                    width="120"
                     label="订单数量">
                     </el-table-column>
                     <el-table-column
                     prop="deliveryDate"
                     align="center"
-                    width="100"
+                    width="120"
                     label="交货日期">
                     </el-table-column>
                     <el-table-column
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="parseFloat(scope.row.percent||0)"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)"></el-progress>
                         </template>
                     </el-table-column>
                     <el-table-column
                     align="center"
+                    width="140"
                     label="操作">
                         <template slot-scope="scope">
                             <span>查看对应生产订单</span>
@@ -107,7 +119,9 @@
                 <el-pagination
                     small
                     layout="prev, pager, next"
-                    :total="5000">
+                    :current-page="searchObj.pageNum"
+                    @current-change="handleCurrentChange"
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -119,68 +133,68 @@
         <div class="botttom_box">
             <ul class="item">
                 <li>
-                    <span class="item_name">国网采购订单号：</span>
-                    <span class="item_value ellipsis" title="FDJJGHDHGFHDVGHC ccffffffccffffffccffffff">FDJJGHDHGFHDVGHC ccffffffccffffffccffffff</span>
+                    <span class="item_name">物资编码：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.materialsCode}}</span>
                 </li>
                 <li>
-                    <span class="item_name">国网采购订单项目号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                    <span class="item_name">物资名称：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.materialsName}}</span>
                 </li>
                 <li>
-                    <span class="item_name">国网框架合同号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                    <span class="item_name">订单数量：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.materialsNum}}</span>
                 </li>
                 <li>
-                    <span class="item_name">工程项目名称：</span>
-                    <span class="item_value">工程项目名称</span>
+                    <span class="item_name">交货日期：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.deliveryDate}}</span>
                 </li>
                 <li>
-                    <span class="item_name">销售订单号：</span>
-                    <span class="item_value">SDFFHFGDJGHGF</span>
+                    <span class="item_name">交货地点：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.deliveryPlace}}</span>
+                </li>
+            </ul>
+            <ul class="item">
+                <li>
+                    <span class="item_name">销售订单行项目号：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.salesOrderProjectNo}}</span>
+                </li>
+                <li>
+                    <span class="item_name">建立日期：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.createTime}}</span>
+                </li>
+                <li>
+                    <span class="item_name">进度：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.sumproductionorde}}</span>
+                </li>
+                <li>
+                    <span class="item_name">供应商代码：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.supplierCode}}</span>
+                </li>
+                <li>
+                    <span class="item_name">供应商名称：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.supplierName}}</span>
                 </li>
             </ul>
             <ul class="item">
                 <li>
                     <span class="item_name">国网采购订单号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.sgPurchaseorder}}</span>
                 </li>
                 <li>
-                    <span class="item_name">国网采购订单项目号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
-                </li>
-                <li>
-                    <span class="item_name">国网框架合同号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
-                </li>
-                <li>
-                    <span class="item_name">工程项目名称：</span>
-                    <span class="item_value">工程项目名称</span>
-                </li>
-                <li>
-                    <span class="item_name">销售订单号：</span>
-                    <span class="item_value">SDFFHFGDJGHGF</span>
-                </li>
-            </ul>
-            <ul class="item">
-                <li>
-                    <span class="item_name">国网采购订单号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
-                </li>
-                <li>
-                    <span class="item_name">国网采购订单项目号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                    <span class="item_name">国网采购订单行项目号：</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.sgPurchaseorderprojectno}}</span>
                 </li>
                 <li>
                     <span class="item_name">国网框架合同号：</span>
-                    <span class="item_value">FDJJGHDHGFHDVGHC</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.sgFrameworkcode}}</span>
                 </li>
                 <li>
                     <span class="item_name">工程项目名称：</span>
-                    <span class="item_value">工程项目名称</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.sgProjectname}}</span>
                 </li>
                 <li>
                     <span class="item_name">销售订单号：</span>
-                    <span class="item_value">SDFFHFGDJGHGF</span>
+                    <span class="item_value ellipsis">{{SalesOrderObj.salesOrderCode}}</span>
                 </li>
             </ul>
         </div>
@@ -189,26 +203,36 @@
 </template>
 
 <script>
+import {
+    listSalesorderDnb,//销售订单列表
+    selectSalesOrder, //销售订单详情
+    listSalesorderDnbb //导出
+} from '@api/salesOrderInformation'
 export default {
     data() {
         return {
-            tableData: [
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-            ],//表格数据
+            searchObj:{
+                supplierName:'',//供应商名称
+                sgPurchaseorder:'',//国网采购订单号
+                salesOrderCode:'',//销售订单号
+                deliveryPlace:'',// 交货地点
+                sgFrameworkcode:'',//国网框架合同号
+                sgProjectname:'',//工程项目名称
+                pageNum:1,
+                pageSize:10
+            },
+            total:0,
+            date:null,// 交货日期
+            tableData: [],//表格数据
+            SalesOrderID:'',
+            SalesOrderObj:{}//详细信息
         }
     },
     mounted() {
+        this.listSalesorderDnb();
     },
     methods: {
+        // 供应商主页
         goInformation(){
             this.$router.push({
                 path:'supplierInformation'
@@ -219,6 +243,75 @@ export default {
             this.$router.push({
                 path:'productionQualityDaily'
             })
+        },
+        // 分页
+        handleCurrentChange(pageNum){
+            this.pageNum=pageNum;
+            this.listSalesorderDnb();
+        },
+        //默认选中第一个row
+        tableRowClass(val){
+    　　    if(val.row.salesOrderID==this.SalesOrderID) return 'row-bg';
+            else return '';
+        },
+        //切换row
+        changeRowClass(row, event, column){
+            this.SalesOrderID=row.salesOrderID;
+            this.selectSalesOrder();
+        },
+        //表格
+        async listSalesorderDnb(argv){
+            if(argv==1) this.searchObj.pageNum=1;
+            const {data}=await listSalesorderDnb(JSON.stringify({
+                ...this.searchObj,
+                SupplierID:sessionStorage.getItem('supplierID'),
+                deliveryDate:this.date?this.date[0]:'',
+                jendTime:this.date?this.date[1]:''
+            }));
+            if(data.status==='0'||data.status===0){
+                this.tableData=data.data.list?data.data.list:[];
+                this.total=data.data.total;
+                this.SalesOrderID=this.tableData[0].salesOrderID||'';
+            }else{
+                this.$message({
+                    type:"error",
+                    message:data.message
+                });
+                this.tableData=[];
+                this.total=0;
+                this.SalesOrderID='';
+            }
+            this.selectSalesOrder();
+        },
+        //详情
+        async selectSalesOrder(){
+            const {data}=await selectSalesOrder({
+                SalesOrderID:this.SalesOrderID
+            });
+            if(data.status==='0'||data.status===0){
+                this.SalesOrderObj=data.data?data.data:{};
+            }else{
+                this.$message({
+                    type:"error",
+                    message:data.message
+                });
+                this.SalesOrderObj={};
+            }
+        },
+        // 导出
+        async listSalesorderDnbb(){
+            let {data}=await listSalesorderDnbb(JSON.stringify({
+                ...this.searchObj,
+                SupplierID:sessionStorage.getItem('supplierID'),
+                deliveryDate:this.date?this.date[0]:'',
+                jendTime:this.date?this.date[1]:''
+            }));
+            // let aTag = document.createElement('a');
+            // let blob = new Blob([data]);　　// 这个content是下载的文件内容，自己修改
+            // aTag.download = file_name;　　　　　　// 下载的文件名
+            // aTag.href = URL.createObjectURL(blob);
+            // aTag.click();　　　　　　　　　　　　　　
+            // URL.revokeObjectURL(blob);
         }
     },
 };
@@ -232,11 +325,15 @@ export default {
                     height:27px;
                     background:rgba(27,35,44,.4);
                     border-color:#34b6a2;
-                    .el-input__icon.el-range__icon.el-icon-date,.el-range-separator{
+                    .el-input__icon.el-range__icon.el-icon-date,.el-input__icon.el-range__close-icon{
                         line-height:20px;
                         color: #2bdcc1;
                     }
+                    .el-range-input{
+                        color: #2bdcc1;
+                    } 
                 }
+                
                 .el-input{
                     width:156px;
                     height:27px;
@@ -271,6 +368,7 @@ export default {
             }
             &,tr,th,td{
                 background: transparent;
+                cursor:pointer;
             }
             &,.el-table__body td{
                 border:0;
@@ -303,6 +401,9 @@ export default {
             }
             .el-table__body .el-table__row:nth-child(2n){
                 background:linear-gradient(to right,#02514c, #012a2f);
+            }
+            .el-table__body .el-table__row.row-bg{
+                background:#008d7e;
             }
         }
         .el-progress.el-progress--line{
@@ -416,13 +517,13 @@ export default {
                 line-height:36px;
                 .item_name{
                     color:#20ad98;
-                    width:150px;
+                    width:155px;
                     float:left;
                 }
                 .item_value{
                     color:#2bdcc1;
                     float:right;
-                    width:calc(100% - 150px);
+                    width:calc(100% - 155px);
                 }
             }
         }
