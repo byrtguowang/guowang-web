@@ -7,8 +7,3 @@ export function listSalesorderDnb(param) {
 export function selectSalesOrder(param) {
     return Request.http.post(`/SalesorderDnbController/selectSalesOrder`, param, 1);
 }
-
-// 导出
-export function listSalesorderDnbb(param) {
-    return Request.http.post(`/SalesorderDnbController/listSalesorderDnbb`, param, 1,{"Content-Type": "application/json"});
-}

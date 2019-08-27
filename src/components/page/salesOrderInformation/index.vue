@@ -117,6 +117,7 @@
                     </el-table-column>
                 </el-table>
                 <el-pagination
+                    v-if="tableData.length&&total"
                     small
                     layout="prev, pager, next"
                     :current-page="searchObj.pageNum"
@@ -300,18 +301,18 @@ export default {
         },
         // 导出
         async listSalesorderDnbb(){
-            let {data}=await listSalesorderDnbb(JSON.stringify({
+            const obj={
                 ...this.searchObj,
-                SupplierID:sessionStorage.getItem('supplierID'),
+                Supplierid:sessionStorage.getItem('supplierID'),
                 deliveryDate:this.date?this.date[0]:'',
                 jendTime:this.date?this.date[1]:''
-            }));
-            // let aTag = document.createElement('a');
-            // let blob = new Blob([data]);　　// 这个content是下载的文件内容，自己修改
-            // aTag.download = file_name;　　　　　　// 下载的文件名
-            // aTag.href = URL.createObjectURL(blob);
-            // aTag.click();　　　　　　　　　　　　　　
-            // URL.revokeObjectURL(blob);
+            };
+            let html='';
+            for(let key in obj) if(obj[key]) html+=`${key}=${obj[key]}&`;
+            html=html.substr(0,html.length-1);
+            let aTag = document.createElement('a');
+            aTag.href = this.download+'?'+html;
+            aTag.click();
         }
     },
 };

@@ -9,6 +9,7 @@ export const Request = {};
 const TIMEOUT = 50000;
 //http请求授权header属性
 const AUTH_KEY = "X-Authorization";
+Vue.prototype.download = process.env.NODE_ENV == 'development'?`http://47.111.186.36:8101/SalesorderDnbController/listSalesorderDnbb`:`http://47.111.186.36:8101/SalesorderDnbController/listSalesorderDnbb`
 var request = options => {
     //开放cookie 本地操作 并且操作后的cookie 携带过去
     axios.defaults.withCredentials = true;
