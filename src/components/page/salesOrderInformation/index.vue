@@ -129,7 +129,7 @@
      </div>
      <div class="information_bottom">
          <div class="title">
-            <p>销售订单详细信息 <span class="cursor">工作订单></span></p>
+            <p>销售订单详细信息</p>
         </div>
         <div class="botttom_box">
             <ul class="item">
