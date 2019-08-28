@@ -112,7 +112,7 @@
                     width="140"
                     label="操作">
                         <template slot-scope="scope">
-                            <span @click="lookProductionOrder(salesOrderCode)">查看对应生产订单</span>
+                            <span @click="lookProductionOrder(scope.row.salesOrderCode)">查看对应生产订单</span>
                         </template>
                     </el-table-column>
                 </el-table>
