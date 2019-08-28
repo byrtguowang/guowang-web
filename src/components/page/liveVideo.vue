@@ -13,7 +13,7 @@
                     <div class="meter-box">
                         <div class="meter-right">
                             <span>供应商名称</span>
-                            <p class="left-content name">上海供应商</p>
+                            <p class="left-content name">{{data.supplierName}}</p>
                         </div>
                     </div> 
                 </div>
@@ -21,11 +21,11 @@
                     <div class="meter-box">
                         <div class="meter-right">
                             <span>机位数量</span>
-                            <p class="left-content num">6</p>
+                            <p class="left-content num">{{data.cameraSum}}</p>
                         </div>
                     </div> 
                     <div class="jk-box">
-                        <div class="bg-jk">
+                        <div class="bg-jk" >
                             <span>单板测试监控</span>
                         </div>
                         <div class="bg-jk">
@@ -51,16 +51,46 @@
 </template>
 
 <script>
+import {
+    cameraList,
+    statusBar
+} from '@api/liveVideo'
 export default {
     data() {
         return {
+            supplierID:'',
+            data:{},
+            list:[]
         };
     },
     mounted() {
-
+        this.supplierID = sessionStorage.getItem('supplierID')
+        this.liveVideo()
+        this.statusBar()
     },
     methods: {
-
+        // 状态
+        statusBar(){
+            statusBar({
+                supplierID:this.supplierID
+            })
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.data = res.data.data
+                }
+            })
+        },
+        // 摄像列表
+        liveVideo(){
+            cameraList({
+                supplierID:this.supplierID
+            })
+            .then(res => {
+                if (res.data.status === 0) {
+                    this.list = res.data.data
+                }
+            })
+        }
     },
        
     created() {
