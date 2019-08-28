@@ -147,8 +147,49 @@
                             ref="popover"
                             placement="left"
                             width="200"
-                            trigger="hover"
-                            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                            trigger="hover">
+                            <div class="detail-content detailInfo">
+                                <div class="detailInfo-left">
+                                    <div class="detailInfo-mennu">
+                                        <p>订单数量：</p>
+                                        <p>订单状态：</p>
+                                        <p>计划开始日期：</p>
+                                        <p>计划结束日期：</p>
+                                        <p>实际开始日期：</p>
+                                        <p>实际结束日期：</p>
+                                        <p>工厂/车间：</p>
+                                        <p>建立时间：</p>
+                                    </div>
+                                    <div class="detailInfo-mennu detailInfo-info">
+                                        <p>{{ProductionOrderDetail.productionOrderNum}}</p>
+                                        <p>{{ProductionOrderDetail.productionOrderStatus}}</p>
+                                        <p>{{ProductionOrderDetail.planStartDate}}</p>
+                                        <p>{{ProductionOrderDetail.planFinishDate}}</p>
+                                        <p>{{ProductionOrderDetail.realStartDate}}</p>
+                                        <p>{{ProductionOrderDetail.realFinishDate}}</p>
+                                        <p>{{ProductionOrderDetail.workShop}}</p>
+                                        <p>{{ProductionOrderDetail.CreateTime}}</p>
+                                    </div>
+                                </div>
+                                <div class="detailInfo-left detailInfo-right">
+                                    <div class="detailInfo-mennu">
+                                        <p>生产订单号：</p>
+                                        <p>国网采购订单号：</p>
+                                        <p>销售订单号：</p>
+                                        <p>销售订单号项目号：</p>
+                                        <p>物资名称：</p>
+                                        <p>物料：</p>
+                                    </div>
+                                    <div class="detailInfo-mennu detailInfo-info">
+                                        <p>{{ProductionOrderDetail.productionOrderCode}}</p>
+                                        <p>{{ProductionOrderDetail.sgpurchaseOrder}}</p>
+                                        <p>{{ProductionOrderDetail.salesOrderCode}}</p>
+                                        <p>{{ProductionOrderDetail.salesOrderProjectNo}}</p>
+                                        <p>{{ProductionOrderDetail.materialsCode}}</p>
+                                        <p class="materiel">{{ProductionOrderDetail.productionOrderMaterials}}</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div slot="reference" class="popover-box"></div>
                             </el-popover>
                         </tr>
