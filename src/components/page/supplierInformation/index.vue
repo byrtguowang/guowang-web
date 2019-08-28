@@ -30,19 +30,19 @@
             </div>
             <div class="right_box">
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/PCB.png" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn cursor" @click="jump2('')">{{processList['PCB板贴片检测']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('','PCB板贴片检测','PCB2')">{{processList['PCB板贴片检测']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/Veneer.png" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB')">{{processList['单板测试']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB','单板测试','Veneer2')">{{processList['单板测试']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/Battery.png" >
                     <div class="gj_name">电流测试</div>
-                    <div class="gj_btn cursor" @click="jump2('')">{{processList['电流测试']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('','电流测试','Battery')">{{processList['电流测试']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -102,27 +102,27 @@
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB')">{{processList['耐压试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB','耐压试验','img')">{{processList['耐压试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB')">{{processList['基本误差试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB','基本误差试验','img')">{{processList['基本误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB')">{{processList['日计时误差试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB','日计时误差试验','img')">{{processList['日计时误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB')">{{processList['参数设置']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB','参数设置','img')">{{processList['参数设置']||0}}项告警</div>
                 </div>
                 <div class="item">
                     <img src="static/images/img.png" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn cursor" @click="jump2('')">{{processList['通信端口检验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('','通信端口检验','img')">{{processList['通信端口检验']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -375,10 +375,12 @@ export default {
             })
         },
         // 跳转工艺详情页
-        jump2(param){
+        jump2(param,name,src){
             if (param != ''){
                 // sessionStorage.setItem('id',this.mapOneData.supplierID)
                 sessionStorage.setItem('param',param)
+                sessionStorage.setItem('paramName',name)
+                sessionStorage.setItem('paramSrc',src)
                 // sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
                 // sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
                 this.$router.push({
