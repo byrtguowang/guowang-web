@@ -342,7 +342,9 @@ export default {
         },
         // 表格数据
         async salesOrderInfo(){
-            let {data}=await salesOrderInfo({});
+            let {data}=await salesOrderInfo({
+                supplierID:sessionStorage.getItem('supplierID')
+            });
             if(data.status===0||data.status==='0'){
                 this.tableData=data.data?data.data:[];
             }else{

@@ -160,7 +160,8 @@ export default {
         async getList(){
             const checkTime=`${this.year}-${this.toFixedFn(this.activeMonth)}-${this.toFixedFn(this.day)}`;
             const {data}=await productionDaily({
-                checkTime
+                checkTime,
+                supplierID:sessionStorage.getItem('supplierID')
             });
             if(data.status===0||data.status==='0'){
                 this.tableData=data.data?data.data:[];
