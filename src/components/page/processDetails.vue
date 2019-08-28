@@ -300,7 +300,7 @@ export default {
         this.supplierid = sessionStorage.getItem('supplierID');
         this.category = sessionStorage.getItem('param');
         this.paramName = sessionStorage.getItem('paramName');
-        this.paramSrc = "../../../static/images/"+sessionStorage.getItem('paramSrc')+".png";
+        this.paramSrc = "/static/images/"+sessionStorage.getItem('paramSrc')+".png";
         this.supplierName = sessionStorage.getItem('supplierName');
         // 年度报警
         this.yearData();
