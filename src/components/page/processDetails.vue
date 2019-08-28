@@ -17,10 +17,10 @@
                 <div class="meter-box meter-box-stranding">
                     <div class="meter-left"></div>
                     <div class="meter-right">
-                        <span>绞合</span>
+                        <span>{{paramName}}</span>
                     </div>
                 </div>
-                <img src="../../../static/images/img.png" alt="">
+                <img :src="paramSrc" alt="">
             </div>
             <div class="video-box img-box">
                 <div class="meter-box">
@@ -262,6 +262,8 @@ export default {
             supplierid:'1',
             category:'D_BasicError_DNB',
             supplierName:'',
+            paramName:'',
+            paramSrc:'',
             year:{
                 alarm:0,
                 sum:0
@@ -297,6 +299,8 @@ export default {
     mounted() {
         this.supplierid = sessionStorage.getItem('supplierID');
         this.category = sessionStorage.getItem('param');
+        this.paramName = sessionStorage.getItem('paramName');
+        this.paramSrc = "/static/images/"+sessionStorage.getItem('paramSrc')+".png";
         this.supplierName = sessionStorage.getItem('supplierName');
         // 年度报警
         this.yearData();
