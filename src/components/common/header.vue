@@ -46,7 +46,11 @@ export default {
             });
          },
          changeRoute(path,params){
-            if(params) window.sessionStorage.setItem('supplierID','');
+            if(params){
+                window.sessionStorage.getItem('supplierName','');
+                window.sessionStorage.setItem('supplierID','');
+                window.sessionStorage.setItem('supplierAddr','');
+            }
             this.$router.push({
                 path:path
             });

@@ -232,6 +232,7 @@ export default {
     },
     mounted() {
         this.supplierID=sessionStorage.getItem('supplierID');
+        this.searchObj.supplierName=sessionStorage.getItem('supplierName');
         this.listSalesorderDnb();
     },
     methods: {
