@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import routerChildren from './routerChildren'
+import store from '../vuex/store'
 
 Vue.use(Router);
 
@@ -24,4 +25,9 @@ const router = new Router({
       },
   ]
 });
+router.beforeEach((to, from,next)=>{
+    if(to.name=='supplierInformation'||to.name=='liveVideo'||to.name=='productionQualityDaily') store.commit('SET_MENU_DATA',true);
+    else store.commit('SET_MENU_DATA',false);
+    next()
+})
 export default router
