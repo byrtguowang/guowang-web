@@ -2,7 +2,7 @@
 <div class="sales_order_information" id="sales_order_information">
      <div class="information_top mb10">
          <div class="title">
-            <p>销售订单列表 <span class="cursor" @click="goInformation">返回供应商主页></span></p>
+            <p>销售订单列表 <span class="cursor" @click="goInformation" v-if="supplierID">返回供应商主页></span></p>
         </div>
         <div class="top_box">
             <div class="search">
@@ -212,6 +212,7 @@ import {
 export default {
     data() {
         return {
+            supplierID:'',//供应商id
             searchObj:{
                 supplierName:'',//供应商名称
                 sgPurchaseorder:'',//国网采购订单号
@@ -230,6 +231,7 @@ export default {
         }
     },
     mounted() {
+        this.supplierID=sessionStorage.getItem('supplierID');
         this.listSalesorderDnb();
     },
     methods: {
@@ -265,7 +267,7 @@ export default {
             if(argv==1) this.searchObj.pageNum=1;
             const {data}=await listSalesorderDnb(JSON.stringify({
                 ...this.searchObj,
-                supplierID:sessionStorage.getItem('supplierID'),
+                supplierID:this.supplierID,
                 deliveryDate:this.date?this.date[0]:'',
                 jendTime:this.date?this.date[1]:''
             }));
@@ -303,7 +305,7 @@ export default {
         async listSalesorderDnbb(){
             const obj={
                 ...this.searchObj,
-                supplierID:sessionStorage.getItem('supplierID'),
+                supplierID:this.supplierID,
                 deliveryDate:this.date?this.date[0]:'',
                 jendTime:this.date?this.date[1]:''
             };
