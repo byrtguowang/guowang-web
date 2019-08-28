@@ -5,11 +5,14 @@
         </div>
         <div class="right">
             <div class="title">早上好，{{loginInfo.username}}（国网浙江分公司管理员）</div>
-            <img src="static/images/top_more.png" @click="showMenu">
+            <img src="static/images/top_more.png" @click="showMenuFn">
             <div class="menu" v-show="menuShow">
                 <h4 @click="exit">注销</h4>
-                <h4 @click="home">品类选择</h4>
-                <h4 @click="salesOrderInformation">销售订单</h4>
+                <h4 @click="changeRoute('electricEnergyMeter',1)">品类选择</h4>
+                <h4 @click="changeRoute('salesOrderInformation',1)">销售订单</h4>
+                <h4 v-if="showMenu" @click="changeRoute('supplierInformation')">供应商主页</h4>
+                <h4 v-if="showMenu" @click="changeRoute('liveVideo')">生产视频监控</h4>
+                <h4 v-if="showMenu" @click="changeRoute('productionQualityDaily')">生产质量日报</h4>
             </div>
         </div>
     </div>
@@ -23,9 +26,9 @@ export default {
         return{
             menuShow:false
         }
-    }, 
+    },
     methods:{
-         showMenu(){
+         showMenuFn(){
              this.menuShow = !this.menuShow
          },
          exit(){
@@ -42,28 +45,18 @@ export default {
 
             });
          },
-         home(){
+         changeRoute(path,params){
+            if(params) window.sessionStorage.setItem('supplierID','');
             this.$router.push({
-                path:'/Home'
-            })
-            this.menuShow = false
-         },
-         salesOrderInformation(){
-            window.sessionStorage.setItem('supplierID','');
-            this.$router.push({
-                path:'salesOrderInformation'
+                path:path
             });
             this.menuShow = false;
-         }
+         },
     },
     mounted(){
-        
-    },
-    created(){
-        
     },
     computed: {
-        ...mapGetters(['loginInfo'])
+        ...mapGetters(['loginInfo','showMenu'])
     },
     watch:{
         

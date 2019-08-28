@@ -32,6 +32,7 @@
                 <!-- <img src="../../../static/images/img.png" alt=""> -->
                 <div class="video_box">
                     <video class="h5video" id="divPlugin" ></video>
+                    <!-- <videoPlayer class="vjs-custom-skin videoPlayer" :options="playerOptions"></videoPlayer> -->
                 </div>
             </div>
         </div>
@@ -253,6 +254,9 @@ import '../../assets/adapter.js'
 import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../../assets/h5splayer.js'
 import {H5siOS,H5sPlayerCreate} from '../../assets/h5splayerhelper.js'
 export default {
+    components: {
+		// videoPlayer
+	},
     data() {
         return {
             supplierid:'1',
@@ -278,6 +282,16 @@ export default {
             pageNum:1,
             pageSize:10,
             activeClass:-1,
+            playerOptions: {
+                height: '300',
+                sources: [{
+                    type: 'rtmp/mp4',
+                    src: 'rtmp://47.111.186.36/oflaDemo/stream1'
+                }],
+                techOrder: ['flash'],
+                autoplay: false,
+                controls: true
+            }
         };
     },
     mounted() {
@@ -297,7 +311,10 @@ export default {
         // 列表
         this.getList();
         // 播放视频
-        this.createH5Video();
+        let _this = this;
+        setTimeout(function(){
+            _this.createH5Video();
+        },1000)
     },
     methods: {
         // 分页
