@@ -270,7 +270,7 @@ export default {
         };
     },
     mounted() {
-        this.supplierid = sessionStorage.getItem('id');
+        this.supplierid = sessionStorage.getItem('supplierID');
         this.category = sessionStorage.getItem('param');
         this.supplierName = sessionStorage.getItem('supplierName');
         // 年度报警

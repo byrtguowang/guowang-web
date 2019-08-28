@@ -466,7 +466,7 @@ export default {
         // 跳转工艺详情页
         jump2(param){
             if (param != ''){
-                sessionStorage.setItem('id',this.mapOneData.supplierID)
+                sessionStorage.setItem('supplierID',this.mapOneData.supplierID)
                 sessionStorage.setItem('param',param)
                 sessionStorage.setItem('supplierName',this.mapOneData.supplierName)
                 sessionStorage.setItem('supplierAddr',this.mapOneData.supplierAddress)
