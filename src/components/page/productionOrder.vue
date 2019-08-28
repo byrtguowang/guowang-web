@@ -19,7 +19,7 @@
                     <td>订单状态</td>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in ProductionOrderList" :key="index" @click="getProductionOrder(item.productionOrderID,item.productionOrderCode)">
+                    <tr v-for="(item,index) in ProductionOrderList" :key="index" :class="activeClass == index? 'row-bg':''" @click="getProductionOrder(index,item.productionOrderID,item.productionOrderCode)">
                         <td>{{item.productionOrderCode}}</td>
                         <td>{{item.productionOrderNum}}</td>
                         <td>{{item.planStartDate}}</td>
@@ -101,7 +101,7 @@
                         <p>{{ProductionOrderDetail.salesOrderCode}}</p>
                         <p>{{ProductionOrderDetail.salesOrderProjectNo}}</p>
                         <p>{{ProductionOrderDetail.materialsCode}}</p>
-                        <p>{{ProductionOrderDetail.productionOrderMaterials}}</p>
+                        <p class="materiel">{{ProductionOrderDetail.productionOrderMaterials}}</p>
                     </div>
                 </div>
             </div>
@@ -156,8 +156,9 @@ import{
 export default {
     data() {
         return {
+            activeClass:0,
             pageIndex: 1,
-            pageSize: 9, //每页显示条数
+            pageSize: 10, //每页显示条数
             totalPage:'', //一共多少条
             workListPageIndex:1,
             workListTotalPage:'',
@@ -224,7 +225,8 @@ export default {
             })
         },
         // 点击某一行查询生产订单详细信息和工单列表
-        getProductionOrder(productionOrderID,productionOrderCode){
+        getProductionOrder(index,productionOrderID,productionOrderCode){
+            this.activeClass = index;
             this.getProductionOrderDetail(productionOrderID);
             this.getWorkOrderList(productionOrderCode)
 
@@ -366,14 +368,14 @@ export default {
     }
     .product-table-box{
         width:100%;
-        height:500px;
+        // height:500px;
         margin-top:10px;
         background:linear-gradient(to top, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
         text-align: -webkit-center;
         overflow:hidden;
         .product-table{
             width:97%;
-            margin-top:35px;
+            margin:35px 0 10px 0;
             text-align:center;
             thead{
                 font-size:16px;
@@ -427,10 +429,16 @@ export default {
             }
             .detailInfo-right{
                 flex:3;
+                margin-right: 0;
                 background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                 .detailInfo-info{
                     width:180px;
                     vertical-align: top;
+                    .materiel{
+                        height:95px;
+                        overflow: scroll;
+                        letter-spacing: 1px;
+                    }
                 }
             }
         }
@@ -455,5 +463,8 @@ export default {
                 }
             }
         }
+    }
+    .row-bg{
+        background: #008d7e !important;
     }
 </style>
