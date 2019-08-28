@@ -8,15 +8,15 @@ import "element-ui/lib/theme-chalk/index.css";
 import "babel-polyfill";
 import charts from 'echarts'
 
-import VueVideoPlayer from 'vue-video-player'
+// import videoPlayer from 'vue-video-player'
 
-import 'video.js/dist/video-js.css' // 引入样式
+// import 'video.js/dist/video-js.css' // 引入样式
 
-import 'vue-video-player/src/custom-theme.css' // 引入样式
+// import 'vue-video-player/src/custom-theme.css' // 引入样式
 
-import 'videojs-flash'
+// import 'videojs-flash'
 
-Vue.use(VueVideoPlayer)
+// Vue.use(videoPlayer)
 
 // 重制样式
 import './../static/css/common/reset.css';
