@@ -392,15 +392,15 @@ export default {
             .el-table__body-wrapper.is-scrolling-none,.el-table__body{
                 position:relative;
             }
-            .el-table__body-wrapper.is-scrolling-none:after,
-            .el-table__body:after{
+            .el-table__body-wrapper.is-scrolling-none:after{
                 content:'';
                 width:1px;
                 height:100%;
                 background:#34b6a2;
                 position:absolute;
-                right:0;
+                right:1px;
                 top:0;
+                z-index:9999;
             }
             .el-table__body-wrapper.is-scrolling-none:before, .el-table__body:before{
                 content:'';
