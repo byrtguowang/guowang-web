@@ -1,5 +1,13 @@
 <template>
     <div class="box" id="productionOrder">
+        <!-- 工单详细信息弹框 -->
+        <!-- <el-popover
+            ref="popover"
+            placement="right"
+            width="200"
+            trigger="hover"
+            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+        </el-popover> -->
         <div class="meter-box">
             <div class="meter-left"></div>
             <div class="meter-right">
@@ -29,10 +37,10 @@
                             <el-progress :percentage="this.completionRate || 0"></el-progress>
                         </td>
                         <td>
-                            <span class="plan" v-if="item.productionOrderStatus == '1'">计划</span>
-                            <span class="commit" v-if="item.productionOrderStatus == '2'">确认</span>
-                            <span class="release" v-if="item.productionOrderStatus == '3'">下达</span>
-                            <span class="complete" v-if="item.productionOrderStatus == '4'">完成</span>
+                            <span class="status-box plan" v-if="item.productionOrderStatus == '1'">计划</span>
+                            <span class="status-box commit" v-if="item.productionOrderStatus == '2'">确认</span>
+                            <span class="status-box release" v-if="item.productionOrderStatus == '3'">下达</span>
+                            <span class="status-box complete" v-if="item.productionOrderStatus == '4'">完成</span>
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +130,7 @@
                         <td>工单状态</td>
                     </thead>
                     <tbody>
-                        <tr v-for="(item,index) in WorkOrderList" :key="index">
+                        <tr v-for="(item,index) in WorkOrderList" :key="index" @mouseover="getworkListDetail(index)">
                             <td>{{item.workOrderCode}}</td>
                             <td>{{item.workOrderNum}}</td>
                             <td>{{item.planStartDate}}</td>
@@ -130,11 +138,19 @@
                             <td>{{item.realStartDate}}</td>
                             <td>{{item.realFinishDate}}</td>
                             <td>
-                                <span class="plan" v-if="item.workOrderStatus == '1'">计划</span>
-                                <span class="commit" v-if="item.workOrderStatus == '2'">确认</span>
-                                <span class="release" v-if="item.workOrderStatus == '3'">下达</span>
-                                <span class="complete" v-if="item.workOrderStatus == '4'">完成</span>
+                                <span class="status-box plan" v-if="item.workOrderStatus == '1'">计划</span>
+                                <span class="status-box commit" v-if="item.workOrderStatus == '2'">确认</span>
+                                <span class="status-box release" v-if="item.workOrderStatus == '3'">下达</span>
+                                <span class="status-box complete" v-if="item.workOrderStatus == '4'">完成</span>
                             </td>
+                            <el-popover
+                            ref="popover"
+                            placement="left"
+                            width="200"
+                            trigger="hover"
+                            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                            <div slot="reference" class="popover-box"></div>
+                            </el-popover>
                         </tr>
                         <tr>
                             <td colspan="7">
@@ -179,6 +195,7 @@ export default {
             productionOrderID:'', //生产订单ID
             WorkOrderList:[], //工单列表
             productionOrderCode:'', //生产订单编号
+            workListIndex:'', //工单列表index
         };
     },
     mounted() {
@@ -268,6 +285,10 @@ export default {
                     this.workListTotalPage = res.data.data.pages
                 }
             })
+        },
+        // 工单列表鼠标移入
+        getworkListDetail(index){
+            this.workListIndex = index;
         }
     },
        
@@ -373,7 +394,7 @@ export default {
                 &:nth-child(2n){
                     background:#0c3c3e;
                 }
-                span{
+                .status-box{
                     display:inline-block;
                     width: 50px;
                     height: 25px;
@@ -464,8 +485,16 @@ export default {
                     // height:220px;
                     // overflow:scroll;
                     tr{
-                       display: table;
+                        display: table;
                         width: 100%; 
+                        position:relative;
+                        .popover-box{
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                        }
                     }
                 }
             }
