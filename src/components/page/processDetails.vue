@@ -96,9 +96,9 @@
                 <div class="search">
                     <div class="search-btn">
                         <span>检测结果：</span>
-                        <a class="btn all" @click='getList(2)'>全部</a>
-                        <a class="btn normal" @click='getList(0)'>正常</a>
-                        <a class="btn police" @click='getList(1)'>报警</a>
+                        <a class="btn all" :class="activeClass == 2 ? 'activeAll':''" @click='getList(2)'>全部</a>
+                        <a class="btn normal" :class="activeClass == 0 ? 'activeNormal':''" @click='getList(0)'>正常</a>
+                        <a class="btn police" :class="activeClass == 1 ? 'activePolice':''" @click='getList(1)'>报警</a>
                     </div>
                     <div class="time-box">
                         <el-date-picker v-model="time" type="daterange" align="right" start-placeholder="开始时间" end-placeholder="结束时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
@@ -213,15 +213,22 @@
                             width="130"
                             label="检定线/台体编号">
                             </el-table-column>
-                            <!-- <el-table-column
+                            <el-table-column
                             align="center"
                             width="100"
                             label="">
                                 <template slot-scope="scope">
-                                    <div class="play-btn"></div>
+                                    <div class="play-btn" v-if="scope.row.conclusion == '报警'"></div>
                                 </template>
-                            </el-table-column> -->
+                            </el-table-column>
                         </el-table>
+                        <el-pagination
+                            small
+                            layout="prev, pager, next"
+                            :current-page="pageNum"
+                            @current-change="handleCurrentChange"
+                            :total="total">
+                        </el-pagination>
                     </div>
                 </div>
             </div>
@@ -271,6 +278,10 @@ export default {
             listData:[],
             conclusion:[], //0正常 1报警
             v1:null, //视频
+            total:0,
+            pageNum:1,
+            pageSize:10,
+            activeClass:-1,
             playerOptions: {
                 height: '300',
                 sources: [{
@@ -306,6 +317,11 @@ export default {
         },1000)
     },
     methods: {
+        // 分页
+        handleCurrentChange(pageNum){
+            this.pageNum = pageNum;
+            this.getList();
+        },
         // 年度报警
         yearData(){
             let p = {
@@ -398,29 +414,33 @@ export default {
         getList(index){
             let startingTime;
             let endTime;
-            // if(this.time[0]) startingTime = this.time[0];
-            // if(this.time[1]) endTime = this.time[1];
             if(this.time){
                 if(this.time.length != 0 ){
-                    console.log(typeof(this.time),11111)
-                    console.log(this.time)
                     startingTime = this.time[0];
                     endTime = this.time[1];
                 }
             }
             let param = {
+                pageNum:this.pageNum,
+                pageSize:this.pageSize,
                 supplierid:this.supplierid, //供应商id
                 startingTime:startingTime, //开始时间
                 endTime:endTime, //结束时间
                 conclusion:index //检验结果 0正常 1报警
             }
-            if(index == '2') param.conclusion = ''
+            if(index == '1') this.activeClass = 1
+            if(index == '0') this.activeClass = 0
+            if(index == '2'){
+                this.activeClass = 2
+                param.conclusion = ''
+            }
             // 基本误差
             if(this.category == 'D_BasicError_DNB'){
                 listDBasicErrorDNB(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.total = res.data.data.total
                         this.listData.forEach(el => {
                             this.conclusion.push(el.conclusion)
                             if(el.conclusion == '0'){
@@ -770,6 +790,15 @@ export default {
                 background:linear-gradient(to right,#02514c, #012a2f);
             }
         }
+        .el-pagination.el-pagination--small{
+            &,* {
+                background:transparent;
+                color:#fff;   
+            }
+            .active{
+                color: #409EFF;
+            }
+        }
     }
 </style>
 <style scoped lang='sass'>
@@ -923,6 +952,7 @@ export default {
                 }
                 .list{
                     padding: 2px 9px;
+                        margin-bottom: 10px;
                     .play-btn{
                         width:18px;
                         height:18px;
@@ -952,21 +982,45 @@ export default {
                             border-radius:20px;
                             margin-right:5px;
                             text-decoration: none;
+                            &:hover{
+                                color:#fff;
+                            }
                         }
                         .all{
                             color:#23E4C7;
                             background:#1e7974;
                             border:1px solid #2ea995;
+                            &:hover{
+                                background:#1abdcd;
+                            }
+                        }
+                        .activeAll{
+                            background:#1abdcd;
+                            color:#fff;
                         }
                         .normal{
                             color:#51F761;
                             background:#1f4335;
                             border:1px solid #23b989; 
+                            &:hover{
+                                background:#2bd127;
+                            }
+                        }
+                        .activeNormal{
+                            background:#2bd127;
+                            color:#fff;
                         }
                         .police{
                             color: #ff8e8e;
                             background:#6f1515;
                             border:1px solid #db6063; 
+                            &:hover{
+                                background:#dd2929;
+                            }
+                        }
+                        .activePolice{
+                            background:#dd2929;
+                            color:#fff;
                         }
                     }
                     .time-box{

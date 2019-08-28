@@ -173,6 +173,7 @@ export default {
             workListPageIndex:1,
             workListTotalPage:'',
             workListPageSize:5,
+            salesOrderCode:'', //销售订单编号
             ProductionOrderList:[], //生产订单列表
             ProductionOrderDetail:{}, //生产订单详细信息
             productionOrderID:'', //生产订单ID
@@ -181,6 +182,7 @@ export default {
         };
     },
     mounted() {
+        this.salesOrderCode = this.$route.query.salesOrderCode
         this.getProductionOrderList();
     },
     methods: {
@@ -205,7 +207,7 @@ export default {
             getProductionOrderList(JSON.stringify({
                 pageNum:this.pageIndex,
                 pageSize:this.pageSize,
-                salesOrderCode: "1100009557" //销售订单编号 
+                salesOrderCode: this.salesOrderCode //销售订单编号 
             }))
             .then( res =>{
                 if(res.data.status == 0){
@@ -229,7 +231,7 @@ export default {
         getProductionOrderDetail(productionOrderID){
             getProductionOrderList(JSON.stringify({
                 productionOrderID:productionOrderID, //生产订单ID
-                salesOrderCode: "1100009557" //销售订单编号 
+                salesOrderCode: this.salesOrderCode //销售订单编号 
             }))
             .then( res => {
                 if(res.data.status == 0){
