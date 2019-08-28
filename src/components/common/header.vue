@@ -8,7 +8,8 @@
             <img src="static/images/top_more.png" @click="showMenu">
             <div class="menu" v-show="menuShow">
                 <h4 @click="exit">注销</h4>
-                <h4 @click="home">首页</h4>
+                <h4 @click="home">品类选择</h4>
+                <h4 @click="salesOrderInformation">销售订单</h4>
             </div>
         </div>
     </div>
@@ -46,6 +47,13 @@ export default {
                 path:'/Home'
             })
             this.menuShow = false
+         },
+         salesOrderInformation(){
+            window.sessionStorage.setItem('supplierID','');
+            this.$router.push({
+                path:'salesOrderInformation'
+            });
+            this.menuShow = false;
          }
     },
     mounted(){
