@@ -112,7 +112,7 @@
                     width="140"
                     label="操作">
                         <template slot-scope="scope">
-                            <span>查看对应生产订单</span>
+                            <span @click="lookProductionOrder(salesOrderCode)">查看对应生产订单</span>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -313,6 +313,15 @@ export default {
             let aTag = document.createElement('a');
             aTag.href = this.download+'?'+html;
             aTag.click();
+        },
+        // 查看对应生产订单
+        lookProductionOrder(salesOrderCode){
+            this.$router.push({
+                path:'productionOrder',
+                query:{
+                    salesOrderCode
+                }
+            })
         }
     },
 };

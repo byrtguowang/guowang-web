@@ -28,7 +28,12 @@
                         <td>
                             <el-progress :percentage="this.completionRate || 0"></el-progress>
                         </td>
-                        <td>{{item.productionOrderStatus}}</td>
+                        <td>
+                            <span class="plan" v-if="item.productionOrderStatus == '1'">计划</span>
+                            <span class="commit" v-if="item.productionOrderStatus == '2'">确认</span>
+                            <span class="release" v-if="item.productionOrderStatus == '3'">下达</span>
+                            <span class="complete" v-if="item.productionOrderStatus == '4'">完成</span>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="7">
@@ -124,7 +129,12 @@
                             <td>{{item.planFinishDate}}</td>
                             <td>{{item.realStartDate}}</td>
                             <td>{{item.realFinishDate}}</td>
-                            <td>{{item.workOrderStatus}}</td>
+                            <td>
+                                <span class="plan" v-if="item.workOrderStatus == '1'">计划</span>
+                                <span class="commit" v-if="item.workOrderStatus == '2'">确认</span>
+                                <span class="release" v-if="item.workOrderStatus == '3'">下达</span>
+                                <span class="complete" v-if="item.workOrderStatus == '4'">完成</span>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="7">
@@ -199,22 +209,6 @@ export default {
             }))
             .then( res =>{
                 if(res.data.status == 0){
-                    res.data.data.list.forEach(el => {
-                        switch (el.productionOrderStatus){
-                            case '1':
-                               el.productionOrderStatus = '计划' 
-                               break;
-                            case '2':
-                               el.productionOrderStatus = '确认' 
-                               break;
-                            case '3':
-                               el.productionOrderStatus = '下达' 
-                               break;
-                            case '4':
-                               el.productionOrderStatus = '完成' 
-                               break;
-                        }
-                    });
                     this.ProductionOrderList = res.data.data.list
                     this.totalPage = res.data.data.pages
                     this.productionOrderID = res.data.data.list[0].productionOrderID
@@ -268,22 +262,6 @@ export default {
             }))
             .then(res => {
                 if(res.data.status == 0){
-                    res.data.data.list.forEach(el => {
-                        switch (el.workOrderStatus){
-                            case '1':
-                               el.workOrderStatus = '计划' 
-                               break;
-                            case '2':
-                               el.workOrderStatus = '确认' 
-                               break;
-                            case '3':
-                               el.workOrderStatus = '下达' 
-                               break;
-                            case '4':
-                               el.workOrderStatus = '完成' 
-                               break;
-                        }
-                    });
                     this.WorkOrderList = res.data.data.list
                     this.workListTotalPage = res.data.data.pages
                 }
@@ -360,7 +338,7 @@ export default {
             }
             p{
                 float:right;
-                font-size:20px;
+                font-size:16px;
                 cursor:pointer;
                 margin-right:20px;
             }
@@ -392,6 +370,33 @@ export default {
                 cursor:pointer;
                 &:nth-child(2n){
                     background:#0c3c3e;
+                }
+                span{
+                    display:inline-block;
+                    width: 50px;
+                    height: 25px;
+                    line-height: 25px;
+                    border-radius: 13px;
+                }
+                .commit{
+                    background:#2d5b58;
+                    border:1px solid #05f1fe;
+                    color:#00fdff;
+                }
+                .release{
+                    background:#5b5a2c;
+                    border:1px solid #c8cf1f;
+                    color:#ebf12b;
+                }
+                .plan{
+                    background:#743f17;
+                    border:1px solid #fd8f40;
+                    color:#fe8a4d;
+                }
+                .complete{
+                    background:#204234;
+                    border:1px solid #4cd620;
+                    color:#4cd620;
                 }
             }
         }
