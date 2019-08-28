@@ -47,7 +47,7 @@ export default {
          },
          changeRoute(path,params){
             if(params){
-                window.sessionStorage.getItem('supplierName','');
+                window.sessionStorage.setItem('supplierName','');
                 window.sessionStorage.setItem('supplierID','');
                 window.sessionStorage.setItem('supplierAddr','');
             }

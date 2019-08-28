@@ -11,6 +11,7 @@
                         <span>供应商：</span>
                         <el-input
                             v-model="searchObj.supplierName"
+                            :disabled="supplierID"
                             placeholder="请输入">
                         </el-input>
                     </div>
