@@ -6,92 +6,72 @@
     <div class="daily_content">
         <div class="top">
             <div class="top_left">
-                <el-table
-                    border
-                    :data="tableData1"
-                    style="width: 100%">
-                    <el-table-column
-                    prop="sgPurchaseorder"
-                    align="center"
-                    label="星期日">
-                    </el-table-column>
-                    <el-table-column
-                    prop="salesOrderCode"
-                    align="center"
-                    label="星期一">
-                    </el-table-column>
-                    <el-table-column
-                    prop="sgProjectname"
-                    align="center"
-                    label="星期二">
-                    </el-table-column>
-                    <el-table-column
-                    prop="materialsNum"
-                    align="center"
-                    label="星期三">
-                    </el-table-column>
-                    <el-table-column
-                    prop="deliveryDate"
-                    align="center"
-                    label="星期四">
-                    </el-table-column>
-                    <el-table-column
-                    prop="materialsNum"
-                    align="center"
-                    label="星期五">
-                    </el-table-column>
-                    <el-table-column
-                    prop="deliveryDate"
-                    align="center"
-                    label="星期六">
-                    </el-table-column>
-                </el-table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>星期日</th>
+                            <th>星期一</th>
+                            <th>星期二</th>
+                            <th>星期三</th>
+                            <th>星期四</th>
+                            <th>星期五</th>
+                            <th>星期六</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='(item,index) of dayData' :key="index">
+                            <td v-for="(val,key) of item" :key="key" :class="[day==val?'active':'']" @click="changeDay(val)" class="cursor">
+                                <span v-if="val">{{val}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="top_right">
                 <div class="date_picker_year">
                     <el-date-picker
                         :editable="false"
+                        :clearable='false'
                         type="year"
                         v-model="year"
                         format='yyyy 年'
                         value-format='yyyy'
-                        :change='getList'
+                        @change='getList'
                         placeholder="选择年份">
                     </el-date-picker>
                 </div>
                 <ul class="date_picker_month cursor">
-                    <li v-for='(item,index) in monthData' :key="index" :class="[activeMonth==index?'active':'']" @click="changeMonth(index)">{{item}}</li>
+                    <li v-for='(item,index) in monthData' :key="index" :class="[activeMonth==item?'active':'']" @click="changeMonth(item)">{{item}}</li>
                 </ul>
             </div>
         </div>
         <div class="bottom">
             <el-table
                 border
-                
-                :data="tableData2"
+                :data="tableData"
                 style="width: 100%">
                 <el-table-column
-                prop="sgPurchaseorder"
+                prop="name"
                 align="center"
                 label="项目">
                 </el-table-column>
                 <el-table-column
-                prop="salesOrderCode"
+                prop="countAll"
                 align="center"
                 label="监控数据（项）">
                 </el-table-column>
                 <el-table-column
-                prop="sgProjectname"
+                prop="countOK"
                 align="center"
                 label="合格项（项）">
                 </el-table-column>
                 <el-table-column
-                prop="materialsNum"
+                prop="count"
                 align="center"
                 label="报警项（项）">
                 </el-table-column>
                 <el-table-column
-                prop="deliveryDate"
+                prop="pie"
                 align="center"
                 label="检测合格率">
                 </el-table-column>
@@ -108,49 +88,103 @@ import {
 export default {
     data() {
         return {
-            tableData1:[
-                {
-                    sgPurchaseorder:'ww',
-                    deliveryDate:'111'
-                },
-                {},
-                {},
-                {},
-                {}
-            ],
-            tableData2:[
-                {
-                    sgPurchaseorder:'ww',
-                    deliveryDate:'111'
-                },
-                {},
-                {},
-                {},
-                {}
-            ],
+            tableData:[],
             year:'',
             monthData:[1,2,3,4,5,6,7,8,9,10,11,12],
-            activeMonth:0,
+            dayData:[],
+            activeMonth:1,
+            day:0,
         }
     },
     mounted() {
-        const dateNow=new Date();
-        this.year=dateNow.getFullYear().toString();
-        this.monthData.forEach((item,index)=>{
-            if(item==dateNow.getMonth()+1) this.activeMonth=index;
-        })
+        this.readyList();
     },
     methods: {
-        changeMonth(idx){
-            this.activeMonth=idx;
+        readyList(){
+            const dateNow=new Date();
+            this.year=dateNow.getFullYear().toString();
+            this.day=dateNow.getDate();
+            this.monthData.forEach((item,index)=>{
+                if(item==dateNow.getMonth()+1) this.activeMonth=item;
+            });
+            this.daysFn();
+        },
+        //保留两位数
+        toFixedFn(num){
+            if(num>9) return num;
+            else return '0'+num;
+        },
+        //获取当月多少天，从星期几开始
+        daysFn(){
+            const date=new Date(this.year,this.activeMonth-1,1),
+            day=date.getDay(),
+            allady=new Date(this.year,this.activeMonth,0).getDate();
+            const arr=[];
+            for(var i=0;i<day;i++) arr.push(0);
+            for(let v=1;v<=allady;v++) arr.push(v);
+            if(arr.length<35){
+                const num=35-arr.length;
+                for(var i=0;i<num;i++) arr.push(0);
+            }
+            if(arr.length>35){
+                const num=42-arr.length;
+                for(var i=0;i<num;i++) arr.push(0);
+            }
+            this.chunk(arr,7);
             this.getList();
         },
+        //一维数组切二维数组
+        chunk (collection, size) {
+            var result = [];
+            size = parseInt(size) || 2;
+            for (var x = 0; x < Math.ceil(collection.length / size); x++) {
+                var start = x * size;
+                var end = start + size;
+                result.push(collection.slice(start, end));   
+            }
+            this.dayData=result;
+        },
+        //月份改变
+        changeMonth(item){
+            this.activeMonth=item;
+            this.daysFn();
+            this.day=1;
+        },
+        //天改变
+        changeDay(item){
+            if(!item) return;
+            this.day=item;
+            this.getList();
+        },
+        //表格数据
         async getList(){
-            // let obj={
-            //     year:this.year||'',
-            //     month:this.monthData[this.activeMonth]
-            // }
-            // productionDaily
+            const checkTime=`${this.year}-${this.toFixedFn(this.activeMonth)}-${this.toFixedFn(this.day)}`;
+            const {data}=await productionDaily({
+                checkTime
+            });
+            if(data.status===0||data.status==='0'){
+                this.tableData=data.data?data.data:[];
+                const obj={
+                    D_BasicError_DNB:'电能误差',
+                    D_Parameter_DNB:'电能参数',
+                    D_Pressure_DNB:'电能耐压',
+                    D_TimingError_DNB:'电能日计时',
+                    D_VeneerTest_DNB:'电能表单板'
+                };
+                for(let item of this.tableData){
+                    item.name=obj[item.dataName]
+                    item.count=item.count||0;
+                    item.countOK=item.countOK||0;
+                    item.countAll=item.count*1+item.countOK*1;
+                    item.pie=((item.countOK*1/item.countAll||0)*100).toFixed(2)+'%';
+                }
+            }else{
+                this.tableData=[];
+                this.$message({
+                    type:"error",
+                    message:data.message
+                })
+            }
         },
 
     },
@@ -159,26 +193,9 @@ export default {
 <style lang='sass'>
     #production_quality_daily{
         .top{
-            .top_left{
-                .el-table{
-                    color:#20ad98;
-                    thead{
-                        tr{
-                            background: linear-gradient(to right, #035853, #139e8e, #035853);
-                            color:#bcfff5;
-                        }
-                    }
-                    .el-table__body{
-                        tr{
-                            height:55px;
-                        }
-                    }
-                }
-            }
             .top_right{
                 .date_picker_year{
                     .el-date-editor.el-date-editor--year{
-                        
                         font-size:20px;
                         &,.el-input__inner{
                         width:100%;
@@ -257,6 +274,28 @@ export default {
             padding:17px 0;
             .top_left{
                 flex:4;
+                font-size:20px;
+                table{
+                    width:100%;
+                    color:#20ad98;
+                    border-collapse: collapse;
+                    &,tr,td,th{
+                        text-align:center;
+                        border:1px solid rgba(52, 182, 162, 0.3);
+                    }
+                    thead tr{
+                        background: linear-gradient(to right, #035853, #139e8e, #035853);
+                        height:53px;
+                        color:#bcfff5;  
+                    }
+                    tbody tr{
+                        background:rgba(27,35,44,.4);
+                        height:55px;
+                        td.active{
+                            background: linear-gradient(to right, #035853, #139e8e, #035853);
+                        }
+                    }
+                }
             }
             .top_right{
                 flex:1;
@@ -265,7 +304,7 @@ export default {
                 flex-direction:column;
 
                 .date_picker_year{
-                    height:55px;
+                    height:53px;
                     background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                 }
                 .date_picker_month{
