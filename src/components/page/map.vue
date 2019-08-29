@@ -52,12 +52,12 @@
         </div>
         <div class="center">
             <div class="select">
-                <div class="selected" @click="select">
-                    <span>{{mapOneData.supplierName}}</span>
+                <div class="selected">
+                    <span><input style="width:80%;" :placeholder="mapOneData.supplierName" @input="select" v-model="inputValue"></span>
                     <img src="static/images/pull.png">
                 </div>
                 <div class="options" v-show="selectShow">
-                    <span @click="selectOver(index)" v-for="(item,index) of mapData" :key="index">{{item.supplierName}}</span>
+                    <span @click="selectOver(index)" v-for="(item,index) of suppliersList" :key="index">{{item.supplierName}}</span>
                 </div>
             </div>
             <div class="map" ref="myEchart">
@@ -70,9 +70,9 @@
                 </div>
                 <div class="map_popbox">
                     <p>地址：<span>{{mapOneData.supplierAddress}}</span></p>
-                    <p>区域：<span>{{mapOneData.supplierCode}}</span></p>
+                    <!-- <p>区域：<span>{{mapOneData.supplierCode}}</span></p>
                     <p>品类：<span>{{mapOneData.supplierCode}}</span></p>
-                    <p>级别：<span>{{mapOneData.supplierCode}}</span></p>
+                    <p>级别：<span>{{mapOneData.supplierCode}}</span></p> -->
                 </div>
                 <div class="map_btnbox">
                     <a class="pop_btn" @click="jump()">详情</a>
@@ -122,17 +122,17 @@
             </div>
             <div class="right_box mb10">
                 <div class="item">
-                    <img src="static/images/PCB.png" >
+                    <img src="static/images/PCB.jpg" >
                     <div class="gj_name">PCB板贴片检测</div>
                     <div class="gj_btn cursor" @click="jump2('','PCB板贴片检测','PCB2')">{{processList['PCB板贴片检测']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/Veneer.png" >
+                    <img src="static/images/Veneer.jpg" >
                     <div class="gj_name">单板测试</div>
                     <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB','单板测试','Veneer2')">{{processList['单板测试']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/Battery.png" >
+                    <img src="static/images/Battery.jpg" >
                     <div class="gj_name">电流测试</div>
                     <div class="gj_btn cursor" @click="jump2('','电流测试','Battery')">{{processList['电流测试']||0}}项告警</div>
                 </div>
@@ -142,29 +142,29 @@
             </div>
             <div class="right_box scroll_h">
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/Pressure.jpg" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB','耐压试验','img')">{{processList['耐压试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB','耐压试验','Pressure')">{{processList['耐压试验']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/BasicErrorTest.jpg" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB','基本误差试验','img')">{{processList['基本误差试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB','基本误差试验','BasicErrorTest')">{{processList['基本误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/DailyTiming.jpg" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB','日计时误差试验','img')">{{processList['日计时误差试验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB','日计时误差试验','DailyTiming')">{{processList['日计时误差试验']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/Parameter.jpg" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB','参数设置','img')">{{processList['参数设置']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB','参数设置','Parameter')">{{processList['参数设置']||0}}项告警</div>
                 </div>
                 <div class="item">
-                    <img src="static/images/img.png" >
+                    <img src="static/images/Port.jpg" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn cursor" @click="jump2('','通信端口检验','img')">{{processList['通信端口检验']||0}}项告警</div>
+                    <div class="gj_btn cursor" @click="jump2('','通信端口检验','Port')">{{processList['通信端口检验']||0}}项告警</div>
                 </div>
             </div>
         </div>
@@ -195,9 +195,11 @@ export default {
             leftData:{},//左上
             leftDownData:{}, //左下
             centerData:{}, //中下
+            suppliersList:[], //供应商数据
             mapData:[], //地图数据
             mapOneData:{}, //选中的一条数据
             processList:{},
+            inputValue:'',// 搜索框的值
         };
     },
     mounted() {
@@ -269,6 +271,7 @@ export default {
             .then(res => {
                 if (res.data.status === 0) {
                     this.mapData = res.data.data;
+                    this.suppliersList = this.mapData;
                     if (this.mapData.length>0){
                         this.mapOneData = this.mapData[0];
                         this.showPop = true
@@ -385,7 +388,7 @@ export default {
                     },
                     formatter: function(params) {
                         _this.mapOneData = _this.mapData[params.data.indexC]
-                        _this.showPop = !_this.showPop;
+                        _this.showPop = true;
                         _this.getProductionProcess()
                     },
                     triggerOn: 'click'
@@ -441,9 +444,9 @@ export default {
                         },
                         itemStyle: {
                             normal: {
-                                color: '#22c4ab',
-                                shadowBlur: 10,
-                                shadowColor: '#1D4C44'
+                                color: '#f59a1b',
+                                shadowBlur: 15,
+                                shadowColor: '#f28e0e'
                             }
                         },
                         zlevel: 1
@@ -488,13 +491,35 @@ export default {
         
         // 下拉
         select(){
-            this.selectShow = !this.selectShow
+            let p = {
+                coordinate: [],
+                createTime: "",
+                createUser: "",
+                remark: "",
+                supplierAddress: "",
+                supplierCode: "",
+                supplierID: 0,
+                supplierName: this.inputValue
+            }
+            //this.selectShow = !this.selectShow
+            if (this.inputValue!=''){
+                getSuppliersList(JSON.stringify(p))
+                .then(res => {
+                    if (res.data.status === 0) {
+                        this.suppliersList = res.data.data;
+                        this.selectShow = true
+                        this.$forceUpdate();
+                    }
+                })
+            }
         },
 
         // 下拉选中
         selectOver(index){
-            this.mapOneData = this.mapData[index];
+            this.mapOneData = this.suppliersList[index];
+            this.inputValue = '';
             this.selectShow = false
+            this.showPop = true
             this.getProductionProcess();
         },
 
@@ -836,7 +861,7 @@ export default {
                 position:absolute;
                 top:50px;
                 left:50px;
-                z-index:99999;
+                z-index:999;
 
                 .selected{
                     height:42px;
@@ -885,16 +910,16 @@ export default {
             }
 
             .map_pop{
-                width:394px;
-                height:262px;
+                width: 244px;
+                height: 230px;
                 background:rgba(26,45,48,0.66);
                 border-left:2px solid #22c4ab;
                 border-right:2px solid #22c4ab;
                 font-size:16px;
                 color:#aafff2;
                 position:absolute;
-                top:200px;
-                left:30%;
+                bottom:232px;
+                left:7px;
 
                 .close{
                     width: 30px;
@@ -916,6 +941,7 @@ export default {
                     padding:0 20px;
                     text-align:left;
                     line-height:28px;
+                    height:112px;
 
                     span{
                         margin:0 6px;
@@ -924,7 +950,7 @@ export default {
 
                 .map_btnbox{
                     text-align:center;
-                    padding:25px 0;
+                    padding:15px 0;
 
                     .pop_btn{
                         padding:5px 50px;
@@ -958,7 +984,7 @@ export default {
 
             .info{
                 background:linear-gradient(#02514c, #012a2f);
-                padding:25px 31px 40px;
+                padding:25px 31px 30px;
                 display:flex;
 
                 .item{
@@ -1063,7 +1089,7 @@ export default {
             }
 
             .scroll_h{
-                height:340px;
+                height:410px;
                 overflow-y: scroll;
             }
         }
