@@ -19,7 +19,7 @@
                     <div class="video">
                         <div class="video_day" v-show="vedioShow">
                             <h4>直播视频</h4>
-                            <h4>2019-02-10</h4>
+                            <h4>{{systemDate}}</h4>
                         </div>
                         <video class="h5video" id="divPlugin" ></video>
                     </div>
@@ -63,6 +63,7 @@ export default {
             supplierID:'',
             supplierName:'',
             supplierAddress:'',
+            systemDate:'',
             data:{},
             list:[],
             vedioShow:false,
@@ -139,11 +140,20 @@ export default {
             this.$router.push({
                 path:'/Home/supplierInformation'
             })
-        }
+        },
     },
        
     created() {
-
+        let nowDate = new Date();
+        let date = {
+            year: nowDate.getFullYear(),
+            month: nowDate.getMonth() + 1,
+            date: nowDate.getDate(),
+        }
+        if (date.month < 10 ) date.month = '0' + date.month
+        if (date.date < 10 ) date.date = '0' + date.date
+        console.log(date);
+        this.systemDate = date.year + '-' + date.month + '-' + date.date;
     },
 
     watch:{
