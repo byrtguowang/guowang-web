@@ -349,7 +349,7 @@ export default {
                 conclusion: "",
                 supplierid: this.supplierid
             }
-            TheAnnualNumberOf(JSON.stringify(p))
+            TheNumberOfThisMonth(JSON.stringify(p))
             .then(res => {
                 if (res.data.status === 0) {
                     this.month = res.data.data;
@@ -365,7 +365,7 @@ export default {
                 conclusion: "",
                 supplierid: this.supplierid
             }
-            TheAnnualNumberOf(JSON.stringify(p))
+            TheNumberOf(JSON.stringify(p))
             .then(res => {
                 if (res.data.status === 0) {
                     this.day = res.data.data;
@@ -464,6 +464,7 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.total = res.data.data.total
                         this.listData.forEach(el => {
                             this.conclusion.push(el.conclusion)
                             if(el.conclusion == '0'){
@@ -483,6 +484,7 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.total = res.data.data.total
                         this.listData.forEach(el => {
                             this.conclusion.push(el.conclusion)
                             if(el.conclusion == '0'){
@@ -502,6 +504,7 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.total = res.data.data.total
                         this.listData.forEach(el => {
                             this.conclusion.push(el.conclusion)
                             if(el.conclusion == '0'){
@@ -521,6 +524,7 @@ export default {
                 .then(res => {
                     if(res.data.status == 0){
                         this.listData = res.data.data.list
+                        this.total = res.data.data.total
                         this.listData.forEach(el => {
                             this.conclusion.push(el.conclusion)
                             if(el.conclusion == '0'){
