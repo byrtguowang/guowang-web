@@ -867,7 +867,9 @@ export default {
                     }
                 }
                 img{
-                    width:95%;
+                   width:604px;
+                   height:324px;
+                   margin:30px 17px 15px;
                 }
                 
                 .video_box{

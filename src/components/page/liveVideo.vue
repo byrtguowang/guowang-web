@@ -4,18 +4,32 @@
             <div class="meter-left"></div>
             <div class="meter-right">
                 <span>直播视频</span>
-                <p>返回供应商详情 ></p>
+                <p @click="jump">返回供应商详情 ></p>
             </div>
         </div>
         <div class="bg-box">
             <div class="bg-content">
                 <div class="video-box liveVideo">
-                    <div class="meter-box">
+                    <div class="meter-box" style="margin-left:0;">
                         <div class="meter-right">
                             <span>供应商名称</span>
                             <p class="left-content name">{{data.supplierName}}</p>
                         </div>
-                    </div> 
+                    </div>
+                    <div class="video">
+                        <div class="video_day" v-show="vedioShow">
+                            <h4>直播视频</h4>
+                            <h4>2019-02-10</h4>
+                        </div>
+                        <video class="h5video" id="divPlugin" ></video>
+                    </div>
+                    <div class="video_time">
+                        <span class="time">0</span>
+                        <span class="time">0</span>
+                        :
+                        <span class="time">0</span>
+                        <span class="time">0</span>
+                    </div>
                 </div>
                 <div class="video-box machinesNum">
                     <div class="meter-box">
@@ -25,23 +39,8 @@
                         </div>
                     </div> 
                     <div class="jk-box">
-                        <div class="bg-jk" >
-                            <span>单板测试监控</span>
-                        </div>
-                        <div class="bg-jk">
-                            <span>单板测试监控</span>
-                        </div>
-                        <div class="bg-jk">
-                            <span>单板测试监控</span>
-                        </div>
-                        <div class="bg-jk">
-                            <span>单板测试监控</span>
-                        </div>
-                        <div class="bg-jk">
-                            <span>单板测试监控</span>
-                        </div>
-                        <div class="bg-jk">
-                            <span>单板测试监控</span>
+                        <div class="bg-jk" v-for="(item,index) of list" :key="index">
+                            <span @click="paly">{{item.monitorRemark}}</span>
                         </div>
                     </div>
                 </div>
@@ -55,16 +54,25 @@ import {
     cameraList,
     statusBar
 } from '@api/liveVideo'
+import '../../assets/adapter.js'
+import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../../assets/h5splayer.js'
+import {H5siOS,H5sPlayerCreate} from '../../assets/h5splayerhelper.js'
 export default {
     data() {
         return {
             supplierID:'',
+            supplierName:'',
+            supplierAddress:'',
             data:{},
-            list:[]
+            list:[],
+            vedioShow:false,
+            v1:null, //视频
         };
     },
     mounted() {
-        this.supplierID = sessionStorage.getItem('supplierID')
+        this.supplierID = sessionStorage.getItem('supplierID');
+        this.supplierName = sessionStorage.getItem('supplierName');
+        this.supplierAddress = sessionStorage.getItem('supplierAddress');
         this.liveVideo()
         this.statusBar()
     },
@@ -89,6 +97,47 @@ export default {
                 if (res.data.status === 0) {
                     this.list = res.data.data
                 }
+            })
+        },
+        // 播放视频
+        createH5Video() {
+            if (this.v1 != undefined)
+            {
+                this.v1.disconnect();
+                delete this.v1;
+                this.v1 = undefined;
+            }
+            let conf1 = {
+                videoid: 'divPlugin',
+                protocol: window.location.protocol,
+                host: this.$vedioHost,
+                rootpath: '/',
+                token: 'token1',
+                hlsver: 'v1',
+                session: 'c1782caf-b670-42d8-ba90-2342340ee83'
+            }
+            // this.v1 = H5sPlayerCreate(conf1)
+            this.v1 = new H5sPlayerWS(conf1);
+            this.v1.connect()
+        },
+        // 关闭视频
+        closeH5Video() {
+            if (this.v1) {
+                this.v1.disconnect()
+                this.v1 = null
+                $(".h5video").get(0).pause()
+            }
+        },
+        paly(){
+            this.vedioShow = true;
+            this.createH5Video()
+        },
+        jump(){
+            sessionStorage.setItem('supplierID',this.supplierID)
+            sessionStorage.setItem('supplierName',this.supplierName)
+            sessionStorage.setItem('supplierAddr',this.supplierAddress)
+            this.$router.push({
+                path:'/Home/supplierInformation'
             })
         }
     },
@@ -171,6 +220,8 @@ export default {
                 }
             }
             .liveVideo{
+                padding-left:35px;
+
                 .meter-right{
                     background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
                     span{
@@ -179,6 +230,41 @@ export default {
                     }
                     .name{
                         font-size:18px;
+                    }
+                }
+                .video{
+                    width:100%;
+                    margin-top: 43px;
+                    background:#000;
+                    position: relative;
+
+                    .video_day{
+                        position: absolute;
+                        color:#fff;
+                        text-align:left;
+                        margin-left:20px;
+
+                        h4{
+                            font-size:30px;
+                        }
+                    }
+
+                    .h5video{
+                        width:100%;
+                    }
+                }
+                .video_time{
+                    margin-top:23px;
+                    text-align:center;
+                    font-size:72px;
+                    color:#192325;
+
+                    .time{
+                        height:98px;
+                        width:51px;
+                        text-align:center;
+                        background:#051316;
+                        padding:0 5px;
                     }
                 }
             }
@@ -198,6 +284,8 @@ export default {
                 }
             }
             .jk-box{
+                min-height:calc(100vh - 126px - 120px);
+
                 .bg-jk{
                     display:inline-block;
                     width:300px;

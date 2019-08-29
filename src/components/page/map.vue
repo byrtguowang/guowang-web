@@ -1032,7 +1032,6 @@ export default {
                     margin-bottom:10px;
                     
                     img{
-                        height:128px;
                         width:100%;
                     }
 
