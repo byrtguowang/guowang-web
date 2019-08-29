@@ -29,10 +29,10 @@
                             <el-progress :percentage="this.completionRate || 0"></el-progress>
                         </td>
                         <td>
-                            <span class="status-box plan" v-if="item.productionOrderStatus == '1'">计划</span>
-                            <span class="status-box commit" v-if="item.productionOrderStatus == '2'">确认</span>
-                            <span class="status-box release" v-if="item.productionOrderStatus == '3'">下达</span>
-                            <span class="status-box complete" v-if="item.productionOrderStatus == '4'">完成</span>
+                            <span class="status-box plan" v-if="item.productionOrderStatus == '计划'">计划</span>
+                            <span class="status-box commit" v-if="item.productionOrderStatus == '确认'">确认</span>
+                            <span class="status-box release" v-if="item.productionOrderStatus == '下达'">下达</span>
+                            <span class="status-box complete" v-if="item.productionOrderStatus == '完成'">完成</span>
                         </td>
                     </tr>
                     <tr>
@@ -113,27 +113,27 @@
             <div class="product-table-box detail-content work-list-box">
                 <table class="product-table">
                     <thead>
-                        <td width="15%">工单号</td>
-                        <td width="10%">工单数量</td>
-                        <td width="16%">计划开始日期</td>
-                        <td width="16%">计划结束日期</td>
-                        <td width="16%">实际开始日期</td>
-                        <td width="16%">实际结束日期</td>
-                        <td width="11%">工单状态</td>
+                        <td width="23%">工单号</td>
+                        <td width="9%">工单数量</td>
+                        <td width="14.75%">计划开始日期</td>
+                        <td width="14.75%">计划结束日期</td>
+                        <td width="14.75%">实际开始日期</td>
+                        <td width="14.75%">实际结束日期</td>
+                        <td width="9%">工单状态</td>
                     </thead>
                     <tbody>
                         <tr v-for="(item,index) in WorkOrderList" :key="index">
-                            <td>{{item.workOrderCode}}</td>
-                            <td>{{item.workOrderNum}}</td>
-                            <td>{{item.planStartDate}}</td>
-                            <td>{{item.planFinishDate}}</td>
-                            <td>{{item.realStartDate}}</td>
-                            <td>{{item.realFinishDate}}</td>
-                            <td>
-                                <span class="status-box plan" v-if="item.workOrderStatus == '1'">计划</span>
-                                <span class="status-box commit" v-if="item.workOrderStatus == '2'">确认</span>
-                                <span class="status-box release" v-if="item.workOrderStatus == '3'">下达</span>
-                                <span class="status-box complete" v-if="item.workOrderStatus == '4'">完成</span>
+                            <td width="23%">{{item.workOrderCode}}</td>
+                            <td width="9%">{{item.workOrderNum}}</td>
+                            <td width="14.75%">{{item.planStartDate}}</td>
+                            <td width="14.75%">{{item.planFinishDate}}</td>
+                            <td width="14.75%">{{item.realStartDate}}</td>
+                            <td width="14.75%">{{item.realFinishDate}}</td>
+                            <td width="9%">
+                                <span class="status-box plan" v-if="item.workOrderStatus == '计划'">计划</span>
+                                <span class="status-box commit" v-if="item.workOrderStatus == '确认'">确认</span>
+                                <span class="status-box release" v-if="item.workOrderStatus == '下达'">下达</span>
+                                <span class="status-box complete" v-if="item.workOrderStatus == '完成'">完成</span>
                             </td>
                             <el-popover
                             ref="popover"
@@ -259,17 +259,30 @@ export default {
             getProductionOrderList(JSON.stringify({
                 pageNum:this.pageIndex,
                 pageSize:this.pageSize,
-                // salesOrderCode: this.salesOrderCode //销售订单编号 
-                salesOrderCode: '1100009557' //销售订单编号 
+                salesOrderCode: this.salesOrderCode //销售订单编号
             }))
             .then( res =>{
                 if(res.data.status == 0){
+                    res.data.data.list.forEach(el => {
+                        switch (el.productionOrderStatus){
+                            case '1':
+                                el.productionOrderStatus = '计划' 
+                                break;
+                            case '2':
+                                el.productionOrderStatus = '确认' 
+                                break;
+                            case '3':
+                                el.productionOrderStatus = '下达' 
+                                break;
+                            case '4':
+                                el.productionOrderStatus = '完成' 
+                                break;
+                        }
+                    })
                     this.ProductionOrderList = res.data.data.list
                     this.totalPage = res.data.data.pages
-                    // this.productionOrderID = res.data.data.list[0].productionOrderID
                     this.productionOrderCode = res.data.data.list[0].productionOrderCode
                     this.ProductionOrderDetail = res.data.data.list[0]
-                    // this.getProductionOrderDetail(this.productionOrderID);
                     this.getWorkOrderList(this.productionOrderCode);
                 }
             })
@@ -278,39 +291,8 @@ export default {
         getProductionOrder(index,item,productionOrderID,productionOrderCode){
             this.activeClass = index;
             this.ProductionOrderDetail = item;
-            // this.getProductionOrderDetail(productionOrderID);
             this.getWorkOrderList(productionOrderCode)
-            // this.getworkListDetail(productionOrderCode)
-
         },
-        // 获取生产订单详细信息
-        // getProductionOrderDetail(productionOrderID){
-        //     getProductionOrderList(JSON.stringify({
-        //         productionOrderID:productionOrderID, //生产订单ID
-        //         salesOrderCode: this.salesOrderCode //销售订单编号 
-        //     }))
-        //     .then( res => {
-        //         if(res.data.status == 0){
-        //              res.data.data.list.forEach(el => {
-        //                 switch (el.productionOrderStatus){
-        //                     case '1':
-        //                        el.productionOrderStatus = '计划' 
-        //                        break;
-        //                     case '2':
-        //                        el.productionOrderStatus = '确认' 
-        //                        break;
-        //                     case '3':
-        //                        el.productionOrderStatus = '下达' 
-        //                        break;
-        //                     case '4':
-        //                        el.productionOrderStatus = '完成' 
-        //                        break;
-        //                 }
-        //             });
-        //             this.ProductionOrderDetail = res.data.data.list[0]
-        //         }
-        //     })
-        // },
         // 工单列表
         getWorkOrderList(productionOrderCode){
             getWorkOrderList(JSON.stringify({
@@ -320,23 +302,27 @@ export default {
             }))
             .then(res => {
                 if(res.data.status == 0){
+                    res.data.data.list.forEach(el => {
+                        switch (el.workOrderStatus){
+                            case '1':
+                                el.workOrderStatus = '计划' 
+                                break;
+                            case '2':
+                                el.workOrderStatus = '确认' 
+                                break;
+                            case '3':
+                                el.workOrderStatus = '下达' 
+                                break;
+                            case '4':
+                                el.workOrderStatus = '完成' 
+                                break;
+                        }
+                    })
                     this.WorkOrderList = res.data.data.list
                     this.workListTotalPage = res.data.data.pages
                 }
             })
         },
-        // 工单列表鼠标移入
-        // getworkListDetail(workOrderID,productionOrderCode){
-        //     getWorkOrderList(JSON.stringify({
-        //         workOrderID:workOrderID, //工单ID
-        //         productionOrderCode: productionOrderCode //生产订单编号 
-        //     }))
-        //     .then(res =>{
-        //         if(res.data.status == 0){
-        //             this.workListDetail = res.data.data.list[0]
-        //         }
-        //     })
-        // }
     },
        
     created() {
@@ -344,7 +330,7 @@ export default {
     },
 
     watch:{
-
+      
     },
 };
 </script>
@@ -433,8 +419,8 @@ export default {
             margin:35px 0 10px 0;
             text-align:center;
             thead{
-                font-size:16px;
-                font-weight: bold;
+                font-size:14px;
+                // font-weight: bold;
                 color:#56efdb;
                 line-height:45px;
             }
