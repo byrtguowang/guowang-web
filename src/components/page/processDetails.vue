@@ -20,7 +20,9 @@
                         <span>{{paramName}}</span>
                     </div>
                 </div>
-                <img :src="paramSrc" alt="">
+                <div class="box">
+                    <img :src="paramSrc" alt="">
+                </div>
             </div>
             <div class="video-box img-box">
                 <div class="meter-box">
@@ -890,11 +892,16 @@ export default {
                         }
                     }
                 }
-                img{
-                   width:604px;
-                   height:324px;
-                   margin:30px 17px 15px;
+                .box{
+                    width:388px;
+                    margin:30px 17px 15px;
+
+                    img{
+                        width:100%;
+                    }
                 }
+
+                
                 
                 .video_box{
                     width:95%;
