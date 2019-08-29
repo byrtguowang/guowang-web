@@ -1,13 +1,5 @@
 <template>
     <div class="box" id="productionOrder">
-        <!-- 工单详细信息弹框 -->
-        <!-- <el-popover
-            ref="popover"
-            placement="right"
-            width="200"
-            trigger="hover"
-            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-        </el-popover> -->
         <div class="meter-box">
             <div class="meter-left"></div>
             <div class="meter-right">
@@ -130,7 +122,7 @@
                         <td>工单状态</td>
                     </thead>
                     <tbody>
-                        <tr v-for="(item,index) in WorkOrderList" :key="index" @mouseover="getworkListDetail(index)">
+                        <tr v-for="(item,index) in WorkOrderList" :key="index">
                             <td>{{item.workOrderCode}}</td>
                             <td>{{item.workOrderNum}}</td>
                             <td>{{item.planStartDate}}</td>
@@ -147,8 +139,51 @@
                             ref="popover"
                             placement="left"
                             width="200"
-                            trigger="hover"
-                            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                            trigger="hover">
+                            <div class="detail-box">
+                                <div class="detail-content detailInfo" style="height:auto;">
+                                    <div class="detailInfo-left">
+                                        <div class="detailInfo-mennu">
+                                            <p>工单数量：</p>
+                                            <p>工单状态：</p>
+                                            <p>计划开始日期：</p>
+                                            <p>计划结束日期：</p>
+                                            <p>实际开始日期：</p>
+                                            <p>实际结束日期：</p>
+                                            <!-- <p>工厂/车间：</p> -->
+                                            <!-- <p>建立时间：</p> -->
+                                        </div>
+                                        <div class="detailInfo-mennu detailInfo-info">
+                                            <p>{{item.workOrderNum}}</p>
+                                            <p>{{item.workOrderStatus}}</p>
+                                            <p>{{item.planStartDate}}</p>
+                                            <p>{{item.planFinishDate}}</p>
+                                            <p>{{item.realStartDate}}</p>
+                                            <p>{{item.realFinishDate}}</p>
+                                            <!-- <p>{{workListDetail.workShop}}</p> -->
+                                            <!-- <p>{{workListDetail.CreateTime}}</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="detailInfo-left detailInfo-right">
+                                        <div class="detailInfo-mennu">
+                                            <p>生产订单号：</p>
+                                            <!-- <p>国网采购订单号：</p> -->
+                                            <p>工单号：</p>
+                                            <p>供应商编号：</p>
+                                            <p>设备名称：</p>
+                                            <p>设备编号：</p>
+                                        </div>
+                                        <div class="detailInfo-mennu detailInfo-info">
+                                            <p>{{item.productionOrderCode}}</p>
+                                            <!-- <p>{{workListDetail.sgpurchaseOrder}}</p> -->
+                                            <p>{{item.workOrderCode}}</p>
+                                            <p>{{item.supplierID}}</p>
+                                            <p>{{item.deviceName}}</p>
+                                            <p class="materiel">{{item.deviceCode}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div slot="reference" class="popover-box"></div>
                             </el-popover>
                         </tr>
@@ -195,7 +230,7 @@ export default {
             productionOrderID:'', //生产订单ID
             WorkOrderList:[], //工单列表
             productionOrderCode:'', //生产订单编号
-            workListIndex:'', //工单列表index
+            workListDetail:{} //工单详细信息
         };
     },
     mounted() {
@@ -242,6 +277,7 @@ export default {
             this.activeClass = index;
             this.getProductionOrderDetail(productionOrderID);
             this.getWorkOrderList(productionOrderCode)
+            // this.getworkListDetail(productionOrderCode)
 
         },
         // 获取生产订单详细信息
@@ -287,9 +323,17 @@ export default {
             })
         },
         // 工单列表鼠标移入
-        getworkListDetail(index){
-            this.workListIndex = index;
-        }
+        // getworkListDetail(workOrderID,productionOrderCode){
+        //     getWorkOrderList(JSON.stringify({
+        //         workOrderID:workOrderID, //工单ID
+        //         productionOrderCode: productionOrderCode //生产订单编号 
+        //     }))
+        //     .then(res =>{
+        //         if(res.data.status == 0){
+        //             this.workListDetail = res.data.data.list[0]
+        //         }
+        //     })
+        // }
     },
        
     created() {
@@ -331,6 +375,13 @@ export default {
         .el-progress__text{
             color:#21e9cc;
         }
+    }
+     // 工单列表弹框样式
+    .el-popover{
+        width: 700px !important;
+        background: linear-gradient(to right, rgb(13, 99, 119), rgb(34, 196, 172));
+        border: 1px solid rgb(13, 99, 119);
+        color: #fff;
     }
 </style>
 <style scoped lang='sass'>

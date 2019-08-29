@@ -5,8 +5,8 @@
         </div>
         <div class="right">
             <div class="title">早上好，{{loginInfo.username}}（国网浙江分公司管理员）</div>
-            <img src="static/images/top_more.png" @click="showMenuFn">
-            <div class="menu" v-show="menuShow">
+            <img src="static/images/top_more.png" @click.stop="showMenuFn">
+            <div class="menu" v-show="hideMenuList">
                 <h4 @click="exit">注销</h4>
                 <h4 @click="changeRoute('electricEnergyMeter',1)">品类选择</h4>
                 <h4 @click="changeRoute('salesOrderInformation',1)">销售订单</h4>
@@ -19,17 +19,20 @@
 </template>
 <script>
 import {
-    mapGetters
+    mapGetters,
+    mapMutations
 } from 'vuex'
 export default {
     data(){
         return{
-            menuShow:false
         }
     },
     methods:{
+        ...mapMutations({
+            hideMenuFn:'SET_MENU_LIST'
+        }),
          showMenuFn(){
-             this.menuShow = !this.menuShow
+            this.hideMenuFn(!this.hideMenuList);
          },
          exit(){
             this.$confirm('确定要注销吗?', '提示', {
@@ -40,7 +43,6 @@ export default {
                 this.$router.push({
                     path:'/login'
                 })
-                this.menuShow = false
             }).catch(() => {
 
             });
@@ -53,14 +55,13 @@ export default {
             }
             this.$router.push({
                 path:path
-            });
-            this.menuShow = false;
+            })
          },
     },
     mounted(){
     },
     computed: {
-        ...mapGetters(['loginInfo','showMenu'])
+        ...mapGetters(['loginInfo','showMenu','hideMenuList'])
     },
     watch:{
         

@@ -88,7 +88,8 @@
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="parseFloat(scope.row.percent||0)"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.percent||0)*100" v-if="parseFloat(scope.row.percent||0)<1"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.percent||0)*100" v-else class="man_fen"></el-progress>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -581,6 +582,14 @@ export default {
             line-height: 30px;
             border-radius:8px;
             background:rgba(8,42,44,.71);
+            &.man_fen{
+                .el-progress-bar__outer{
+                    border: 1px solid #34b63e;
+                    .el-progress-bar__inner{
+                        background:linear-gradient(to right,#0d4c13, #00ff0c);
+                    }
+                }
+            }
             .el-progress-bar__outer{
                 height:10px !important;
                 background: #082a2c;
