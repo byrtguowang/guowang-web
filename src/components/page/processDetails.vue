@@ -27,6 +27,7 @@
                     <div class="meter-left"></div>
                     <div class="meter-right">
                         <span>视频直播</span>
+                        <span class="more" @click="jumpMore">更多></span>
                     </div>
                 </div>
                 <!-- <img src="../../../static/images/img.png" alt=""> -->
@@ -262,6 +263,7 @@ export default {
             supplierid:'1',
             category:'D_BasicError_DNB',
             supplierName:'',
+            supplierAddr:'',
             paramName:'',
             paramSrc:'',
             year:{
@@ -302,6 +304,7 @@ export default {
         this.paramName = sessionStorage.getItem('paramName');
         this.paramSrc = "static/images/"+sessionStorage.getItem('paramSrc')+".png";
         this.supplierName = sessionStorage.getItem('supplierName');
+        this.supplierAddr = sessionStorage.getItem('supplierAddr');
         // 年度报警
         this.yearData();
         // 月度报警
@@ -732,6 +735,14 @@ export default {
                 this.v1 = null
                 $(".h5video").get(0).pause()
             }
+        },
+        jumpMore(){
+            sessionStorage.setItem('supplierID',this.supplierid)
+            sessionStorage.setItem('supplierName',this.supplierName)
+            sessionStorage.setItem('supplierAddr',this.supplierAddr)
+            this.$router.push({
+                path:'/Home/liveVideo'
+            })
         }
     },
     destroyed() {
@@ -832,9 +843,18 @@ export default {
                     line-height:38px;
                     text-align:left;
                     background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
+
                     span{
                         margin-left:6px;
                         color:#21e9cc;
+                    }
+
+                    .more{
+                        float:right;
+                        font-size:14px;
+                        color:#20ad98;
+                        cursor:pointer;
+                        margin-right:10px;
                     }
                 }
             }
@@ -881,7 +901,7 @@ export default {
                     height:100%;
 
                     .h5video{
-                        margin-top:50px;
+                        margin-top:30px;
                         width:100%;
                     }
                 }
