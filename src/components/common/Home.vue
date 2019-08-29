@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap" v-scrollHeight = "0">
+    <div class="wrap" v-scrollHeight = "0" @click="showMenuFn">
         <v-header></v-header>
         <!-- <v-siderbar @changePath='changePath'></v-siderbar>-->
         <v-content :path='path'></v-content> 
@@ -12,7 +12,9 @@ import vHeader from './header';
 // import vSiderbar from './siderBar'
 // 主内容
 import vContent from './content'
-
+import {
+    mapMutations
+} from 'vuex'
 export default {
     components:{
         vHeader,
@@ -25,12 +27,12 @@ export default {
         }
     },
     methods:{
-        changePath(){
-            
-        }
-    },
-    created(){
-
+        ...mapMutations({
+            hideMenuFn:'SET_MENU_LIST'
+        }),
+        showMenuFn(){
+            this.hideMenuFn(false);
+        },
     },
 }
 </script>   
