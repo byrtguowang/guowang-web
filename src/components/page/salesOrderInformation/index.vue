@@ -105,7 +105,8 @@
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-if="parseFloat(scope.row.sumproductionorde||0)<100"></el-progress>
+                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-else class="man_fen"></el-progress>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -166,7 +167,12 @@
                 </li>
                 <li>
                     <span class="item_name">进度：</span>
-                    <span class="item_value ellipsis" :title="SalesOrderObj.sumproductionorde">{{SalesOrderObj.sumproductionorde}}</span>
+                    <span class="item_value">
+                        <el-progress :percentage="parseFloat(SalesOrderObj.sumproductionorde||0)" v-if="parseFloat(scope.row.sumproductionorde||0)<100"></el-progress>
+                        <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-else class="man_fen"></el-progress>
+                    </span>
+
+                    
                 </li>
                 <li>
                     <span class="item_name">供应商代码：</span>
@@ -419,12 +425,24 @@ export default {
             .el-table__body .el-table__row.row-bg{
                 background:#008d7e;
             }
+            .el-progress.el-progress--line{
+                background:rgba(8,42,44,.71);
+            }
         }
         .el-progress.el-progress--line{
             height: 30px;
             line-height: 30px;
             border-radius:8px;
-            background:rgba(8,42,44,.71);
+            text-align:left;
+            padding-left:10px;
+            &.man_fen{
+                .el-progress-bar__outer{
+                    border: 1px solid #34b63e;
+                    .el-progress-bar__inner{
+                        background:linear-gradient(to right,#0d4c13, #00ff0c);
+                    }
+                }
+            }
             .el-progress-bar__outer{
                 height:10px !important;
                 background: #082a2c;
@@ -516,15 +534,22 @@ export default {
         padding:0 21px;
     }
     .botttom_box{
-        display:flex;
+        overflow:hidden;
         .item{
-            flex:1;
-            background:rgba(27,35,44,.4);
-            height:184px;
+            float:left;
             margin:22px 11px;
+            width:calc((100% - 44px) / 3);
+            background:rgba(27,35,44,.4);
             padding:24px 50px;
+            box-sizing:border-box;
             display:flex;
             flex-direction:column;
+            &:first-child{
+                margin-left:0;
+            }
+            &:last-child{
+                margin-right:0;
+            }
             li{
                 width:100%;
                 flex:1;
