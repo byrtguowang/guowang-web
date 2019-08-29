@@ -427,14 +427,16 @@ export default {
             }
             .el-progress.el-progress--line{
                 background:rgba(8,42,44,.71);
+                text-align:left;
+                padding-left:10px;
             }
         }
         .el-progress.el-progress--line{
             height: 30px;
             line-height: 30px;
             border-radius:8px;
-            text-align:left;
-            padding-left:10px;
+            // text-align:left;
+            // padding-left:10px;
             &.man_fen{
                 .el-progress-bar__outer{
                     border: 1px solid #34b63e;
