@@ -19,7 +19,7 @@
                     <td>订单状态</td>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in ProductionOrderList" :key="index" :class="activeClass == index? 'row-bg':''" @click="getProductionOrder(index,item.productionOrderID,item.productionOrderCode)">
+                    <tr v-for="(item,index) in ProductionOrderList" :key="index" :class="activeClass == index? 'row-bg':''" @click="getProductionOrder(index,item,item.productionOrderID,item.productionOrderCode)">
                         <td>{{item.productionOrderCode}}</td>
                         <td>{{item.productionOrderNum}}</td>
                         <td>{{item.planStartDate}}</td>
@@ -113,13 +113,13 @@
             <div class="product-table-box detail-content work-list-box">
                 <table class="product-table">
                     <thead>
-                        <td>工单号</td>
-                        <td>工单数量</td>
-                        <td>计划开始日期</td>
-                        <td>计划结束日期</td>
-                        <td>实际开始日期</td>
-                        <td>实际结束日期</td>
-                        <td>工单状态</td>
+                        <td width="15%">工单号</td>
+                        <td width="10%">工单数量</td>
+                        <td width="16%">计划开始日期</td>
+                        <td width="16%">计划结束日期</td>
+                        <td width="16%">实际开始日期</td>
+                        <td width="16%">实际结束日期</td>
+                        <td width="11%">工单状态</td>
                     </thead>
                     <tbody>
                         <tr v-for="(item,index) in WorkOrderList" :key="index">
@@ -259,55 +259,58 @@ export default {
             getProductionOrderList(JSON.stringify({
                 pageNum:this.pageIndex,
                 pageSize:this.pageSize,
-                salesOrderCode: this.salesOrderCode //销售订单编号 
+                // salesOrderCode: this.salesOrderCode //销售订单编号 
+                salesOrderCode: '1100009557' //销售订单编号 
             }))
             .then( res =>{
                 if(res.data.status == 0){
                     this.ProductionOrderList = res.data.data.list
                     this.totalPage = res.data.data.pages
-                    this.productionOrderID = res.data.data.list[0].productionOrderID
+                    // this.productionOrderID = res.data.data.list[0].productionOrderID
                     this.productionOrderCode = res.data.data.list[0].productionOrderCode
-                    this.getProductionOrderDetail(this.productionOrderID);
+                    this.ProductionOrderDetail = res.data.data.list[0]
+                    // this.getProductionOrderDetail(this.productionOrderID);
                     this.getWorkOrderList(this.productionOrderCode);
                 }
             })
         },
         // 点击某一行查询生产订单详细信息和工单列表
-        getProductionOrder(index,productionOrderID,productionOrderCode){
+        getProductionOrder(index,item,productionOrderID,productionOrderCode){
             this.activeClass = index;
-            this.getProductionOrderDetail(productionOrderID);
+            this.ProductionOrderDetail = item;
+            // this.getProductionOrderDetail(productionOrderID);
             this.getWorkOrderList(productionOrderCode)
             // this.getworkListDetail(productionOrderCode)
 
         },
         // 获取生产订单详细信息
-        getProductionOrderDetail(productionOrderID){
-            getProductionOrderList(JSON.stringify({
-                productionOrderID:productionOrderID, //生产订单ID
-                salesOrderCode: this.salesOrderCode //销售订单编号 
-            }))
-            .then( res => {
-                if(res.data.status == 0){
-                     res.data.data.list.forEach(el => {
-                        switch (el.productionOrderStatus){
-                            case '1':
-                               el.productionOrderStatus = '计划' 
-                               break;
-                            case '2':
-                               el.productionOrderStatus = '确认' 
-                               break;
-                            case '3':
-                               el.productionOrderStatus = '下达' 
-                               break;
-                            case '4':
-                               el.productionOrderStatus = '完成' 
-                               break;
-                        }
-                    });
-                    this.ProductionOrderDetail = res.data.data.list[0]
-                }
-            })
-        },
+        // getProductionOrderDetail(productionOrderID){
+        //     getProductionOrderList(JSON.stringify({
+        //         productionOrderID:productionOrderID, //生产订单ID
+        //         salesOrderCode: this.salesOrderCode //销售订单编号 
+        //     }))
+        //     .then( res => {
+        //         if(res.data.status == 0){
+        //              res.data.data.list.forEach(el => {
+        //                 switch (el.productionOrderStatus){
+        //                     case '1':
+        //                        el.productionOrderStatus = '计划' 
+        //                        break;
+        //                     case '2':
+        //                        el.productionOrderStatus = '确认' 
+        //                        break;
+        //                     case '3':
+        //                        el.productionOrderStatus = '下达' 
+        //                        break;
+        //                     case '4':
+        //                        el.productionOrderStatus = '完成' 
+        //                        break;
+        //                 }
+        //             });
+        //             this.ProductionOrderDetail = res.data.data.list[0]
+        //         }
+        //     })
+        // },
         // 工单列表
         getWorkOrderList(productionOrderCode){
             getWorkOrderList(JSON.stringify({
@@ -378,7 +381,7 @@ export default {
     }
      // 工单列表弹框样式
     .el-popover{
-        width: 700px !important;
+        width: 650px !important;
         background: linear-gradient(to right, rgb(13, 99, 119), rgb(34, 196, 172));
         border: 1px solid rgb(13, 99, 119);
         color: #fff;
