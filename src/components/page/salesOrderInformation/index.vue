@@ -444,6 +444,7 @@ export default {
                 }
             }
             .el-progress-bar__outer{
+                box-sizing:border-box;
                 height:10px !important;
                 background: #082a2c;
                 border: 1px solid #34b6a2;
