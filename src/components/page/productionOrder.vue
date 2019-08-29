@@ -139,52 +139,52 @@
                             ref="popover"
                             placement="left"
                             width="200"
-                            trigger="click">
+                            trigger="hover">
                             <div class="detail-box">
-                                <div class="detail-content detailInfo">
+                                <div class="detail-content detailInfo" style="height:auto;">
                                     <div class="detailInfo-left">
                                         <div class="detailInfo-mennu">
-                                            <p>订单数量：</p>
-                                            <p>订单状态：</p>
+                                            <p>工单数量：</p>
+                                            <p>工单状态：</p>
                                             <p>计划开始日期：</p>
                                             <p>计划结束日期：</p>
                                             <p>实际开始日期：</p>
                                             <p>实际结束日期：</p>
-                                            <p>工厂/车间：</p>
-                                            <p>建立时间：</p>
+                                            <!-- <p>工厂/车间：</p> -->
+                                            <!-- <p>建立时间：</p> -->
                                         </div>
                                         <div class="detailInfo-mennu detailInfo-info">
-                                            <p>{{ProductionOrderDetail.productionOrderNum}}</p>
-                                            <p>{{ProductionOrderDetail.productionOrderStatus}}</p>
-                                            <p>{{ProductionOrderDetail.planStartDate}}</p>
-                                            <p>{{ProductionOrderDetail.planFinishDate}}</p>
-                                            <p>{{ProductionOrderDetail.realStartDate}}</p>
-                                            <p>{{ProductionOrderDetail.realFinishDate}}</p>
-                                            <p>{{ProductionOrderDetail.workShop}}</p>
-                                            <p>{{ProductionOrderDetail.CreateTime}}</p>
+                                            <p>{{item.workOrderNum}}</p>
+                                            <p>{{item.workOrderStatus}}</p>
+                                            <p>{{item.planStartDate}}</p>
+                                            <p>{{item.planFinishDate}}</p>
+                                            <p>{{item.realStartDate}}</p>
+                                            <p>{{item.realFinishDate}}</p>
+                                            <!-- <p>{{workListDetail.workShop}}</p> -->
+                                            <!-- <p>{{workListDetail.CreateTime}}</p> -->
                                         </div>
                                     </div>
                                     <div class="detailInfo-left detailInfo-right">
                                         <div class="detailInfo-mennu">
                                             <p>生产订单号：</p>
-                                            <p>国网采购订单号：</p>
-                                            <p>销售订单号：</p>
-                                            <p>销售订单号项目号：</p>
-                                            <p>物资名称：</p>
-                                            <p>物料：</p>
+                                            <!-- <p>国网采购订单号：</p> -->
+                                            <p>工单号：</p>
+                                            <p>供应商编号：</p>
+                                            <p>设备名称：</p>
+                                            <p>设备编号：</p>
                                         </div>
                                         <div class="detailInfo-mennu detailInfo-info">
-                                            <p>{{ProductionOrderDetail.productionOrderCode}}</p>
-                                            <p>{{ProductionOrderDetail.sgpurchaseOrder}}</p>
-                                            <p>{{ProductionOrderDetail.salesOrderCode}}</p>
-                                            <p>{{ProductionOrderDetail.salesOrderProjectNo}}</p>
-                                            <p>{{ProductionOrderDetail.materialsCode}}</p>
-                                            <p class="materiel">{{ProductionOrderDetail.productionOrderMaterials}}</p>
+                                            <p>{{item.productionOrderCode}}</p>
+                                            <!-- <p>{{workListDetail.sgpurchaseOrder}}</p> -->
+                                            <p>{{item.workOrderCode}}</p>
+                                            <p>{{item.supplierID}}</p>
+                                            <p>{{item.deviceName}}</p>
+                                            <p class="materiel">{{item.deviceCode}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div slot="reference" class="popover-box" @click="getworkListDetail(item.workOrderID)"></div>
+                            <div slot="reference" class="popover-box"></div>
                             </el-popover>
                         </tr>
                         <tr>
@@ -230,6 +230,7 @@ export default {
             productionOrderID:'', //生产订单ID
             WorkOrderList:[], //工单列表
             productionOrderCode:'', //生产订单编号
+            workListDetail:{} //工单详细信息
         };
     },
     mounted() {
@@ -276,6 +277,7 @@ export default {
             this.activeClass = index;
             this.getProductionOrderDetail(productionOrderID);
             this.getWorkOrderList(productionOrderCode)
+            // this.getworkListDetail(productionOrderCode)
 
         },
         // 获取生产订单详细信息
@@ -321,9 +323,17 @@ export default {
             })
         },
         // 工单列表鼠标移入
-        getworkListDetail(workOrderID){
-            console.log(workOrderID)
-        }
+        // getworkListDetail(workOrderID,productionOrderCode){
+        //     getWorkOrderList(JSON.stringify({
+        //         workOrderID:workOrderID, //工单ID
+        //         productionOrderCode: productionOrderCode //生产订单编号 
+        //     }))
+        //     .then(res =>{
+        //         if(res.data.status == 0){
+        //             this.workListDetail = res.data.data.list[0]
+        //         }
+        //     })
+        // }
     },
        
     created() {
@@ -539,11 +549,6 @@ export default {
                     }
                 }
             }
-            // .detail-box{
-            //     .detailInfo-info{
-            //         width:170px !important;
-            //     }
-            // }
         }
     }
     .row-bg{
