@@ -234,11 +234,6 @@ export default {
     mounted() {
         this.supplierName=sessionStorage.getItem('supplierName');
         this.supplierAddr=sessionStorage.getItem('supplierAddr');
-        this.myCharts1=this.$echarts.init(this.$refs.echarts1);
-        this.myCharts2=this.$echarts.init(this.$refs.echarts2);
-        this.myCharts3=this.$echarts.init(this.$refs.echarts3);
-        this.myCharts4=this.$echarts.init(this.$refs.echarts4);
-
         this.salesOrderInfo();
         this.ringGreen();
         this.getOrderCompletionRate();
@@ -398,6 +393,7 @@ export default {
         },
         //第一个图
         drawLine1(){
+            this.myCharts1=this.$echarts.init(this.$refs.echarts1);
             const options1={
                 ...this.optionsPie
             },
@@ -442,6 +438,7 @@ export default {
         },   
         //第二个图 
         drawLine2(){
+            this.myCharts2=this.$echarts.init(this.$refs.echarts2);
             const options2={
                 ...this.options
             },
@@ -471,6 +468,7 @@ export default {
         },
         //第三个图
         drawLine3(){
+            this.myCharts3=this.$echarts.init(this.$refs.echarts3);
             const options3={
                 ...this.optionsPie
             },
@@ -499,6 +497,7 @@ export default {
         },
         //第四个图
         drawLine4(){
+            this.myCharts4=this.$echarts.init(this.$refs.echarts4);
             const options4={
                 ...this.options
             },
