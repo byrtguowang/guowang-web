@@ -169,7 +169,7 @@
                     <span class="item_name">进度：</span>
                     <span class="item_value">
                         <el-progress :percentage="parseFloat(SalesOrderObj.sumproductionorde||0)" v-if="parseFloat(SalesOrderObj.sumproductionorde||0)<100"></el-progress>
-                        <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-else class="man_fen"></el-progress>
+                        <el-progress :percentage="parseFloat(SalesOrderObj.sumproductionorde||0)" v-else class="man_fen"></el-progress>
                     </span>
 
                     
