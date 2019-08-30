@@ -65,7 +65,7 @@
                 <div class="search_right">
                     <button @click="listSalesorderDnb(1)">查询</button>
                     <button @click="listSalesorderDnbb">导出</button>
-                    <button @click="goQualityDaily">生产质量日报</button>
+                    <!-- <button @click="goQualityDaily" class='rb'>生产质量日报</button> -->
                 </div>
             </div>
             <div class="table">
@@ -131,7 +131,9 @@
      </div>
      <div class="information_bottom">
          <div class="title">
-            <p>销售订单详细信息</p>
+            <p>销售订单详细信息
+                <span class="rb" @click="goQualityDaily">生产质量日报 ></span>
+            </p>
         </div>
         <div class="botttom_box">
             <ul class="item">
@@ -253,7 +255,7 @@ export default {
         goQualityDaily(){
             this.$router.push({
                 path:'productionQualityDaily'
-            })
+            });
         },
         // 分页
         handleCurrentChange(pageNum){
@@ -267,6 +269,8 @@ export default {
         },
         //切换row
         changeRowClass(row, event, column){
+            sessionStorage.setItem('supplierID',row.supplierID||'');
+            sessionStorage.setItem('supplierName',row.supplierName||'');
             this.SalesOrderID=row.salesOrderID;
             this.selectSalesOrder();
         },
@@ -283,6 +287,8 @@ export default {
                 this.tableData=data.data.list?data.data.list:[];
                 this.total=data.data.total;
                 this.SalesOrderID=this.tableData[0].salesOrderID||'';
+                sessionStorage.setItem('supplierID',this.tableData[0].supplierID||'');
+                sessionStorage.setItem('supplierName',this.tableData[0].supplierName||'');
             }else{
                 this.$message({
                     type:"error",
@@ -476,7 +482,7 @@ export default {
             position:relative;
             span{
                 position:absolute;
-                right:30px;
+                right:21px;
                 font-size:14px;
                 color:#20ad98;
             }
@@ -513,12 +519,12 @@ export default {
                     color:#fff;
                     margin-right:20px;
                 }
-                button:last-child{
-                    background:rgba(6,141,146,0.67);
-                    border:1px solid #00e3ff;
-                    width:157px;
-                    margin-right:0;
-                }
+                // button.rb{
+                //     background:rgba(6,141,146,0.67);
+                //     border:1px solid #00e3ff;
+                //     width:157px;
+                //     margin-right:0;
+                // }
             }
         }
         .table{
