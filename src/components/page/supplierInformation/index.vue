@@ -235,11 +235,13 @@ export default {
         this.supplierName=sessionStorage.getItem('supplierName');
         this.supplierAddr=sessionStorage.getItem('supplierAddr');
         this.salesOrderInfo();
-        this.ringGreen();
-        this.getOrderCompletionRate();
-        this.rightPieChart();
-        this.getQualityControl();
-        this.getProductionProcess();
+        this.$nextTick(()=>{
+            this.ringGreen();
+            this.getOrderCompletionRate();
+            this.rightPieChart();
+            this.getQualityControl();
+            this.getProductionProcess();
+        })
         window.onresize=()=>{
             this.myCharts1.resize();
             this.myCharts2.resize();
@@ -247,7 +249,6 @@ export default {
             this.myCharts4.resize();
         }
     },
-    
     methods: { 
         // 当前生产状态
         async ringGreen(){
@@ -438,6 +439,7 @@ export default {
         },   
         //第二个图 
         drawLine2(){
+            console.log(this.$refs.echarts2.offsetHeight);
             this.myCharts2=this.$echarts.init(this.$refs.echarts2);
             const options2={
                 ...this.options
@@ -639,10 +641,10 @@ export default {
         &.echarts_wrap{
             padding:12px 17px 0 21px;
             display:flex;
+            height:440px;
+            box-sizing:border-box;
             .echarts_box{
                 flex:1;
-                display:flex;
-                flex-direction:column;
                 &:first-child{
                     margin-right:41px;
                 }
@@ -670,8 +672,8 @@ export default {
                     }
                 }
                 .echarts_con{
-                    flex:1;
                     position:relative;
+                    height:calc((100% - 43px) / 2);
                 }
                 .echarts_con:before{
                     content:'当前生产状态';
@@ -693,25 +695,33 @@ export default {
             }
         }
     }
+    .information_top{
+        .right{
+            display:flex;
+            flex-direction:column;
+            .right_box{
+                flex:1;
+            }
+        }
+
+    }
     //左右布局的样式
     .left{
         flex:3;
         margin-right:11px;
-        display:flex;
-        flex-direction:column;
     }
     .right{
         flex:1;
+        overflow:hidden;
         .right_box{
             background:linear-gradient(#02514c, #012a2f);
             padding:12px;
-            display:flex;
-            flex-wrap:wrap;
+            overflow:hidden;
             .item{
                 width:49%;
                 padding-right:1%;
                 margin-bottom:10px;
-                
+                float:left;
                 img{
                     width:100%;
                 }
