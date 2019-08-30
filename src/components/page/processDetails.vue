@@ -820,6 +820,7 @@ export default {
                 delete this.v1;
                 this.v1 = undefined;
             }
+            let token = this.supplierid == '1' ? 'token2' : 'token1'
             let conf1 = {
                 videoid: 'divPlugin',
                 //protocol: this.$store.state.config.H5_STREAM_SERVER_PROTOCOL,
@@ -827,7 +828,7 @@ export default {
                 protocol: window.location.protocol,
                 host: this.$vedioHost,
                 rootpath: '/',
-                token: 'token1',
+                token: token,
                 hlsver: 'v1',
                 session: 'c1782caf-b670-42d8-ba90-2342340ee83'
             }
