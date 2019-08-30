@@ -34,7 +34,10 @@
                 </div>
                 <!-- <img src="../../../static/images/img.png" alt=""> -->
                 <div class="video_box">
-                    <video class="h5video" id="divPlugin" ></video>
+                    <div class="default_box" v-show="videoShow">
+                        <img @click="createH5Video" src="static/images/play.png" />
+                    </div>
+                    <video class="h5video" id="divPlugin" v-show="!videoShow"></video>
                     <!-- <videoPlayer class="vjs-custom-skin videoPlayer" :options="playerOptions"></videoPlayer> -->
                 </div>
             </div>
@@ -283,6 +286,7 @@ export default {
             time:[],
             listData:[],
             conclusion:[], //0正常 1报警
+            videoShow:true,
             v1:null, //视频
             total:0,
             pageNum:1,
@@ -319,11 +323,6 @@ export default {
         this.chartsRight();
         // 列表
         this.getList();
-        // 播放视频
-        let _this = this;
-        setTimeout(function(){
-            _this.createH5Video();
-        },1000)
     },
     methods: {
         // 分页
@@ -728,6 +727,7 @@ export default {
         },
         // 播放视频
         createH5Video() {
+            this.videoShow = false
             if (this.v1 != undefined)
             {
                 this.v1.disconnect();
@@ -926,9 +926,22 @@ export default {
                     width:95%;
                     height:100%;
 
-                    .h5video{
-                        margin-top:30px;
+                    .default_box{
+                        height:282px;
                         width:100%;
+                        background:#000;
+                        text-align:center;
+                        margin-top:30px;
+
+                        img{
+                            margin-top:108px;
+                            cursor:pointer;
+                        }
+                    }
+
+                    .h5video{
+                        width:100%;
+                        margin-top:30px;
                     }
                 }
                 
