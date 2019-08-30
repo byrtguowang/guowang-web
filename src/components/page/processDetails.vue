@@ -342,8 +342,14 @@ export default {
             .then(res => {
                 if (res.data.status === 0) {
                     this.year = res.data.data;
-                    this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#A79809','#E3D824',this.year));   
+                }else {
+                    this.year = {
+                        percentage:0,
+                        alarm:0,
+                        sum:0
+                    }
                 }
+                this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#A79809','#E3D824',this.year));   
             })
         },
         
@@ -358,8 +364,14 @@ export default {
             .then(res => {
                 if (res.data.status === 0) {
                     this.month = res.data.data;
-                    this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#BA6D35','#FA8A37',this.month));   
+                } else {
+                    this.month = {
+                        percentage:0,
+                        alarm:0,
+                        sum:0
+                    }
                 }
+                this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#BA6D35','#FA8A37',this.month));   
             })
         },
 
@@ -374,8 +386,15 @@ export default {
             .then(res => {
                 if (res.data.status === 0) {
                     this.day = res.data.data;
-                    this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343',this.day));   
+                    
+                } else {
+                    this.day = {
+                        percentage:0,
+                        alarm:0,
+                        sum:0
+                    }
                 }
+                this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343',this.day));   
             })
         },
 
@@ -684,8 +703,8 @@ export default {
                         },
                         data:[
                             {
-                                value:data.sum, 
                                 // name:'直接访问',
+                                value:data.sum, 
                                 itemStyle:{
                                     normal: {
                                         color:color1
