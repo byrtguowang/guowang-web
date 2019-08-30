@@ -958,6 +958,7 @@ export default {
         }
         .right{
             flex:2;  
+            overflow-x:hidden;
             .table-box{
                 width:100%;
                 margin-top:8px;
@@ -1028,13 +1029,20 @@ export default {
                         background:url(../../../static/images/play_btn.png);
                         cursor:pointer;
                         &:hover{
-                           background:url(../../../static/images/play_hover.png); 
+                        background:url(../../../static/images/play_hover.png); 
                         }
                     }
                 }
                 .search{
                     flex:1;
                     margin-top:40px;
+                    &:after{
+                        content: "";
+                        display: block;
+                        height: 0;
+                        clear:both;
+                        visibility: hidden;
+                    }
                     .search-btn{
                         float:left;
                         margin-left: 10px;
