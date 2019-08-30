@@ -132,7 +132,7 @@
      <div class="information_bottom">
          <div class="title">
             <p>销售订单详细信息
-                <span class="rb" @click="goQualityDaily">生产质量日报 ></span>
+                <span class="cursor" @click="goQualityDaily">生产质量日报 ></span>
             </p>
         </div>
         <div class="botttom_box">
