@@ -50,3 +50,8 @@ export function listTimingError(param) {
 export function listVeneerTest(param) {
   return Request.http.post(`/ProcessDetailInterfaceController/listVeneerTest`, param, 1 ,{"Content-Type": "application/json"});
 }
+
+// 基本误差详情数据列表
+export function listBasicErrorItems(param) {
+  return Request.http.post(`/ProcessDetailInterfaceController/listBasicErrorItems`, param, 1 ,{"Content-Type": "application/json"});
+}

@@ -220,6 +220,15 @@
                             label="检定线/台体编号">
                             </el-table-column>
                             <el-table-column
+                            v-if="this.category == 'D_BasicError_DNB'"
+                            align="center"
+                            width="130"
+                            label="操作">
+                                <template slot-scope="scope">
+                                    <a class="detailBtn" v-if="scope.row.conclusion == '报警'" @click="getBasicError(scope.row.basicErrorID)">查看详情</a>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
                             align="center"
                             width="100"
                             label="">
@@ -239,6 +248,69 @@
                 </div>
             </div>
         </div>
+        <!-- 基本误差详情数据列表弹框 -->
+        <el-dialog
+        :visible.sync="dialogVisible"
+        width="54.4%">
+        <div class="list">
+            <div class="information_content table">
+                <el-table
+                    :data="basicErrorData"
+                    style="width: 100%"
+                    height="350px">
+                    <el-table-column
+                    prop="checkTime"
+                    align="center"
+                    width="100"
+                    label="检测时间">
+                    </el-table-column>
+                    <el-table-column
+                    prop="conclusion"
+                    align="center"
+                    width="100"
+                    label="结论">
+                    </el-table-column>
+                    <el-table-column 
+                    prop="testCode"
+                    align="center"
+                    width="100"
+                    label="数据编号">
+                    </el-table-column>
+                    <el-table-column 
+                    prop="voltage"
+                    align="center"
+                    width="100"
+                    label="试验电压/U">
+                    </el-table-column>
+                    <el-table-column 
+                    prop="electric"
+                    align="center"
+                    width="100"
+                    label="测试电流/A">
+                    </el-table-column>
+                    <el-table-column 
+                    prop="factor"
+                    align="center"
+                    width="100"
+                    label="功率/kW">
+                    </el-table-column>
+                    <el-table-column 
+                    prop="averageError"
+                    align="center"
+                    width="100"
+                    label="平均误差">
+                    </el-table-column>
+                </el-table>
+                <el-pagination
+                    small
+                    layout="prev, pager, next"
+                    :current-page="basicErrorPageNum"
+                    @current-change="basicErrorHandleCurrentChange"
+                    :total="basicErrorTotal">
+                </el-pagination>
+            </div>
+        </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -254,7 +326,8 @@ import {
     listTimingError,
     listVeneerTest,
     listCountBarGraphDDataLogDNB, //24小时左侧柱状图
-    listConcBarGraphDDataLogDNB //24小时右侧柱状图
+    listConcBarGraphDDataLogDNB, //24小时右侧柱状图
+    listBasicErrorItems
 } from '@api/processDetails'
 import '../../assets/adapter.js'
 import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../../assets/h5splayer.js'
@@ -271,6 +344,7 @@ export default {
             supplierAddr:'',
             paramName:'',
             paramSrc:'',
+            dialogVisible:false,
             year:{
                 alarm:0,
                 sum:0
@@ -285,12 +359,16 @@ export default {
             },
             time:[],
             listData:[],
-            conclusion:[], //0正常 1报警
+            basicErrorData:[], //基本误差详情数据
+            // conclusion:[], //0正常 1报警
             videoShow:true,
             v1:null, //视频
             total:0,
             pageNum:1,
             pageSize:10,
+            basicErrorPageNum:1,
+            basicErrorTotal:0,
+            basicErrorPageSize:10,
             activeClass:-1,
             playerOptions: {
                 height: '300',
@@ -329,6 +407,11 @@ export default {
         handleCurrentChange(pageNum){
             this.pageNum = pageNum;
             this.getList();
+        },
+        // 弹框分页
+        basicErrorHandleCurrentChange(pageNum){
+            this.basicErrorPageNum = pageNum;
+            this.getBasicError();
         },
         // 年度报警
         yearData(){
@@ -466,16 +549,23 @@ export default {
                 listDBasicErrorDNB(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data.list
-                        this.total = res.data.data.total
-                        this.listData.forEach(el => {
-                            this.conclusion.push(el.conclusion)
+                        res.data.data.list.forEach(el => {
                             if(el.conclusion == '0'){
                                 el.conclusion = '正常'
                             }else{
                                 el.conclusion = '报警'
                             }
                         });
+                        this.listData = res.data.data.list
+                        this.total = res.data.data.total
+                        // this.listData.forEach(el => {
+                        //     this.conclusion.push(el.conclusion)
+                        //     if(el.conclusion == '0'){
+                        //         el.conclusion = '正常'
+                        //     }else{
+                        //         el.conclusion = '报警'
+                        //     }
+                        // });
                     }else{
                         this.listData = []
                     }
@@ -486,16 +576,15 @@ export default {
                 listDParameterDNB(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data.list
-                        this.total = res.data.data.total
-                        this.listData.forEach(el => {
-                            this.conclusion.push(el.conclusion)
+                        res.data.data.list.forEach(el => {
                             if(el.conclusion == '0'){
                                 el.conclusion = '正常'
                             }else{
                                 el.conclusion = '报警'
                             }
                         });
+                        this.listData = res.data.data.list
+                        this.total = res.data.data.total
                     }else{
                         this.listData = []
                     }
@@ -506,16 +595,15 @@ export default {
                 listPressure(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data.list
-                        this.total = res.data.data.total
-                        this.listData.forEach(el => {
-                            this.conclusion.push(el.conclusion)
+                        res.data.data.list.forEach(el => {
                             if(el.conclusion == '0'){
                                 el.conclusion = '正常'
                             }else{
                                 el.conclusion = '报警'
                             }
                         });
+                        this.listData = res.data.data.list
+                        this.total = res.data.data.total
                     }else{
                         this.listData = []
                     }
@@ -526,16 +614,15 @@ export default {
                 listTimingError(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data.list
-                        this.total = res.data.data.total
-                        this.listData.forEach(el => {
-                            this.conclusion.push(el.conclusion)
+                        res.data.data.list.forEach(el => {
                             if(el.conclusion == '0'){
                                 el.conclusion = '正常'
                             }else{
                                 el.conclusion = '报警'
                             }
                         });
+                        this.listData = res.data.data.list
+                        this.total = res.data.data.total
                     }else{
                         this.listData = []
                     }
@@ -546,16 +633,15 @@ export default {
                 listVeneerTest(JSON.stringify(param))
                 .then(res => {
                     if(res.data.status == 0){
-                        this.listData = res.data.data.list
-                        this.total = res.data.data.total
-                        this.listData.forEach(el => {
-                            this.conclusion.push(el.conclusion)
+                        res.data.data.list.forEach(el => {
                             if(el.conclusion == '0'){
                                 el.conclusion = '正常'
                             }else{
                                 el.conclusion = '报警'
                             }
                         });
+                        this.listData = res.data.data.list
+                        this.total = res.data.data.total
                     }else{
                         this.listData = []
                     }
@@ -669,7 +755,7 @@ export default {
                     subtextStyle:  {
                         color : '#fff',
                         fontFamily : '微软雅黑',
-                        fontSize : 25,
+                        fontSize : 18,
                         fontWeight : 'normal'
                     }
                 },
@@ -764,6 +850,25 @@ export default {
             this.$router.push({
                 path:'/Home/liveVideo'
             })
+        },
+
+        // 基本误差详情数据列表
+        getBasicError(basicErrorID){
+            this.dialogVisible = true
+            listBasicErrorItems(JSON.stringify({
+                pageNum:this.basicErrorPageNum,
+                pageSize:this.basicErrorPageSize,
+                basicerrorid:basicErrorID //数据编号
+            }))
+            .then(res => {
+                if(res.data.status == 0){
+                    this.basicErrorData = res.data.data.list
+                    this.basicErrorTotal = res.data.data.total
+                }else{
+                    this.basicErrorData = []
+                    this.basicErrorTotal = 0
+                }
+            })
         }
     },
     destroyed() {
@@ -838,6 +943,14 @@ export default {
             .active{
                 color: #409EFF;
             }
+        }
+        .detailBtn{
+            color:#23e4c7;
+            text-decoration: none;
+        }
+        // 弹框样式
+        .el-dialog{
+            background:#151a20;
         }
     }
 </style>
