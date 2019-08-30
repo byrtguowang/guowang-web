@@ -211,6 +211,9 @@ export default {
                 ],
             },
             optionsPie:{
+                tooltip:{
+                    show:true
+                },
                 legend: {
                     orient: 'vertical',
                     height:'88',
@@ -221,9 +224,9 @@ export default {
                 series: [
                     {
                         type:'pie',
-                        radius: ['55%', '75%'],
+                        radius: ['50%', '70%'],
                         avoidLabelOverlap: false,
-                        hoverAnimation:false,
+                        // hoverAnimation:false,
                         label: false,
                         labelLine:false,
                     }
@@ -404,7 +407,7 @@ export default {
                 text: '检测合格率',
                 subtext: percentage + '%',
                 x: 'center',
-                y: '34%',
+                y: '35%',
                 itemGap: 10,
                 textStyle : {
                     color : '#fff',
@@ -439,7 +442,6 @@ export default {
         },   
         //第二个图 
         drawLine2(){
-            console.log(this.$refs.echarts2.offsetHeight);
             this.myCharts2=this.$echarts.init(this.$refs.echarts2);
             const options2={
                 ...this.options
