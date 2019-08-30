@@ -431,7 +431,7 @@ export default {
                         sum:0
                     }
                 }
-                this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#A79809','#E3D824',this.year));   
+                this.$echarts.init(this.$refs.chartBingYear).setOption(this.getBingOption('#E3D824','#A79809',this.year));   
             })
         },
         
@@ -453,7 +453,7 @@ export default {
                         sum:0
                     }
                 }
-                this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#BA6D35','#FA8A37',this.month));   
+                this.$echarts.init(this.$refs.chartBingMonth).setOption(this.getBingOption('#FA8A37','#BA6D35',this.month));   
             })
         },
 
@@ -476,7 +476,7 @@ export default {
                         sum:0
                     }
                 }
-                this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#A54A4A','#EF4343',this.day));   
+                this.$echarts.init(this.$refs.chartBingDay).setOption(this.getBingOption('#EF4343','#A54A4A',this.day));   
             })
         },
 
