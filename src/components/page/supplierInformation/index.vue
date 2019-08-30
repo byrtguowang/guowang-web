@@ -695,16 +695,6 @@ export default {
             }
         }
     }
-    .information_top{
-        .right{
-            display:flex;
-            flex-direction:column;
-            .right_box{
-                flex:1;
-            }
-        }
-
-    }
     //左右布局的样式
     .left{
         flex:3;
@@ -712,11 +702,13 @@ export default {
     }
     .right{
         flex:1;
-        overflow:hidden;
         .right_box{
+            height:440px;
             background:linear-gradient(#02514c, #012a2f);
             padding:12px;
             overflow:hidden;
+            overflow-y:auto;
+            box-sizing:border-box;
             .item{
                 width:49%;
                 padding-right:1%;
@@ -751,7 +743,6 @@ export default {
         }
         .scroll_h{
             height:340px;
-            overflow-y: scroll;
         }
     }
 }
