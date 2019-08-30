@@ -991,8 +991,8 @@ export default {
                                 height:100%;
                             }
                             .chart-box-font{
-                                flex:2;
-                                margin-right:14px;
+                                flex:2.6;
+                                margin-right:10px;
                                 .content{
                                     border:none;
                                     background:transparent;
@@ -1032,7 +1032,7 @@ export default {
                         .btn{
                             display:inline-block;
                             height:38px;
-                            width:144px;
+                            width:115px;
                             font-size:16px;
                             line-height:38px;
                             border-radius:20px;
