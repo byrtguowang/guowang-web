@@ -414,7 +414,7 @@ export default {
                 subtextStyle:  {
                     color : '#fff',
                     fontFamily : '微软雅黑',
-                    fontSize : 28,
+                    fontSize : 25,
                     fontWeight : 'normal'
                 }
             },
