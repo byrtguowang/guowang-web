@@ -473,6 +473,9 @@ export default {
                         color:'#fff'
                     }
                 },
+                grid:{
+                    left:'20%'
+                },
                 tooltip:{
                     show:true
                 },
