@@ -271,6 +271,7 @@ export default {
         changeRowClass(row, event, column){
             sessionStorage.setItem('supplierID',row.supplierID||'');
             sessionStorage.setItem('supplierName',row.supplierName||'');
+            sessionStorage.setItem('supplierAddr',row.supplierAddress||'');
             this.SalesOrderID=row.salesOrderID;
             this.selectSalesOrder();
         },
@@ -289,6 +290,7 @@ export default {
                 this.SalesOrderID=this.tableData[0].salesOrderID||'';
                 sessionStorage.setItem('supplierID',this.tableData[0].supplierID||'');
                 sessionStorage.setItem('supplierName',this.tableData[0].supplierName||'');
+                sessionStorage.setItem('supplierAddr',row.supplierAddress||'');
             }else{
                 this.$message({
                     type:"error",
