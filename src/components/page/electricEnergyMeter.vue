@@ -587,6 +587,7 @@ export default {
 </script>
 
 <style scoped lang='sass'>
+@import '../../../static/css/font/font.css';
     .bg-box{
         text-align:center;
         background:linear-gradient(to right, #02514c, #012a2f);
@@ -686,7 +687,7 @@ export default {
                                                 position:relative;
                                                 .num{
                                                     font-size:44px;
-                                                    font-family:'庞门正道标题'
+                                                    font-family:'ZhanKuQingKeHuangYou';
                                                 }
                                                 .words{
                                                     font-size:16px;
@@ -725,7 +726,7 @@ export default {
                                 }
                             }
                             .module-chart{
-                                flex:1;
+                                // flex:1;
                                 .module-chart-bottom{
                                     height:46px !important;
                                     .words-bg{
@@ -739,7 +740,7 @@ export default {
                                 }
                             }
                             .chart{
-                                height: 100%;
+                                height: 235px;
                             }
                         }
                         .module-content-left{
@@ -747,8 +748,8 @@ export default {
                         }
                         .module-content-right{
                             padding:16px 8px 16px 0;
-                            display:flex;
-                            flex-direction:column;
+                            // display:flex;
+                            // flex-direction:column;
                         }
                         img{
                             margin: auto;
