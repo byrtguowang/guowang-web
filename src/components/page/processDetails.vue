@@ -1080,7 +1080,7 @@ export default {
                 display:flex;
                 flex-direction:column;
                 .chart-line{
-                    height:200px;
+                    height:210px;
                     display:flex;
                     .chart-box{
                         flex:1;
@@ -1103,7 +1103,6 @@ export default {
                     }
                 }
                 .chart-bing{
-                    flex:2;
                     .chart-box{
                         margin-right:5px;
                         p{
@@ -1150,7 +1149,7 @@ export default {
                     }
                 }
                 .search{
-                    flex:1;
+                    height:40px;
                     margin-top:40px;
                     &:after{
                         content: "";

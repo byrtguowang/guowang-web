@@ -535,7 +535,7 @@ export default {
                     //设置数据
                     var legendData = [];
                     var axisData = [];
-                    var color = ['#22c47a','#4c9ba0'];
+                    var color = ['#22d487','#48eaf0'];
                     var seriesData = []
 
                     data.forEach((el,index) => {
