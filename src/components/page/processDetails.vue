@@ -121,95 +121,111 @@
                             <el-table-column
                             prop="checkTime"
                             align="center"
+                            :key=Math.random()
                             label="检测时间">
                             </el-table-column>
                             <el-table-column
                             prop="conclusion"
                             align="center"
                             width="100"
+                            :key=Math.random()
                             label="结论">
                             </el-table-column>
                             <el-table-column 
                             prop="basicErrorID"
                             align="center"
+                            :key=Math.random()
                             label="数据编号"
                             v-if="this.category == 'D_BasicError_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="epitopCode"
                             align="center"
+                            :key=Math.random()
                             label="表位号"
                             v-if="this.category == 'D_BasicError_DNB' || this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="nameplateCode"
                             align="center"
+                            :key=Math.random()
                             label="局编号/下铭牌号"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="parameterName"
                             align="center"
+                            :key=Math.random()
                             label="参数名称"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="parameterValue"
                             align="center"
+                            :key=Math.random()
                             label="参考值"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="readValue"
                             align="center"
+                            :key=Math.random()
                             label="读取值"
                             v-if="this.category == 'D_Parameter_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="checkDuration"
                             align="center"
+                            :key=Math.random()
                             label="检测时长"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="voltage"
                             align="center"
+                            :key=Math.random()
                             label="试验电压"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="unqualified"
                             align="center"
+                            :key=Math.random()
                             label="不合格项"
                             v-if="this.category == 'D_Pressure_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="allowableError"
                             align="center"
+                            :key=Math.random()
                             label="允许误差"
                             v-if="this.category == 'D_TimingError_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="realError"
                             align="center"
+                            :key=Math.random()
                             label="实际误差"
                             v-if="this.category == 'D_TimingError_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="pCBCode"
                             align="center"
+                            :key=Math.random()
                             label="电路板编号"
                             v-if="this.category == 'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column 
                             prop="softwareVersion"
                             align="center"
+                            :key=Math.random()
                             label="软件版本号"
                             v-if="this.category == 'D_VeneerTest_DNB'">
                             </el-table-column>
                             <el-table-column
                             prop="plantCode"
                             align="center"
+                            :key=Math.random()
                             label="厂内编号"
                             v-if="this.category == !'D_VeneerTest_DNB'">
                             </el-table-column>
@@ -217,11 +233,13 @@
                             prop="deviceCode"
                             align="center"
                             width="130"
+                            :key=Math.random()
                             label="检定线/台体编号">
                             </el-table-column>
                             <el-table-column
                             v-if="this.category == 'D_BasicError_DNB'"
                             align="center"
+                            :key=Math.random()
                             width="130"
                             label="操作">
                                 <template slot-scope="scope">
@@ -230,6 +248,7 @@
                             </el-table-column>
                             <el-table-column
                             align="center"
+                            :key=Math.random()
                             width="100"
                             label="">
                                 <template slot-scope="scope">
