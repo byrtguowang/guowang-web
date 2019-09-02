@@ -78,9 +78,9 @@
                         <div class="chart-box-content">
                             <div class="chart" ref="chartBingMonth"></div>
                             <div class="chart-box-font">
-                                <p class="content words">本年产生的报警数量</p>
+                                <p class="content words">本月产生的报警数量</p>
                                 <p class="content num">{{month.alarm}}</p>
-                                <p class="content words">本年产生的总采集数据量</p>
+                                <p class="content words">本月产生的总采集数据量</p>
                                 <p class="content num">{{month.sum}}</p>
                             </div>
                         </div>
@@ -90,9 +90,9 @@
                         <div class="chart-box-content">
                             <div class="chart" ref="chartBingDay"></div>
                             <div class="chart-box-font">
-                                <p class="content words">本年产生的报警数量</p>
+                                <p class="content words">当日产生的报警数量</p>
                                 <p class="content num">{{day.alarm}}</p>
-                                <p class="content words">本年产生的总采集数据量</p>
+                                <p class="content words">当日产生的总采集数据量</p>
                                 <p class="content num">{{day.sum}}</p>
                             </div>
                         </div>
