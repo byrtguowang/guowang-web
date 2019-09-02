@@ -1097,6 +1097,8 @@ export default {
                             background:rgba(27,35,44,0.61);
                             border:1px solid #34b6a2;
                             margin-top:5px;
+                            white-space:nowrap;
+                            overflow:hidden;
                         }
                     }
                 }

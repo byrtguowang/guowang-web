@@ -487,6 +487,8 @@ export default {
                 flex:2;
                 margin-right:5px;
                 background:linear-gradient(to right, rgba(13,99,119,0.41), rgba(34,196,172,0.41));
+                white-space: nowrap;
+                overflow-x: auto;
                 .detailInfo-mennu{
                     display:inline-block;
                     margin-left:30px;
@@ -504,7 +506,8 @@ export default {
                     vertical-align: top;
                     .materiel{
                         height:95px;
-                        overflow: scroll;
+                        overflow-y: scroll;
+                        white-space: normal;
                         letter-spacing: 1px;
                     }
                 }
@@ -519,6 +522,9 @@ export default {
                 thead{
                     display: table;
                     width: 100%;
+                    td{
+                        white-space: nowrap;
+                    }
                 }
                 tbody{
                     display:block;

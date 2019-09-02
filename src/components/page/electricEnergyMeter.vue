@@ -474,7 +474,7 @@ export default {
                     }
                 },
                 grid:{
-                    left:'20%'
+                    left:'21%'
                 },
                 tooltip:{
                     show:true
@@ -706,7 +706,7 @@ export default {
                                         display:flex;
                                         margin-top: 2px;
                                         .orderNumber-title{
-                                            font-size: 18px;
+                                            font-size: 16px;
                                             width: 44%;
                                             line-height: 35px;
                                             text-align: right;
