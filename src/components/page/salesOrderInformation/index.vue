@@ -290,7 +290,7 @@ export default {
                 this.SalesOrderID=this.tableData[0].salesOrderID||'';
                 sessionStorage.setItem('supplierID',this.tableData[0].supplierID||'');
                 sessionStorage.setItem('supplierName',this.tableData[0].supplierName||'');
-                sessionStorage.setItem('supplierAddr',row.supplierAddress||'');
+                sessionStorage.setItem('supplierAddr',this.tableData[0].supplierAddress||'');
             }else{
                 this.$message({
                     type:"error",
