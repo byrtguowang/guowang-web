@@ -910,17 +910,18 @@ export default {
             }
 
             .map_pop{
-                width: 244px;
-                height: 230px;
+                width: 50%;
+                height: 155px;
                 background:rgba(26,45,48,0.66);
                 border-left:2px solid #22c4ab;
                 border-right:2px solid #22c4ab;
                 font-size:16px;
                 color:#aafff2;
                 position:absolute;
-                bottom:232px;
+                bottom:236px;
                 left:7px;
-
+                display:flex;
+                flex-direction:column;
                 .close{
                     width: 30px;
                     height: 30px;
@@ -932,7 +933,7 @@ export default {
 
                 .header_name{
                     width:100%;
-                    height:60px;
+                    height:50px;
                     line-height:60px;
                     text-align:center;
                 }
@@ -941,8 +942,8 @@ export default {
                     padding:0 20px;
                     text-align:left;
                     line-height:28px;
-                    height:112px;
-
+                    flex:1;
+                    overflow: auto;
                     span{
                         margin:0 6px;
                     }
@@ -951,7 +952,6 @@ export default {
                 .map_btnbox{
                     text-align:center;
                     padding:15px 0;
-
                     .pop_btn{
                         padding:5px 50px;
                         border:1px solid #22c4ab;
