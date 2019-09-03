@@ -121,50 +121,50 @@
                 <p>工艺流程</p>
             </div>
             <div class="right_box mb10">
-                <div class="item">
+                <div class="item" @click="jump2('','PCB板贴片检测','PCB2')">
                     <img src="static/images/PCB.jpg" >
                     <div class="gj_name">PCB板贴片检测</div>
-                    <div class="gj_btn cursor" @click="jump2('','PCB板贴片检测','PCB2')">{{processList['PCB板贴片检测']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['PCB板贴片检测']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('D_VeneerTest_DNB','单板测试','Veneer2')">
                     <img src="static/images/Veneer.jpg" >
                     <div class="gj_name">单板测试</div>
-                    <div class="gj_btn cursor" @click="jump2('D_VeneerTest_DNB','单板测试','Veneer2')">{{processList['单板测试']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['单板测试']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('','电流测试','Battery2')">
                     <img src="static/images/Battery.jpg" >
                     <div class="gj_name">电池电流测试</div>
-                    <div class="gj_btn cursor" @click="jump2('','电流测试','Battery2')">{{processList['电流测试']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['电流测试']||0}}项警告</div>
                 </div>
             </div>
             <div class="title">
                 <p>实验数据</p>
             </div>
             <div class="right_box scroll_h">
-                <div class="item">
+                <div class="item" @click="jump2('D_Pressure_DNB','耐压试验','Pressure2')">
                     <img src="static/images/Pressure.jpg" >
                     <div class="gj_name">耐压试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Pressure_DNB','耐压试验','Pressure2')">{{processList['耐压试验']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['耐压试验']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('D_BasicError_DNB','基本误差试验','BasicErrorTest2')">
                     <img src="static/images/BasicErrorTest.jpg" >
                     <div class="gj_name">基本误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_BasicError_DNB','基本误差试验','BasicErrorTest2')">{{processList['基本误差试验']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['基本误差试验']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('D_TimingError_DNB','日计时误差试验','DailyTiming2')">
                     <img src="static/images/DailyTiming.jpg" >
                     <div class="gj_name">日计时误差试验</div>
-                    <div class="gj_btn cursor" @click="jump2('D_TimingError_DNB','日计时误差试验','DailyTiming2')">{{processList['日计时误差试验']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['日计时误差试验']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('D_Parameter_DNB','参数设置','Parameter2')">
                     <img src="static/images/Parameter.jpg" >
                     <div class="gj_name">参数设置</div>
-                    <div class="gj_btn cursor" @click="jump2('D_Parameter_DNB','参数设置','Parameter2')">{{processList['参数设置']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['参数设置']||0}}项警告</div>
                 </div>
-                <div class="item">
+                <div class="item" @click="jump2('','通信端口检验','Port2')">
                     <img src="static/images/Port.jpg" >
                     <div class="gj_name">通信端口检验</div>
-                    <div class="gj_btn cursor" @click="jump2('','通信端口检验','Port2')">{{processList['通信端口检验']||0}}项警告</div>
+                    <div class="gj_btn cursor">{{processList['通信端口检验']||0}}项警告</div>
                 </div>
             </div>
         </div>
