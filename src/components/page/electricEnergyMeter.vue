@@ -587,7 +587,6 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import '../../../static/css/font/font.css';
     .bg-box{
         text-align:center;
         background:linear-gradient(to right, #02514c, #012a2f);
