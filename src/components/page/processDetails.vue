@@ -952,7 +952,7 @@ export default {
                 top:0;
             }
             .el-table__body .el-table__row:nth-child(2n){
-                background:linear-gradient(to right,#02514c, #012a2f);
+                background:#02514c;
             }
         }
         .el-pagination.el-pagination--small{
