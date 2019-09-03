@@ -26,7 +26,7 @@
                         <td>{{item.planFinishDate}}</td>
                         <td>{{item.realStartDate}}</td>
                         <td>
-                            <el-progress :percentage="this.completionRate || 0"></el-progress>
+                            <el-progress :percentage="item.completionRate || 0"></el-progress>
                         </td>
                         <td>
                             <span class="status-box plan" v-if="item.productionOrderStatus == '计划'">计划</span>
@@ -282,8 +282,9 @@ export default {
                     this.ProductionOrderList = res.data.data.list
                     this.totalPage = res.data.data.pages
                     this.productionOrderCode = res.data.data.list[0].productionOrderCode
+                    this.productionOrderID = res.data.data.list[0].productionOrderID
                     this.ProductionOrderDetail = res.data.data.list[0]
-                    this.getWorkOrderList(this.productionOrderCode);
+                    this.getWorkOrderList(this.productionOrderCode,this.productionOrderID);
                 }
             })
         },
@@ -291,14 +292,15 @@ export default {
         getProductionOrder(index,item,productionOrderID,productionOrderCode){
             this.activeClass = index;
             this.ProductionOrderDetail = item;
-            this.getWorkOrderList(productionOrderCode)
+            this.getWorkOrderList(productionOrderCode,productionOrderID)
         },
         // 工单列表
-        getWorkOrderList(productionOrderCode){
+        getWorkOrderList(productionOrderCode,productionOrderID){
             getWorkOrderList(JSON.stringify({
                 pageNum:this.workListPageIndex,
                 pageSize:this.workListPageSize,
-                productionOrderCode: productionOrderCode //生产订单编号 
+                productionOrderCode: productionOrderCode, //生产订单编号 
+                productionOrderID: productionOrderID
             }))
             .then(res => {
                 if(res.data.status == 0){
