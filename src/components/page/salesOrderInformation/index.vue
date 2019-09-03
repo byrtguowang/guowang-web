@@ -362,6 +362,11 @@ export default {
         },
         // 查看对应生产订单
         lookProductionOrder(salesOrderCode){
+            if(!this.supplierID){
+                sessionStorage.setItem('supplierID','');
+                sessionStorage.setItem('supplierName','');
+                sessionStorage.setItem('supplierAddr','');
+            }
             this.$router.push({
                 path:'productionOrder',
                 query:{
