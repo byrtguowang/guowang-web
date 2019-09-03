@@ -26,7 +26,8 @@
                         <td>{{item.planFinishDate}}</td>
                         <td>{{item.realStartDate}}</td>
                         <td>
-                            <el-progress :percentage="item.completionRate || 0"></el-progress>
+                            <el-progress :percentage="item.completionRate || 0" v-if="item.completionRate<100"></el-progress>
+                            <el-progress :percentage="item.completionRate || 0" v-else class="man_fen"></el-progress>
                         </td>
                         <td>
                             <span class="status-box plan" v-if="item.productionOrderStatus == '计划'">计划</span>
@@ -351,6 +352,14 @@ export default {
         }
         .el-pagination.is-background .el-pager li:not(.disabled).active{
             background-color: #21cbda;
+        }
+        .man_fen{
+            .el-progress-bar__outer{
+                border: 1px solid #34b63e;
+                .el-progress-bar__inner{
+                    background:linear-gradient(to right,#0d4c13, #00ff0c);
+                }
+            }
         }
         // 进度条样式
         .el-progress-bar__outer{
