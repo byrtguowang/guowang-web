@@ -76,8 +76,8 @@ Vue.use(ElementUI);
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$echarts = charts
-// Vue.prototype.$vedioHost = '47.111.186.36:8082'
-Vue.prototype.$vedioHost = 'localhost:8082'
+Vue.prototype.$vedioHost = '47.111.186.36:8082'
+// Vue.prototype.$vedioHost = 'localhost:8082'
 
 
 new Vue({
