@@ -675,6 +675,7 @@ export default {
                                                 text-align:right;
                                                 margin-right:10px;
                                                 font-weight: bold;
+                                                white-space: nowrap;
                                             }
                                         }
                                         .module-content-list-num{
