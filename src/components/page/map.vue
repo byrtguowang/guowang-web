@@ -755,9 +755,11 @@ export default {
                             border-right:4px solid #22c4ac;
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
                             font-size:50px;
+                            font-family:'ZhanKuQingKeHuangYou';
                             position:relative;
                             span{
                                 font-size:16px;
+                                font-family: none;
                                 color:#58fff1;
                                 position:absolute;
                                 height:16px;
@@ -834,13 +836,14 @@ export default {
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
                             font-size:46px;
                             padding-right:15px;
-
+                            font-family:'ZhanKuQingKeHuangYou';
                             p{
                                 font-size:16px;
                                 color:#58fff1;
                                 float:right;
                                 line-height: 100px;
                                 margin-left:10px;
+                                font-family:none;
                             }
                         }
                     }

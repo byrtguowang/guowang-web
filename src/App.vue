@@ -4,6 +4,7 @@
     </div>
 </template>
 <style>
+@import '../static/css/font/font.css';
 *{
      padding: 0;
      margin: 0;
