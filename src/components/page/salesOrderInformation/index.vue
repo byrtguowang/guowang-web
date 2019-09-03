@@ -9,11 +9,20 @@
                 <div class="search_left">
                     <div class="demo-input-suffix">
                         <span>供应商：</span>
-                        <el-input
+                        <el-select v-model="searchObj.supplierName" placeholder="请选择">
+                            <el-option
+                            :disabled="supplierID?true:false"
+                            v-for="item in suppliersList"
+                            :key="item.supplierID"
+                            :label="item.supplierName"
+                            :value="item.supplierName">
+                            </el-option>
+                        </el-select>
+                        <!-- <el-input
                             v-model="searchObj.supplierName"
                             :disabled="supplierID?true:false"
                             placeholder="请输入">
-                        </el-input>
+                        </el-input> -->
                     </div>
                     <div class="demo-input-suffix">
                         <span>国网采购订单号：</span>
@@ -216,11 +225,13 @@
 import {
     listSalesorderDnb,//销售订单列表
     selectSalesOrder, //销售订单详情
+    getSuppliersList, //供应商的下拉列表
     listSalesorderDnbb //导出
 } from '@api/salesOrderInformation'
 export default {
     data() {
         return {
+            suppliersList:[],//供应商的下拉列表
             supplierID:'',//供应商id
             searchObj:{
                 supplierName:'',//供应商名称
@@ -242,9 +253,26 @@ export default {
     mounted() {
         this.supplierID=sessionStorage.getItem('supplierID');
         this.searchObj.supplierName=sessionStorage.getItem('supplierName');
+        this.getSuppliersList();
         this.listSalesorderDnb();
     },
     methods: {
+        // 供应商的下拉列表
+        async getSuppliersList(){
+            const {data}=await getSuppliersList(JSON.stringify({
+                "supplierName":'',
+                // "supplierName": sessionStorage.getItem('supplierName')
+            }));
+            if(data.status===0||data.status==='0') this.suppliersList=data.data?data.data:[];
+            else{
+                this.$message({
+                    type:'error',
+                    message:data.message
+                });
+                this.suppliersList=[];
+            }
+            
+        },
         // 供应商主页
         goInformation(){
             this.$router.push({
