@@ -290,6 +290,7 @@ export default {
                         }
                         .num{
                             font-size:42px;
+                            font-family:'ZhanKuQingKeHuangYou';
                         }
                     }
                 }
