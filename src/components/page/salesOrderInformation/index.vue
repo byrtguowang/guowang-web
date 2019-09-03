@@ -414,7 +414,7 @@ export default {
                 height:100%;
                 background:#34b6a2;
                 position:absolute;
-                right:1px;
+                right:0px;
                 top:0;
                 z-index:9999;
             }
