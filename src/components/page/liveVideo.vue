@@ -73,7 +73,7 @@ export default {
     mounted() {
         this.supplierID = sessionStorage.getItem('supplierID');
         this.supplierName = sessionStorage.getItem('supplierName');
-        this.supplierAddress = sessionStorage.getItem('supplierAddress');
+        this.supplierAddress = sessionStorage.getItem('supplierAddr');
         this.liveVideo()
         this.statusBar()
     },
