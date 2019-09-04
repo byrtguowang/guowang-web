@@ -716,11 +716,13 @@ export default {
             span{
                 line-height:1;
                 text-align:center;
+                font-family:'ZhanKuQingKeHuangYou';
                 &:last-child{
                     font-size:16px;
                     text-align:right;
                     padding:0 20px;
                     color:#58fff1;
+                    font-family:none;
                 }
             }
         }
@@ -1027,6 +1029,7 @@ export default {
                         background:linear-gradient(to right,#035853,#139e8e,#035853);
                         font-size:50px;
                         position:relative;
+                        font-family:'ZhanKuQingKeHuangYou';
                         span{
                             font-size:16px;
                             color:#58fff1;
@@ -1035,6 +1038,7 @@ export default {
                             line-height:1;
                             right:6px;
                             bottom:12px;
+                            font-family:none;
                         }
                     }
                 }
