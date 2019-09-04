@@ -61,23 +61,37 @@
                 </div>
             </div>
             <div class="map" ref="myEchart">
-                
+                <div v-show="showPop" class="map_pop">
+                    <div class="close" @click="closeDetail">X</div>
+                    <div class="header_name">
+                        <span class="cursor" @click="jump()">{{mapOneData.supplierName}}</span>
+                    </div>
+                    <div class="map_popbox">
+                        <p>地址：<span>{{mapOneData.supplierAddress}}</span></p>
+                        <p>区域：<span>{{mapOneData.supplierCode}}</span></p>
+                        <p>品类：<span>{{mapOneData.supplierCode}}</span></p>
+                        <p>级别：<span>{{mapOneData.supplierCode}}</span></p>
+                    </div>
+                    <div class="map_btnbox">
+                        <a class="pop_btn" @click="jump()">详情</a>
+                    </div>
+                </div>
             </div>
-            <div v-show="showPop" class="map_pop">
+            <!-- <div v-show="showPop" class="map_pop">
                 <div class="close" @click="closeDetail">X</div>
                 <div class="header_name">
                     <span class="cursor" @click="jump()">{{mapOneData.supplierName}}</span>
                 </div>
                 <div class="map_popbox">
                     <p>地址：<span>{{mapOneData.supplierAddress}}</span></p>
-                    <!-- <p>区域：<span>{{mapOneData.supplierCode}}</span></p>
+                    <p>区域：<span>{{mapOneData.supplierCode}}</span></p>
                     <p>品类：<span>{{mapOneData.supplierCode}}</span></p>
-                    <p>级别：<span>{{mapOneData.supplierCode}}</span></p> -->
+                    <p>级别：<span>{{mapOneData.supplierCode}}</span></p>
                 </div>
                 <div class="map_btnbox">
                     <a class="pop_btn" @click="jump()">详情</a>
                 </div>
-            </div>
+            </div> -->
             <div class="title">
                 <p>全国概况</p>
             </div>
@@ -862,8 +876,8 @@ export default {
             .select{
                 width:300px;
                 position:absolute;
-                top:50px;
-                left:50px;
+                top:10px;
+                left:10px;
                 z-index:999;
 
                 .selected{
@@ -921,8 +935,8 @@ export default {
                 font-size:16px;
                 color:#aafff2;
                 position:absolute;
-                bottom:236px;
-                left:7px;
+                bottom:10px;
+                left:10px;
                 display:flex;
                 flex-direction:column;
                 .close{
