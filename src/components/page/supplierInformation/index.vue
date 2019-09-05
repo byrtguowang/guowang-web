@@ -88,8 +88,8 @@
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="parseFloat(scope.row.percent||0)*100" v-if="parseFloat(scope.row.percent||0)<1"></el-progress>
-                            <el-progress :percentage="parseFloat(scope.row.percent||0)*100" v-else class="man_fen"></el-progress>
+                            <el-progress :percentage="Math.ceil((scope.row.percent||0)*100)" v-if="parseFloat(scope.row.percent||0)<1"></el-progress>
+                            <el-progress :percentage="(scope.row.percent||0)*100" v-else class="man_fen"></el-progress>
                         </template>
                     </el-table-column>
                 </el-table>

@@ -114,8 +114,8 @@
                     align="center"
                     label="进度">
                         <template slot-scope="scope">
-                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-if="parseFloat(scope.row.sumproductionorde||0)<100"></el-progress>
-                            <el-progress :percentage="parseFloat(scope.row.sumproductionorde||0)" v-else class="man_fen"></el-progress>
+                            <el-progress :percentage="Math.ceil(scope.row.sumproductionorde||0)" v-if="parseFloat(scope.row.sumproductionorde||0)<100"></el-progress>
+                            <el-progress :percentage="(scope.row.sumproductionorde||0)" v-else class="man_fen"></el-progress>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -179,7 +179,7 @@
                 <li>
                     <span class="item_name">进度：</span>
                     <span class="item_value">
-                        <el-progress :percentage="parseFloat(SalesOrderObj.sumproductionorde||0)" v-if="parseFloat(SalesOrderObj.sumproductionorde||0)<100"></el-progress>
+                        <el-progress :percentage="Math.ceil(SalesOrderObj.sumproductionorde||0)" v-if="parseFloat(SalesOrderObj.sumproductionorde||0)<100"></el-progress>
                         <el-progress :percentage="parseFloat(SalesOrderObj.sumproductionorde||0)" v-else class="man_fen"></el-progress>
                     </span>
 
