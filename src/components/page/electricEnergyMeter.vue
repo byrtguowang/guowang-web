@@ -497,7 +497,7 @@ export default {
                         },
                         axisLabel: {
                             interval:0, // 横轴信息全部显示
-                            rotate: 50 // 旋转30度角
+                            rotate: 30 // 旋转30度角
                         }
                     }
                 ],
@@ -620,7 +620,7 @@ export default {
             }
             .module{
                 color:#fff;
-                margin-top:20px;
+                margin-top:10px;
                 display: flex;
                 .module-box{
                     display: inline-block;
@@ -637,7 +637,7 @@ export default {
                     }
                     .module-content{
                         background:linear-gradient(to right, #035853, #139E8E,#035853);
-                        height:400px;
+                        height:360px;
                         display: flex;
                         .module-content-box{
                             display: inline-block;
@@ -652,7 +652,7 @@ export default {
                                     }
                                     .module-content-list-top{
                                         width:100%;
-                                        height:70px;
+                                        height:60px;
                                         display:flex;
                                         .module-content-list-line{
                                             width:1%;
@@ -670,7 +670,7 @@ export default {
                                             p{
                                                 font-size:18px;
                                                 text-align:center;
-                                                line-height:70px;
+                                                line-height:60px;
                                                 text-align:right;
                                                 margin-right:10px;
                                                 font-weight: bold;
@@ -683,7 +683,7 @@ export default {
                                             background:linear-gradient(to right, #035853, #139E8E, #035853);
                                             p{
                                                 text-align:center;
-                                                line-height:70px;
+                                                line-height:60px;
                                                 position:relative;
                                                 .num{
                                                     font-size:44px;

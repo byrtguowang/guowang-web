@@ -749,8 +749,8 @@ export default {
                             background:#1b232c;
                         }
                         .area{
-                            height:70px;
-                            line-height:70px;
+                            height:60px;
+                            line-height:60px;
                             text-align:center;
                             border-left:4px solid #22c4ac;
                             border-right:4px solid #22c4ac;
@@ -790,7 +790,7 @@ export default {
                 }
 
                 .chart-box {
-                    height:190px;
+                    height:199px;
 
                     h4{
                         margin-left:20px;
@@ -818,7 +818,7 @@ export default {
 
                         .three-left{
                             width:85px;
-                            height:70px;
+                            height:60px;
                             font-size:18px;
                             text-align:center;
                             border:1px solid #035853;
@@ -831,8 +831,8 @@ export default {
 
                         .three-area{
                             flex:1;
-                            height:72px;
-                            line-height:72px;
+                            height:62px;
+                            line-height:62px;
                             text-align:right;
                             background:linear-gradient(to right,#035853,#139e8e,#035853);
                             font-size:46px;
@@ -905,7 +905,7 @@ export default {
             }
 
             .map{
-                height:674px;
+                height:654px;
                 background:url(../../../static/images/map_ground.png);
                 background-size:100% 100%;
                 margin-bottom:18px;
@@ -922,7 +922,7 @@ export default {
                 font-size:16px;
                 color:#aafff2;
                 position:absolute;
-                top:509px;
+                top:489px;
                 left:10px;
                 display:flex;
                 flex-direction:column;
@@ -1054,15 +1054,15 @@ export default {
 
             .right_box{
                 background:linear-gradient(#02514c, #012a2f);
+                height:360px;
                 padding:12px;
-                display:flex;
-                flex-wrap:wrap;
-                
+                overflow:hidden;
+                overflow-y:auto;
                 .item{
                     width:49%;
                     padding-right:1%;
                     margin-bottom:10px;
-                    
+                    float:left;
                     img{
                         width:100%;
                     }
@@ -1095,8 +1095,7 @@ export default {
             }
 
             .scroll_h{
-                height:410px;
-                overflow-y: scroll;
+                height:364px;
             }
         }
     }

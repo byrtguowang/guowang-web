@@ -643,7 +643,7 @@ export default {
         &.echarts_wrap{
             padding:12px 17px 0 21px;
             display:flex;
-            height:440px;
+            height:410px;
             box-sizing:border-box;
             .echarts_box{
                 flex:1;
@@ -705,7 +705,7 @@ export default {
     .right{
         flex:1;
         .right_box{
-            height:440px;
+            height:410px;
             background:linear-gradient(#02514c, #012a2f);
             padding:12px;
             overflow:hidden;

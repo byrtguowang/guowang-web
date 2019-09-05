@@ -241,7 +241,7 @@ export default {
                 sgFrameworkcode:'',//国网框架合同号
                 sgProjectname:'',//工程项目名称
                 pageNum:1,
-                pageSize:10
+                pageSize:5
             },
             total:0,
             date:null,// 交货日期

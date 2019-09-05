@@ -117,7 +117,7 @@
                         <el-table
                             :data="listData"
                             style="width: 100%"
-                            height="350px">
+                            height="310px">
                             <el-table-column
                             prop="checkTime"
                             align="center"
@@ -1169,7 +1169,7 @@ export default {
                 }
                 .search{
                     height:40px;
-                    margin-top:40px;
+                    margin-top:20px;
                     &:after{
                         content: "";
                         display: block;
