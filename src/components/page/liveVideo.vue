@@ -40,7 +40,7 @@
                     </div> 
                     <div class="jk-box">
                         <div class="bg-jk" v-for="(item,index) of list" :key="index">
-                            <span @click="paly">{{item.monitorRemark}}</span>
+                            <span @click="paly(item.id)">{{item.monitorRemark}}</span>
                         </div>
                     </div>
                 </div>
@@ -101,14 +101,27 @@ export default {
             })
         },
         // 播放视频
-        createH5Video() {
+        createH5Video(id) {
             if (this.v1 != undefined)
             {
                 this.v1.disconnect();
                 delete this.v1;
                 this.v1 = undefined;
             }
-            let token = this.supplierID == '1' ? 'token2' : 'token1'
+            let token = ''
+            if ( this.supplierID == '1'){
+                if (id == '2') {
+                    token = 'token1'
+                } else if (id == '3') {
+                    token = 'token3'
+                } else if (id == '4') {
+                    token = 'token4'
+                } else {
+                    token = 'token1'
+                }
+            } else if ( this.supplierID == '2'){
+                token = 'token2'
+            }
             let conf1 = {
                 videoid: 'divPlugin',
                 protocol: window.location.protocol,
@@ -130,9 +143,9 @@ export default {
                 $(".h5video").get(0).pause()
             }
         },
-        paly(){
+        paly(id){
             this.vedioShow = true;
-            this.createH5Video()
+            this.createH5Video(id)
         },
         jump(){
             sessionStorage.setItem('supplierID',this.supplierID)

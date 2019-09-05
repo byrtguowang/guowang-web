@@ -839,7 +839,21 @@ export default {
                 delete this.v1;
                 this.v1 = undefined;
             }
-            let token = this.supplierid == '1' ? 'token2' : 'token1'
+            let token = ''
+            if ( this.supplierid == '1'){
+                if (this.paramName == '单板测试') {
+                    token = 'token1'
+                } else if (this.paramName == '耐压试验') {
+                    token = 'token3'
+                } else if (this.paramName == '日计时误差试验') {
+                    token = 'token4'
+                } else {
+                    token = 'token1'
+                }
+            } else if ( this.supplierid == '2'){
+                token = 'token2'
+            }
+
             let conf1 = {
                 videoid: 'divPlugin',
                 //protocol: this.$store.state.config.H5_STREAM_SERVER_PROTOCOL,
