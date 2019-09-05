@@ -9,3 +9,6 @@
     text-overflow:ellipsis;
     white-space: nowrap;
 }
+.el-loading-mask.is-fullscreen{
+    background: rgba(255,255,255,.1) !important;
+}
