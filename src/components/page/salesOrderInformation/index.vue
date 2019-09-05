@@ -437,6 +437,7 @@ export default {
             .el-table__body-wrapper.is-scrolling-none{
                 background:rgba(27,35,44,.4);
                 padding-bottom:40px;
+                min-height:280px;
             }
             .el-table__body-wrapper.is-scrolling-none,.el-table__body{
                 position:relative;
