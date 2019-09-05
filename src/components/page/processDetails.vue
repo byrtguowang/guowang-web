@@ -1062,7 +1062,8 @@ export default {
                     .default_box{
                         height:282px;
                         width:100%;
-                        background:#000;
+                        background:url(../../../static/images/videobg-small.png) no-repeat;
+                        background-size: 100% 100%;
                         text-align:center;
                         margin-top:30px;
 
