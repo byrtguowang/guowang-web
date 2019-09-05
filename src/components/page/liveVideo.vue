@@ -246,9 +246,9 @@ export default {
                 .video{
                     width:100%;
                     margin-top: 43px;
-                    background:#000;
+                    background:url(../../../static/images/videobg-big.png);
                     position: relative;
-
+                    background-size: 100% 100%;
                     .video_day{
                         position: absolute;
                         color:#fff;
