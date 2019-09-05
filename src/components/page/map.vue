@@ -60,9 +60,7 @@
                     <span @click="selectOver(index)" v-for="(item,index) of suppliersList" :key="index">{{item.supplierName}}</span>
                 </div>
             </div>
-            <div class="map" ref="myEchart">
-                <div v-show="showPop" class="map_pop"></div>
-            </div>
+            <div class="map" ref="myEchart"></div>
             <div v-show="showPop" class="map_pop">
                 <div class="close" @click="closeDetail">X</div>
                 <div class="header_name">
