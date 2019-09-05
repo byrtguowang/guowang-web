@@ -395,6 +395,7 @@ export default {
                 geo: {
                     show: true,
                     map: mapName,
+                    top:'10%',
                     label: {
                         normal: {
                             show: false
@@ -913,7 +914,7 @@ export default {
             }
 
             .map_pop{
-                width: 50%;
+                width: 38%;
                 height: 155px;
                 background:rgba(26,45,48,0.66);
                 border-left:2px solid #22c4ab;

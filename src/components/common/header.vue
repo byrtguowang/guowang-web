@@ -72,8 +72,8 @@ export default {
     .header{
         overflow: hidden;
         width:100%;
-        height:90px;
-        line-height:90px;
+        height:55px;
+        line-height:55px;
         background-color: #012a2f;
         min-width:1200px;
 
