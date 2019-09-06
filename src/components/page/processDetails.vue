@@ -270,7 +270,7 @@
         <!-- 基本误差详情数据列表弹框 -->
         <el-dialog
         :visible.sync="dialogVisible"
-        width="54.4%">
+        width="55%">
         <div class="list">
             <div class="information_content table">
                 <el-table
@@ -280,43 +280,36 @@
                     <el-table-column
                     prop="checkTime"
                     align="center"
-                    width="100"
                     label="检测时间">
                     </el-table-column>
                     <el-table-column
                     prop="conclusion"
                     align="center"
-                    width="100"
                     label="结论">
                     </el-table-column>
                     <el-table-column 
                     prop="testCode"
                     align="center"
-                    width="100"
                     label="数据编号">
                     </el-table-column>
                     <el-table-column 
                     prop="voltage"
                     align="center"
-                    width="100"
                     label="试验电压/U">
                     </el-table-column>
                     <el-table-column 
                     prop="electric"
                     align="center"
-                    width="100"
                     label="测试电流/A">
                     </el-table-column>
                     <el-table-column 
                     prop="factor"
                     align="center"
-                    width="100"
                     label="功率/kW">
                     </el-table-column>
                     <el-table-column 
                     prop="averageError"
                     align="center"
-                    width="100"
                     label="平均误差">
                     </el-table-column>
                 </el-table>
@@ -972,6 +965,9 @@ export default {
         // 弹框样式
         .el-dialog{
             background:#151a20;
+            .cell{
+                white-space: nowrap;
+            }
         }
     }
 </style>
