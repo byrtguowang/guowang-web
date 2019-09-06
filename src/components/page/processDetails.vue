@@ -561,6 +561,7 @@ export default {
             }
             if(index == '2'){
                 this.activeClass = 2
+                this.conclusion = ''
                 this.pageNum = 1
             }
             let param = {
