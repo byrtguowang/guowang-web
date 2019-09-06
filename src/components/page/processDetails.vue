@@ -379,7 +379,7 @@ export default {
             time:[],
             listData:[],
             basicErrorData:[], //基本误差详情数据
-            // conclusion:[], //0正常 1报警
+            conclusion:'', //0正常 1报警
             videoShow:true,
             v1:null, //视频
             total:0,
@@ -549,19 +549,27 @@ export default {
                     endTime = this.time[1];
                 }
             }
+            if(index == '1') {
+                this.activeClass = 1
+                this.conclusion = 1
+                this.pageNum = 1
+            }
+            if(index == '0') {
+                this.activeClass = 0
+                this.conclusion = 0
+                this.pageNum = 1
+            }
+            if(index == '2'){
+                this.activeClass = 2
+                this.pageNum = 1
+            }
             let param = {
                 pageNum:this.pageNum,
                 pageSize:this.pageSize,
                 supplierid:this.supplierid, //供应商id
                 startingTime:startingTime, //开始时间
                 endTime:endTime, //结束时间
-                conclusion:index //检验结果 0正常 1报警
-            }
-            if(index == '1') this.activeClass = 1
-            if(index == '0') this.activeClass = 0
-            if(index == '2'){
-                this.activeClass = 2
-                param.conclusion = ''
+                conclusion:this.conclusion //检验结果 0正常 1报警
             }
             // 基本误差
             if(this.category == 'D_BasicError_DNB'){
@@ -577,14 +585,6 @@ export default {
                         });
                         this.listData = res.data.data.list
                         this.total = res.data.data.total
-                        // this.listData.forEach(el => {
-                        //     this.conclusion.push(el.conclusion)
-                        //     if(el.conclusion == '0'){
-                        //         el.conclusion = '正常'
-                        //     }else{
-                        //         el.conclusion = '报警'
-                        //     }
-                        // });
                     }else{
                         this.listData = []
                     }
@@ -839,21 +839,7 @@ export default {
                 delete this.v1;
                 this.v1 = undefined;
             }
-            let token = ''
-            if ( this.supplierid == '1'){
-                if (this.paramName == '单板测试') {
-                    token = 'token1'
-                } else if (this.paramName == '耐压试验') {
-                    token = 'token3'
-                } else if (this.paramName == '日计时误差试验') {
-                    token = 'token4'
-                } else {
-                    token = 'token1'
-                }
-            } else if ( this.supplierid == '2'){
-                token = 'token2'
-            }
-
+            let token = this.supplierid == '1' ? 'token2' : 'token1'
             let conf1 = {
                 videoid: 'divPlugin',
                 //protocol: this.$store.state.config.H5_STREAM_SERVER_PROTOCOL,
@@ -914,7 +900,7 @@ export default {
     },
 
     watch:{
-
+       
     },
 };
 </script>
