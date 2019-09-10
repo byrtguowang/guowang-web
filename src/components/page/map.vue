@@ -591,6 +591,7 @@ export default {
                     name:el,
                     type:'line',
                     symbol: 'none',
+                    smooth: true,
                     itemStyle : {
                         normal : {
                             color : color[index],//改变折线点的颜色
