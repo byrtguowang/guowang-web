@@ -4,7 +4,7 @@
             <img src="static/images/header_logo.png">
         </div>
         <div class="right">
-            <div class="title">早上好，{{loginInfo.username}}（国网浙江分公司管理员）</div>
+            <div class="title">早上好，{{loginInfo.username}}（浙江分公司管理员）</div>
             <img src="static/images/top_more.png" @click.stop="showMenuFn">
             <div class="menu" v-show="hideMenuList">
                 <h4 @click="exit">注销</h4>
