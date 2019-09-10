@@ -205,7 +205,7 @@ export default {
             text-align:center;
             line-height:50px;
             color:#ffffff;
-            font-size:18px;
+            font-size:22px;
             background:url(../../../static/images/login_sure_btn.png) no-repeat;
             background-size: 100% 100%;
             box-shadow: 0px 10px 5px rgba(4,0,0,.25);
